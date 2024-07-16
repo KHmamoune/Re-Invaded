@@ -1,0 +1,196 @@
+[gd_scene load_steps=14 format=3 uid="uid://b2kbgqqa53i6p"]
+
+[ext_resource type="Script" path="res://Scenes/player.gd" id="1_7qrio"]
+[ext_resource type="Texture2D" uid="uid://681us65p416x" path="res://Images/Characters/code_blue.png" id="2_4dwqm"]
+[ext_resource type="Script" path="res://Scenes/Trail.gd" id="3_avw75"]
+[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="4_b1vtg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wdmk6"]
+radius = 5.0
+height = 18.0
+
+[sub_resource type="Curve" id="Curve_m6j0u"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d54ys"]
+bg_color = Color(0.414704, 0.414704, 0.414704, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lotiv"]
+bg_color = Color(1, 1, 1, 0.588235)
+
+[sub_resource type="Curve" id="Curve_ile8d"]
+_data = [Vector2(0.110687, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.184906), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_rl876"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2tovf"]
+resource_name = "default"
+length = 0.3
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ymbfq"]
+resource_name = "hit"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0.396078), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5myx0"]
+_data = {
+"RESET": SubResource("Animation_rl876"),
+"default": SubResource("Animation_2tovf"),
+"hit": SubResource("Animation_ymbfq")
+}
+
+[node name="Player" type="Area2D"]
+z_index = 10
+collision_mask = 18
+script = ExtResource("1_7qrio")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4dwqm")
+hframes = 2
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_wdmk6")
+debug_color = Color(1, 0.00193534, 0.0769507, 0.42)
+
+[node name="Trail" type="Line2D" parent="."]
+unique_name_in_owner = true
+top_level = true
+width_curve = SubResource("Curve_m6j0u")
+default_color = Color(0.382606, 0.96406, 1, 1)
+script = ExtResource("3_avw75")
+max_length = 20
+
+[node name="FireCooldownTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.075
+one_shot = true
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
+
+[node name="FreezeTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+wait_time = 0.8
+one_shot = true
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="DashCooldownBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = -39.0
+offset_top = -54.0
+offset_right = 42.0
+offset_bottom = -45.0
+theme_override_styles/background = SubResource("StyleBoxFlat_d54ys")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lotiv")
+max_value = 0.5
+show_percentage = false
+
+[node name="DeathEffect" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 80
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.78
+lifetime_randomness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+scale_amount_min = 8.0
+scale_amount_max = 14.0
+scale_amount_curve = SubResource("Curve_ile8d")
+color = Color(0, 0.802607, 0.802606, 1)
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5myx0")
+}
+
+[node name="StatusEffectsBar" parent="." instance=ExtResource("4_b1vtg")]
+modulate = Color(1, 1, 1, 0.470588)
+offset_top = -63.0
+offset_bottom = -33.0
+
+[connection signal="timeout" from="FireCooldownTimer" to="." method="_on_fire_cooldown_timer_timeout"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

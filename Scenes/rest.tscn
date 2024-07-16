@@ -1,0 +1,229 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5xf71vuwecp4"]
+
+[ext_resource type="Script" path="res://Scenes/rest.gd" id="1_b8vgs"]
+[ext_resource type="PackedScene" uid="uid://c8baqi0uh4cma" path="res://Scenes/shop_card.tscn" id="2_4scl7"]
+[ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Images/Icons/scrap.png" id="3_35iao"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f7rs4"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hur4t"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="Rest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b8vgs")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 230
+theme_override_constants/margin_right = 230
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.196078)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Cards" type="GridContainer" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 650)
+layout_mode = 2
+theme_override_constants/h_separation = 150
+theme_override_constants/v_separation = 200
+columns = 2
+
+[node name="card1" type="TextureButton" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_right = NodePath("../card2")
+focus_neighbor_bottom = NodePath("../card3")
+
+[node name="ShopCard" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card1" instance=ExtResource("2_4scl7")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="card2" type="TextureButton" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../card1")
+focus_neighbor_right = NodePath("../../../../MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/Heal")
+focus_neighbor_bottom = NodePath("../card4")
+
+[node name="ShopCard" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card2" instance=ExtResource("2_4scl7")]
+
+[node name="card3" type="TextureButton" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../card1")
+focus_neighbor_right = NodePath("../card4")
+focus_neighbor_bottom = NodePath("../card5")
+
+[node name="ShopCard" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card3" instance=ExtResource("2_4scl7")]
+
+[node name="card4" type="TextureButton" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../card3")
+focus_neighbor_top = NodePath("../card2")
+focus_neighbor_right = NodePath("../../../../MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/Heal")
+focus_neighbor_bottom = NodePath("../card6")
+
+[node name="ShopCard" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card4" instance=ExtResource("2_4scl7")]
+
+[node name="card5" type="TextureButton" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../card3")
+focus_neighbor_right = NodePath("../card6")
+
+[node name="ShopCard" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card5" instance=ExtResource("2_4scl7")]
+
+[node name="card6" type="TextureButton" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../card5")
+focus_neighbor_top = NodePath("../card4")
+focus_neighbor_right = NodePath("../../../../MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2/Upgrade")
+
+[node name="ShopCard" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card6" instance=ExtResource("2_4scl7")]
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "No Hostile Enteties detected. Maintenance mode engaged."
+autowrap_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f7rs4")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2"]
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer"]
+layout_mode = 2
+text = "W.I.P"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hur4t")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Heal" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../../../../../VBoxContainer/PanelContainer/Cards/card4")
+focus_neighbor_bottom = NodePath("../../VBoxContainer2/Upgrade")
+text = "Repair (Restore 1 HP)"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("3_35iao")
+expand_mode = 1
+
+[node name="HealCost" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Upgrade" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../../../../../VBoxContainer/PanelContainer/Cards/card6")
+focus_neighbor_top = NodePath("../../VBoxContainer/Heal")
+text = "Upgrade a weapon (W.I.P)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("3_35iao")
+expand_mode = 1
+
+[node name="UpdradeCost" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"
+
+[connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card1" to="." method="_on_card_1_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card1" to="." method="_on_card_1_focus_exited"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card1" to="." method="_on_card_1_pressed"]
+[connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card2" to="." method="_on_card_2_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card2" to="." method="_on_card_2_focus_exited"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card2" to="." method="_on_card_2_pressed"]
+[connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card3" to="." method="_on_card_3_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card3" to="." method="_on_card_3_focus_exited"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card3" to="." method="_on_card_3_pressed"]
+[connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card4" to="." method="_on_card_4_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card4" to="." method="_on_card_4_focus_exited"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card4" to="." method="_on_card_4_pressed"]
+[connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card5" to="." method="_on_card_5_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card5" to="." method="_on_card_5_focus_exited"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card5" to="." method="_on_card_5_pressed"]
+[connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card6" to="." method="_on_card_6_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card6" to="." method="_on_card_6_focus_exited"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card6" to="." method="_on_card_6_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/Heal" to="." method="_on_heal_pressed"]

@@ -1,0 +1,344 @@
+[gd_scene load_steps=12 format=3 uid="uid://cnt68hkgtjs67"]
+
+[ext_resource type="Script" path="res://Scenes/player_select.gd" id="1_3tjoh"]
+[ext_resource type="Texture2D" uid="uid://1akcojo8fnac" path="res://Images/Icons/code_blue_icon.png" id="1_w6t0w"]
+[ext_resource type="Texture2D" uid="uid://dyuuuwgysf5f7" path="res://Images/Icons/code_orange_icon.png" id="2_rqpbf"]
+[ext_resource type="Texture2D" uid="uid://cm2gedlehje5m" path="res://Images/Icons/code_red_icon.png" id="3_vxc8p"]
+[ext_resource type="Texture2D" uid="uid://bwusb5xjaflc6" path="res://Images/Icons/code_green_icon.png" id="4_3qgu8"]
+[ext_resource type="Texture2D" uid="uid://w7seerbm50rq" path="res://Images/Icons/code_yellow_icon.png" id="5_dagih"]
+[ext_resource type="Texture2D" uid="uid://dijq332gra7et" path="res://Images/Icons/code_violet_icon.png" id="6_acomj"]
+[ext_resource type="Texture2D" uid="uid://26jony7vd64n" path="res://Images/Icons/select_border.png" id="8_lrbws"]
+
+[sub_resource type="Animation" id="Animation_eqy12"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TR:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(38, -38)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TL:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-38, -38)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-38, 38)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BR:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(38, 38)]
+}
+
+[sub_resource type="Animation" id="Animation_yg074"]
+resource_name = "move"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TR:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(38, -38), Vector2(42, -42)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TL:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-38, -38), Vector2(-42, -42)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BL:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-38, 38), Vector2(-42, 42)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BR:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(38, 38), Vector2(42, 42)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_td4qp"]
+_data = {
+"RESET": SubResource("Animation_eqy12"),
+"move": SubResource("Animation_yg074")
+}
+
+[node name="PlayerSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3tjoh")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="ColorRect2" type="ColorRect" parent="MarginContainer"]
+custom_minimum_size = Vector2(470, 320)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+color = Color(0.0431373, 0, 0.392157, 0.392157)
+
+[node name="characterInfo" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/characterInfo"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/characterInfo/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_w6t0w")
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/characterInfo/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="description" type="VBoxContainer" parent="MarginContainer/characterInfo/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/characterInfo/HBoxContainer/VBoxContainer/description"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Code Color:"
+
+[node name="Label2" type="Label" parent="MarginContainer/characterInfo/HBoxContainer/VBoxContainer/description"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "a figther specialized with rapid fire weaponry and enhancment technology."
+autowrap_mode = 2
+
+[node name="stats" type="VBoxContainer" parent="MarginContainer/characterInfo/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/characterInfo/HBoxContainer/VBoxContainer/stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Stats:"
+
+[node name="Label" type="Label" parent="MarginContainer/characterInfo/HBoxContainer/VBoxContainer/stats"]
+layout_mode = 2
+text = "Max HP: 5
+Max Energy: 5
+Speed: medium"
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+custom_minimum_size = Vector2(300, 190)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+color = Color(0.647395, 0.647395, 0.647395, 1)
+
+[node name="characterSelect" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+
+[node name="Row1" type="HBoxContainer" parent="MarginContainer/characterSelect"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Blue" type="TextureButton" parent="MarginContainer/characterSelect/Row1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../Orange")
+focus_neighbor_bottom = NodePath("../../Row2/Green")
+button_mask = 0
+texture_normal = ExtResource("1_w6t0w")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Orange" type="TextureButton" parent="MarginContainer/characterSelect/Row1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Blue")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../Red")
+focus_neighbor_bottom = NodePath("../../Row2/Yellow")
+button_mask = 0
+texture_normal = ExtResource("2_rqpbf")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Red" type="TextureButton" parent="MarginContainer/characterSelect/Row1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Orange")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Row2/Violet")
+button_mask = 0
+texture_normal = ExtResource("3_vxc8p")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Row2" type="HBoxContainer" parent="MarginContainer/characterSelect"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Green" type="TextureButton" parent="MarginContainer/characterSelect/Row2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../Row1/Blue")
+focus_neighbor_right = NodePath("../Yellow")
+focus_neighbor_bottom = NodePath(".")
+button_mask = 0
+texture_normal = ExtResource("4_3qgu8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Yellow" type="TextureButton" parent="MarginContainer/characterSelect/Row2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Green")
+focus_neighbor_top = NodePath("../../Row1/Orange")
+focus_neighbor_right = NodePath("../Violet")
+focus_neighbor_bottom = NodePath(".")
+button_mask = 0
+texture_normal = ExtResource("5_dagih")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Violet" type="TextureButton" parent="MarginContainer/characterSelect/Row2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Yellow")
+focus_neighbor_top = NodePath("../../Row1/Red")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+button_mask = 0
+texture_normal = ExtResource("6_acomj")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Cursor" type="Node2D" parent="."]
+position = Vector2(476, 458)
+
+[node name="TR" type="Sprite2D" parent="Cursor"]
+position = Vector2(38, -38)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("8_lrbws")
+
+[node name="TL" type="Sprite2D" parent="Cursor"]
+position = Vector2(-38, -38)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("8_lrbws")
+flip_h = true
+
+[node name="BL" type="Sprite2D" parent="Cursor"]
+position = Vector2(-38, 38)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("8_lrbws")
+flip_h = true
+flip_v = true
+
+[node name="BR" type="Sprite2D" parent="Cursor"]
+position = Vector2(38, 38)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("8_lrbws")
+flip_v = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cursor"]
+libraries = {
+"": SubResource("AnimationLibrary_td4qp")
+}
+
+[connection signal="focus_entered" from="MarginContainer/characterSelect/Row1/Blue" to="." method="_on_blue_focus_entered"]
+[connection signal="pressed" from="MarginContainer/characterSelect/Row1/Blue" to="." method="_on_blue_pressed"]
+[connection signal="focus_entered" from="MarginContainer/characterSelect/Row1/Orange" to="." method="_on_orange_focus_entered"]
+[connection signal="pressed" from="MarginContainer/characterSelect/Row1/Orange" to="." method="_on_orange_pressed"]
+[connection signal="focus_entered" from="MarginContainer/characterSelect/Row1/Red" to="." method="_on_red_focus_entered"]
+[connection signal="pressed" from="MarginContainer/characterSelect/Row1/Red" to="." method="_on_red_pressed"]
+[connection signal="focus_entered" from="MarginContainer/characterSelect/Row2/Green" to="." method="_on_green_focus_entered"]
+[connection signal="pressed" from="MarginContainer/characterSelect/Row2/Green" to="." method="_on_green_pressed"]
+[connection signal="focus_entered" from="MarginContainer/characterSelect/Row2/Yellow" to="." method="_on_yellow_focus_entered"]
+[connection signal="pressed" from="MarginContainer/characterSelect/Row2/Yellow" to="." method="_on_yellow_pressed"]
+[connection signal="focus_entered" from="MarginContainer/characterSelect/Row2/Violet" to="." method="_on_violet_focus_entered"]
+[connection signal="pressed" from="MarginContainer/characterSelect/Row2/Violet" to="." method="_on_violet_pressed"]

@@ -1,0 +1,140 @@
+[gd_scene load_steps=12 format=3 uid="uid://xpt0pqup4iow"]
+
+[ext_resource type="PackedScene" uid="uid://diup4akafq8u0" path="res://Scenes/ui.tscn" id="1_1jn15"]
+[ext_resource type="PackedScene" uid="uid://durrbr4c6h5gu" path="res://Scenes/pause_menu.tscn" id="1_c6vdv"]
+[ext_resource type="Script" path="res://Scenes/game.gd" id="1_qac41"]
+[ext_resource type="AudioStream" uid="uid://drsxjfxwkyntd" path="res://SFX/Act1_ambient.wav" id="2_cuwig"]
+[ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="3_2lxi7"]
+[ext_resource type="Texture2D" uid="uid://cmnp43rf0ix10" path="res://Images/Backgrounds/space_background.png" id="4_q7q0k"]
+
+[sub_resource type="Animation" id="Animation_bjrjs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlideTrans:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fd5ow"]
+resource_name = "slide_trans"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlideTrans:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -648), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ht2f1"]
+resource_name = "start_trans"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlideTrans:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 648)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pvasb"]
+_data = {
+"RESET": SubResource("Animation_bjrjs"),
+"slide_trans": SubResource("Animation_fd5ow"),
+"start_trans": SubResource("Animation_ht2f1")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0loc7"]
+shader = ExtResource("3_2lxi7")
+shader_parameter/speed = 0.03
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_qac41")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_cuwig")
+volume_db = 2.0
+autoplay = true
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pvasb")
+}
+
+[node name="Time" type="Timer" parent="."]
+
+[node name="PlayerUI" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="PlayerUI" instance=ExtResource("1_1jn15")]
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -30
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_0loc7")
+custom_minimum_size = Vector2(700, 1000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -500.0
+offset_right = 350.0
+offset_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_q7q0k")
+expand_mode = 1
+
+[node name="PauseScreen" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 5
+visible = false
+
+[node name="PauseMenu" parent="PauseScreen" instance=ExtResource("1_c6vdv")]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Flash" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="FlashEffect" type="ColorRect" parent="Flash"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.196078)
+
+[node name="SlideTrans" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="SlideTrans"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="timeout" from="Time" to="." method="_on_time_timeout"]

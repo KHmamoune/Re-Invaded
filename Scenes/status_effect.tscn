@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://csflbcrqvq5p"]
+
+[ext_resource type="Texture2D" uid="uid://b4wmw4qh82rht" path="res://Images/Icons/flame.png" id="1_u3jln"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqgpj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="StatusEffect" type="PanelContainer"]
+custom_minimum_size = Vector2(30, 30)
+offset_right = 30.0
+offset_bottom = 30.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vqgpj")
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_u3jln")
+expand_mode = 1
+
+[node name="Stack" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1

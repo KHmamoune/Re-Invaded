@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdrae1ftwecym"]
+
+[ext_resource type="Script" path="res://Scenes/mine.gd" id="1_tvo1s"]
+[ext_resource type="Texture2D" uid="uid://by1grwmpnt5bp" path="res://Images/Enemies/air_mine.png" id="2_rnfym"]
+[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="3_2c1mr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nx8ts"]
+size = Vector2(56, 54)
+
+[sub_resource type="Animation" id="Animation_ms5v5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -2.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -2.5)]
+}
+
+[sub_resource type="Animation" id="Animation_y5qh5"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -2.5), Vector2(0, 2.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -2.5), Vector2(0, 2.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ratvq"]
+_data = {
+"RESET": SubResource("Animation_ms5v5"),
+"idle": SubResource("Animation_y5qh5")
+}
+
+[node name="Mine" type="Area2D"]
+z_index = 20
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_tvo1s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2.5)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_rnfym")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_nx8ts")
+
+[node name="hp" type="Label" parent="."]
+offset_left = -15.0
+offset_top = 30.0
+offset_right = 25.0
+offset_bottom = 53.0
+scale = Vector2(0.8, 0.8)
+text = "hp"
+horizontal_alignment = 1
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ratvq")
+}
+
+[node name="StatusEffectsBar" parent="." instance=ExtResource("3_2c1mr")]
+offset_top = 51.0
+offset_bottom = 81.0

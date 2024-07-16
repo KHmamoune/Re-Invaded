@@ -1,0 +1,154 @@
+[gd_scene load_steps=14 format=3 uid="uid://dl8ydb1qopfix"]
+
+[ext_resource type="Script" path="res://Scenes/starly.gd" id="1_86h42"]
+[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="2_a0o4e"]
+[ext_resource type="Texture2D" uid="uid://iqpcuvtjaggu" path="res://Images/Enemies/starly_back.png" id="2_c1ec6"]
+[ext_resource type="Texture2D" uid="uid://007d6ecqtxcn" path="res://Images/Enemies/starly.png" id="3_df3b1"]
+[ext_resource type="Shader" path="res://Shaders/black_white.gdshader" id="4_ibqt2"]
+[ext_resource type="Texture2D" uid="uid://b72h6fp1iwsmc" path="res://Images/Enemies/amathyst.png" id="5_mlqfq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4y53"]
+shader = ExtResource("4_ibqt2")
+shader_parameter/slider = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_51i3q"]
+radius = 25.045
+
+[sub_resource type="Animation" id="Animation_7wh4v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/Sprite2D2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.2, 0.2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/Sprite2D/Sprite2D:material:shader_parameter/slider")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_3aign"]
+resource_name = "boot_up"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Sprite2D/Sprite2D:material:shader_parameter/slider")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hnq2f"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Sprite2D2:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.2, 0.2), Vector2(0.22, 0.22)]
+}
+
+[sub_resource type="Animation" id="Animation_rywhn"]
+resource_name = "spin"
+length = 5.0
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_44v2e"]
+_data = {
+"RESET": SubResource("Animation_7wh4v"),
+"boot_up": SubResource("Animation_3aign"),
+"idle": SubResource("Animation_hnq2f"),
+"spin": SubResource("Animation_rywhn")
+}
+
+[node name="Starly" type="Area2D"]
+z_index = 20
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_86h42")
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_c1ec6")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite"]
+position = Vector2(0, -2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_df3b1")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite/Sprite2D"]
+material = SubResource("ShaderMaterial_l4y53")
+position = Vector2(0, 15)
+texture = ExtResource("5_mlqfq")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("CircleShape2D_51i3q")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="hp" type="Label" parent="."]
+offset_left = -20.0
+offset_top = 32.0
+offset_right = 20.0
+offset_bottom = 55.0
+text = "hp"
+horizontal_alignment = 1
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_44v2e")
+}
+
+[node name="StatusEffectsBar" parent="." instance=ExtResource("2_a0o4e")]
+offset_top = 59.0
+offset_bottom = 89.0
+
+[node name="Indicator" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(-1, -2, 0, -1116)
+width = 1.0
+default_color = Color(0.808267, 0, 0.151515, 1)
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

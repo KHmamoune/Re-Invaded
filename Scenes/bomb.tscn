@@ -1,0 +1,82 @@
+[gd_scene load_steps=10 format=3 uid="uid://c6lhw5bf2748m"]
+
+[ext_resource type="Script" path="res://Scenes/bomb.gd" id="1_ayxvy"]
+[ext_resource type="Texture2D" uid="uid://ym1a67efem2b" path="res://Images/Bullets/bomb.png" id="1_t12do"]
+[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_jm6w1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jtr01"]
+resource_local_to_scene = true
+shader = ExtResource("2_jm6w1")
+shader_parameter/flash_color = Vector4(1, 0, 0, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5gql4"]
+size = Vector2(24, 44)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xwp4s"]
+radius = 9.8995
+
+[sub_resource type="Animation" id="Animation_0fbtl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_qef5v"]
+resource_name = "flash"
+length = 0.1
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0.0, 0.8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pj3k1"]
+_data = {
+"RESET": SubResource("Animation_0fbtl"),
+"flash": SubResource("Animation_qef5v")
+}
+
+[node name="Bomb" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_ayxvy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_jtr01")
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_t12do")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5gql4")
+
+[node name="ExplosionRadius" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xwp4s")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pj3k1")
+}
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

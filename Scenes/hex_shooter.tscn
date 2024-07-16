@@ -1,0 +1,158 @@
+[gd_scene load_steps=12 format=3 uid="uid://dtc8ymuaq7ard"]
+
+[ext_resource type="Script" path="res://Scenes/hex_shooter.gd" id="1_aacsd"]
+[ext_resource type="Texture2D" uid="uid://bpkbm4ai7vt41" path="res://Images/Enemies/Gun.png" id="1_epkyj"]
+[ext_resource type="Texture2D" uid="uid://cbhinqjaiuhe" path="res://Images/Enemies/hex_shooter.png" id="2_e4uxn"]
+[ext_resource type="Shader" path="res://Shaders/black_white.gdshader" id="4_qcjvx"]
+[ext_resource type="Texture2D" uid="uid://doie8g5ahchnb" path="res://Images/Enemies/Ruby.png" id="5_bgayt"]
+[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="6_2osmw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cclug"]
+shader = ExtResource("4_qcjvx")
+shader_parameter/slider = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_611cx"]
+radius = 63.0079
+
+[sub_resource type="Animation" id="Animation_028uc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ruby:material:shader_parameter/slider")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shooters/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shooters/Sprite2D2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qlyng"]
+resource_name = "boot_up"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ruby:material:shader_parameter/slider")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shooters/Sprite2D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -50)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shooters/Sprite2D2:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 50)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hb21s"]
+_data = {
+"RESET": SubResource("Animation_028uc"),
+"boot_up": SubResource("Animation_qlyng")
+}
+
+[node name="Hex_Shooter" type="Area2D"]
+scale = Vector2(0.7, 0.7)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_aacsd")
+
+[node name="body" type="Sprite2D" parent="."]
+top_level = true
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_e4uxn")
+
+[node name="ruby" type="Sprite2D" parent="."]
+top_level = true
+material = SubResource("ShaderMaterial_cclug")
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_bgayt")
+
+[node name="Shooters" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Shooters"]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_epkyj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Shooters"]
+rotation = -3.14159
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_epkyj")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_611cx")
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hb21s")
+}
+
+[node name="hp" type="Label" parent="."]
+top_level = true
+offset_left = -19.0
+offset_top = 58.0
+offset_right = 21.0
+offset_bottom = 81.0
+size_flags_horizontal = 4
+text = "hp"
+horizontal_alignment = 1
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="StatusEffectsBar" parent="." instance=ExtResource("6_2osmw")]
+top_level = true
+offset_left = -590.0
+offset_top = -241.0
+offset_right = -560.0
+offset_bottom = -211.0
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

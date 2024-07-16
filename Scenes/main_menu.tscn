@@ -1,0 +1,223 @@
+[gd_scene load_steps=15 format=3 uid="uid://c3pjhex745whr"]
+
+[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_bl1vg"]
+[ext_resource type="Shader" path="res://Shaders/main_menu_scroll.gdshader" id="2_gft25"]
+[ext_resource type="Texture2D" uid="uid://d24cuwif7m0k8" path="res://Images/Icons/capsule.png" id="2_xfab1"]
+[ext_resource type="Texture2D" uid="uid://dli63nj6jvcy7" path="res://Images/Backgrounds/background_effect.png" id="3_22mxn"]
+[ext_resource type="PackedScene" uid="uid://cnt68hkgtjs67" path="res://Scenes/player_select.tscn" id="5_x6hta"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwh1b"]
+shader = ExtResource("2_gft25")
+shader_parameter/speed = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r146n"]
+resource_local_to_scene = true
+shader = ExtResource("2_gft25")
+shader_parameter/speed = 0.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3lw3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ail3y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fd7lp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpm3u"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Animation" id="Animation_ncvel"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/CanvasLayer:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -648)]
+}
+
+[sub_resource type="Animation" id="Animation_cqa6x"]
+resource_name = "slide_trans"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/CanvasLayer:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -648), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eu85h"]
+_data = {
+"RESET": SubResource("Animation_ncvel"),
+"slide_trans": SubResource("Animation_cqa6x")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bl1vg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0701524, 0.0701524, 0.0701524, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(0.534361, 0.534361, 0.534361, 1)
+material = SubResource("ShaderMaterial_dwh1b")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_22mxn")
+stretch_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_r146n")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_22mxn")
+stretch_mode = 1
+
+[node name="Menus" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="main" type="VBoxContainer" parent="CanvasLayer/Menus"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="texture" type="Sprite2D" parent="CanvasLayer/Menus/main"]
+unique_name_in_owner = true
+position = Vector2(578.5, 132)
+texture = ExtResource("2_xfab1")
+
+[node name="Label" type="Label" parent="CanvasLayer/Menus/main"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 85
+text = "Re-Invaded"
+
+[node name="Play" type="Button" parent="CanvasLayer/Menus/main"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("../Quit")
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_right = NodePath("../Options")
+focus_neighbor_bottom = NodePath("../Options")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
+button_mask = 0
+text = "Start Game"
+
+[node name="Options" type="Button" parent="CanvasLayer/Menus/main"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../Play")
+focus_neighbor_top = NodePath("../Play")
+focus_neighbor_right = NodePath("../Extras")
+focus_neighbor_bottom = NodePath("../Extras")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
+button_mask = 0
+text = "Options"
+
+[node name="Extras" type="Button" parent="CanvasLayer/Menus/main"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../Options")
+focus_neighbor_top = NodePath("../Options")
+focus_neighbor_right = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../Quit")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
+button_mask = 0
+text = "Extras"
+
+[node name="Quit" type="Button" parent="CanvasLayer/Menus/main"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../Extras")
+focus_neighbor_top = NodePath("../Extras")
+focus_neighbor_right = NodePath("../Play")
+focus_neighbor_bottom = NodePath("../Play")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
+button_mask = 0
+text = "Quit"
+
+[node name="PlayerSelect" parent="CanvasLayer/Menus" instance=ExtResource("5_x6hta")]
+layout_mode = 1
+offset_left = 1152.0
+offset_right = 1152.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CanvasLayer"]
+offset = Vector2(0, -648)
+transform = Transform2D(1, 0, 0, 1, 0, -648)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eu85h")
+}
+
+[connection signal="focus_entered" from="CanvasLayer/Menus/main/Play" to="." method="_on_play_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/Menus/main/Play" to="." method="_on_play_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menus/main/Options" to="." method="_on_options_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/Menus/main/Options" to="." method="_on_quit_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menus/main/Extras" to="." method="_on_extras_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/Menus/main/Extras" to="." method="_on_quit_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menus/main/Quit" to="." method="_on_quit_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/Menus/main/Quit" to="." method="_on_quit_pressed"]
+[connection signal="move_main" from="CanvasLayer/Menus/PlayerSelect" to="." method="_on_player_select_move_main"]
+[connection signal="player_selected" from="CanvasLayer/Menus/PlayerSelect" to="." method="_on_player_select_player_selected"]
