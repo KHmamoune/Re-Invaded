@@ -22,6 +22,8 @@ var energy_max: int = 5
 var afterimage: bool = false
 var gen_modifier: float = 1
 var status_effects: Dictionary = {}
+var hurt: bool = false
+
 
 @onready var sprite_width: float = $Sprite2D.texture.get_size().x
 @onready var sprite_height: float = $Sprite2D.texture.get_size().y
@@ -40,7 +42,7 @@ func _ready() -> void:
 	emit_signal("update_ui")
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if is_dead:
 		return
 	
@@ -48,6 +50,10 @@ func _physics_process(delta: float) -> void:
 		Engine.time_scale = 2
 	else:
 		Engine.time_scale = 1
+	
+	if Input.is_action_just_pressed("shuffle"):
+		for enemy: Node in get_tree().get_nodes_in_group("enemy"):
+			enemy.take_damage(1000000)
 	
 	if energy < 5:
 		energy += 0.01 * gen_modifier
@@ -92,7 +98,7 @@ func _physics_process(delta: float) -> void:
 
 
 func shoot(bullet: Node, seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
-	bullet.set_collision_mask_value(2, true)
+	bullet.set_collision_layer_value(3, true)
 	
 	if status_effects.has("reinforce"):
 		bullet.damage += status_effects["reinforce"]
@@ -201,3 +207,10 @@ func _on_invincibility_timer_timeout() -> void:
 
 func update_status_bar() -> void:
 	$StatusEffectsBar.update_status_effects(status_effects)
+
+
+func _on_area_entered(area: Node) -> void:
+	if "damage" in area:
+		hurt = true
+		lose_health()
+		area.queue_free()

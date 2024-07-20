@@ -116,25 +116,25 @@ func apply_heat(target: Node, stack: int) -> void:
 	if heat_timer.time_left > 0:
 		heat_timer.start(5)
 		target.gen_modifier -= 0.1 * target.status_effects["heat"]
-		target.speed -= 2000 * target.status_effects["heat"]
+		target.speed -= 40 * target.status_effects["heat"]
 		target.status_effects["heat"] += stack
 		if target.status_effects["heat"] > 10:
 			target.status_effects["heat"] = 10
-		target.speed += 2000 * target.status_effects["heat"]
+		target.speed += 40 * target.status_effects["heat"]
 		target.gen_modifier += 0.1 * target.status_effects["heat"]
 		target.update_status_bar()
 		return
 	
 	if "heat" in target.status_effects:
 		target.gen_modifier -= 0.1 * target.status_effects["heat"]
-		target.speed -= 2000 * target.status_effects["heat"]
+		target.speed -= 40 * target.status_effects["heat"]
 		target.status_effects["heat"] += stack
 		target.gen_modifier += 0.1 * target.status_effects["heat"]
-		target.speed += 2000 * target.status_effects["heat"]
+		target.speed += 40 * target.status_effects["heat"]
 	else:
 		target.status_effects["heat"] = stack
 		target.gen_modifier += 0.1 * stack
-		target.speed += 2000 * target.status_effects["heat"]
+		target.speed += 40 * target.status_effects["heat"]
 	target.update_status_bar()
 	
 	heat_timer.timeout.connect(dispel_heat.bind(target))
@@ -145,7 +145,7 @@ func apply_heat(target: Node, stack: int) -> void:
 
 func dispel_heat(target: Node) -> void:
 	target.gen_modifier -= 0.1 * target.status_effects["heat"]
-	target.speed -= 2000 * target.status_effects["heat"]
+	target.speed -= 40 * target.status_effects["heat"]
 	target.status_effects["heat"] = 0
 	target.update_status_bar()
 

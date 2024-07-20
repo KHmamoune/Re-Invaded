@@ -31,21 +31,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -75.5
-offset_top = -11.5
-offset_right = 75.5
-offset_bottom = 11.5
+offset_left = -186.0
+offset_top = -80.5
+offset_right = 186.0
+offset_bottom = 80.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 30
 
 [node name="Title" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Encounter Survived"
 horizontal_alignment = 1
 
 [node name="Text" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "choose a card"
 horizontal_alignment = 1
@@ -57,6 +59,7 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="Button" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4

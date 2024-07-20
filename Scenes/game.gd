@@ -9,7 +9,7 @@ extends Node2D
 @onready var deck_ui: Node = $PlayerUI/UI/MarginContainer/MarginContainer2/DeckUI
 @onready var flash_effect: Node = $Flash/FlashEffect
 
-@onready var victory_screen: Node = preload("res://Scenes/victory_screen.tscn").instantiate()
+@onready var victory_screen: PackedScene = preload("res://Scenes/victory_screen.tscn")
 @onready var deck_screen: Node = preload("res://Scenes/deck_menu.tscn").instantiate()
 @onready var rest_screen: PackedScene = preload("res://Scenes/rest.tscn")
 @onready var enemy: PackedScene = preload("res://Scenes/turret.tscn")
@@ -18,6 +18,7 @@ var victory_canvas: CanvasLayer = CanvasLayer.new()
 var map_canvas: CanvasLayer = CanvasLayer.new()
 var rest_canvas: CanvasLayer = CanvasLayer.new()
 var deck_canvas: CanvasLayer = CanvasLayer.new()
+var enemies_dead: bool = false
 var prev_state: String
 var prev_focus: Node
 var player: Node
@@ -118,7 +119,8 @@ func _on_enemy_death(scrap: int) -> void:
 	update_scrap(scrap, "increment")
 	await get_tree().create_timer(0.1).timeout
 	
-	if get_tree().get_nodes_in_group("enemy").is_empty():
+	if get_tree().get_nodes_in_group("enemy").is_empty() and not enemies_dead:
+		enemies_dead = true
 		add_victory_screen()
 
 
@@ -143,15 +145,15 @@ func update_scrap(scrap: int, method: String) -> void:
 
 
 func add_victory_screen() -> void:
-	victory_screen = preload("res://Scenes/victory_screen.tscn").instantiate()
+	var vs: Node = victory_screen.instantiate()
 	await get_tree().create_timer(1.0).timeout
 	player.state = "cutscene"
-	victory_screen.pick_card.connect(_on_pick_card)
-	victory_screen.skiped_card.connect(_on_skiped_card)
+	vs.pick_card.connect(_on_pick_card)
+	vs.skiped_card.connect(_on_skiped_card)
 	
-	victory_canvas.add_child(victory_screen)
+	victory_canvas.add_child(vs)
 	victory_canvas.layer = 2
-	victory_screen.position.x = -1152
+	vs.position.x = 0
 	add_child(victory_canvas)
 
 
@@ -165,6 +167,7 @@ func add_rest_screen() -> void:
 
 
 func _on_pick_card(card: Node) -> void:
+	card.get_parent().release_focus()
 	player.full_deck.append(card.new_card)
 	player.shuffle_deck()
 	
@@ -173,12 +176,12 @@ func _on_pick_card(card: Node) -> void:
 	t1.tween_property(card, "position:y", -50, 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	t1.tween_property(card, "position:y", 600, 0.8).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	t1.parallel().tween_property(card, "scale", Vector2(0.6, 0.6), 1)
-	t2.tween_property(victory_screen, "modulate:a", 0, 2)
+	t2.tween_property(victory_canvas.get_child(0), "modulate:a", 0, 1.2)
 	
 	await t1.finished
 	await t2.finished
 	remove_child(victory_canvas)
-	victory_screen.queue_free()
+	victory_canvas.get_child(0).queue_free()
 	deck_screen.update(player.full_deck)
 	await get_tree().create_timer(0.1).timeout
 	player.state = "post_combat"
@@ -186,7 +189,7 @@ func _on_pick_card(card: Node) -> void:
 
 func _on_skiped_card() -> void:
 	remove_child(victory_canvas)
-	victory_screen.queue_free()
+	victory_canvas.get_child(0).queue_free()
 	player.shuffle_deck()
 	player.state = "post_combat"
 
@@ -268,6 +271,7 @@ func create_line(room: Map.Room, next_room: Map.Room) -> Line2D:
 
 
 func on_room_select(room: Map.Room) -> void:
+	enemies_dead = false
 	for curr_room in get_tree().get_nodes_in_group("rooms"):
 		curr_room.set_availiable(false)
 		if room.next_rooms.has(curr_room.room):

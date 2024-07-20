@@ -1,15 +1,15 @@
-extends Area2D
+extends Enemy
 
 
-signal dead
-
-
-var hp: int = 40
-var is_dead: bool = false
 var awake: bool = false
 var charging: bool = false
-var scrap: int = 20
-var status_effects: Dictionary = {}
+
+
+func _ready() -> void:
+	area_entered.connect(_on_area_entered)
+	hp = 40
+	scrap = 20
+	$hp.text = str(hp)
 
 
 func _process(_delta: float) -> void:
@@ -25,28 +25,12 @@ func _process(_delta: float) -> void:
 		t.tween_property(self, "position", player.position-Vector2(0, 200), 0.4)
 
 
-func _ready() -> void:
-	$hp.text = str(hp)
-
-
 func start() -> void:
 	$Animations.play("wake_up")
 	await $Animations.animation_finished
 	$Animations.play("follow")
 	awake = true
 	$ChargeTimer.start(randf_range(2.0, 4.0))
-
-
-func take_damage(dmg: int) -> void:
-	Audio.play_sfx(Audio.sfx_hit)
-	hp -= dmg
-	$hp.text = str(hp)
-	
-	if hp <= 0 and !is_dead:
-		is_dead = true
-		$Hurtbox.set_deferred("disabled", true)
-		emit_signal("dead")
-		queue_free()
 
 
 func _on_charge_timer_timeout() -> void:

@@ -1,22 +1,15 @@
-extends Area2D
-
-
-signal dead
-
-
-var hp: int = 200
-var is_dead: bool= false
-var awake: bool = false
-var attacks: Array = [boss_at1, boss_at2, boss_at3]
-var i: int = 0
-var scrap: int = 200
-var status_effects: Dictionary = {}
+extends Enemy
 
 
 @onready var bullet: PackedScene = preload("res://Scenes/bullet.tscn")
+var awake: bool = false
+var attacks: Array = [boss_at1, boss_at2, boss_at3]
+var i: int = 0
 
 
 func _ready() -> void:
+	hp = 200
+	scrap = 200
 	$hp.text = str(hp)
 	
 
@@ -27,18 +20,6 @@ func start() -> void:
 	awake = true
 	$ShootTimer.start()
 	$MoveTimer.start()
-
-
-func take_damage(dmg: int) -> void:
-	Audio.play_sfx(Audio.sfx_hit)
-	hp -= dmg
-	$hp.text = str(hp)
-	
-	if hp <= 0 and !is_dead:
-		is_dead = true
-		$Hurtbox.set_deferred("disabled", true)
-		emit_signal("dead")
-		queue_free()
 
 
 func _on_shoot_timer_timeout() -> void:
@@ -138,22 +119,6 @@ func boss_at3() -> void:
 		if not is_dead:
 			attack.play(self)
 		await  get_tree().create_timer(0.1).timeout
-
-
-func shoot(bul: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
-	bul.set_collision_mask_value(1, true)
-	if bul.wait_time > 0:
-		var indicator: Node = preload("res://Scenes/indicator.tscn").instantiate()
-		indicator.time = bul.wait_time
-		indicator.type = bul.marker_type
-		indicator.angle = bul.rotation_degrees
-		indicator.position = bul.position
-		get_parent().add_child(indicator)
-		await get_tree().create_timer(bul.wait_time).timeout
-	
-	Audio.play_sfx(sfx)
-	bul.z_index = -1
-	get_parent().add_child(bul)
 
 
 func _on_move_timer_timeout() -> void:

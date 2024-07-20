@@ -1,19 +1,14 @@
-extends Area2D
+extends Enemy
 
-
-signal dead
-
-
-var hp: int = 10
-var is_dead: bool = false
-var scrap: int = 10
-var status_effects: Dictionary = {}
 
 @onready var bullet: PackedScene = preload("res://Scenes/bullet.tscn")
 var attack: Card.AttackPattren
 
 
 func _ready() -> void:
+	area_entered.connect(_on_area_entered)
+	hp = 10
+	scrap = 10
 	$hp.text = str(hp)
 
 
@@ -42,7 +37,7 @@ func take_damage(dmg: int) -> void:
 
 
 func shoot(bul: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
-	bul.set_collision_mask_value(1, true)
+	bul.set_collision_mask_value(5, true)
 	Audio.play_sfx(sfx)
 	get_parent().call_deferred("add_child", bul)
 

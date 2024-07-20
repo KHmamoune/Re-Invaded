@@ -1,21 +1,13 @@
-extends Area2D
-
-
-signal dead
-
-
-var hp: int = 1000
-var is_dead: bool= false
-var awake: bool = false
-var attacks: Array = [boss_at1, boss_at2, boss_at3]
-var i: int = 0
-var scrap: int = 500
-var status_effects: Dictionary = {}
-var spining: bool = false
+extends Enemy
 
 
 @onready var bullet: PackedScene = preload("res://Scenes/bullet.tscn")
-@onready var drone: PackedScene = preload("res://Scenes/drone.tscn")
+var awake: bool = false
+var attacks: Array = [boss_at1, boss_at2, boss_at3]
+var i: int = 0
+var spining: bool = false
+
+
 @onready var player: Node = get_tree().get_nodes_in_group("player")[0]
 var aim_r: bool = false
 var aim_l: bool = false
@@ -24,6 +16,8 @@ var aim_cl: bool = false
 
 
 func _ready() -> void:
+	hp = 1000
+	scrap = 500
 	$hp.text = str(hp)
 
 
@@ -50,18 +44,6 @@ func start() -> void:
 	$ShootTimer.start()
 
 
-func take_damage(dmg: int) -> void:
-	Audio.play_sfx(Audio.sfx_hit)
-	hp -= dmg
-	$hp.text = str(hp)
-	
-	if hp <= 0 and !is_dead:
-		is_dead = true
-		$Hurtbox.set_deferred("disabled", true)
-		emit_signal("dead")
-		queue_free()
-
-
 func _on_shoot_timer_timeout() -> void:
 	$ShootTimer.stop()
 	
@@ -84,8 +66,8 @@ func boss_at1() -> void:
 	var attack4: Card.AttackPattren = Card.AttackPattren.new(bullet, 5, 2, [150, 165, 180, 195, 210], 0.2, 400, [Vector2.ZERO], 1200, 1)
 	drone1.set_abs_position([Vector2(225, 300), Vector2(925, 300)])
 	drone1.set_change_values([],[],[Vector2(-20, 0),Vector2(20, 0)])
-	drone1.set_tweens([],[],[[0, Vector2(800, 0), 1.2]])
-	drone1.set_tweens([],[],[[0, Vector2(-800, 0), 1.2]])
+	drone1.set_tweens([],[],[{"delay": 0, "value": Vector2(800, 0), "dur": 1.2}])
+	drone1.set_tweens([],[],[{"delay": 0, "value": Vector2(-800, 0), "dur": 1.2}])
 	attack3.set_abs_position([Vector2(265, 200)])
 	attack3.set_change_values([],[],[Vector2(100, 0),Vector2(100, 0),Vector2(100, 0),Vector2(100, 0),Vector2(100, 0)])
 	attack4.set_abs_position([Vector2(785, 200)])
@@ -122,8 +104,8 @@ func boss_at2() -> void:
 	create_tween().tween_property($Sprites/CL/gun_s, "rotation_degrees", -1080, 5)
 	var attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [0], 0.01, 600, [Vector2.ZERO], 2000, 1)
 	var attack2: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [0], 0.01, 600, [Vector2.ZERO], 2000, 1)
-	attack1.set_abs_position($Sprites/R/gun_s.global_position)
-	attack2.set_abs_position($Sprites/L/gun_s.global_position)
+	attack1.set_abs_position([$Sprites/R/gun_s.global_position])
+	attack2.set_abs_position([$Sprites/L/gun_s.global_position])
 	attack1.set_aim("player")
 	attack2.set_aim("player")
 	
@@ -131,8 +113,8 @@ func boss_at2() -> void:
 	while j < 40:
 		var attack3: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 1, [$Sprites/CR/gun_s.rotation_degrees + 180], 0.1, 300, [Vector2.ZERO], 2000, 1)
 		var attack4: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 1, [$Sprites/CL/gun_s.rotation_degrees + 180], 0.1, 300, [Vector2.ZERO], 2000, 1)
-		attack3.set_abs_position($Sprites/CR/gun_s.global_position)
-		attack4.set_abs_position($Sprites/CL/gun_s.global_position)
+		attack3.set_abs_position([$Sprites/CR/gun_s.global_position])
+		attack4.set_abs_position([$Sprites/CL/gun_s.global_position])
 		attack3.set_properties(true)
 		attack4.set_properties(true)
 		attack3.play(self)
@@ -174,36 +156,36 @@ func boss_at3() -> void:
 	drone1.set_look("player")
 	drone1.set_drone_properties(10)
 	drone1.set_tweens([],[],[
-		[0, Vector2(-400, 0), 0.5],
-		[1, Vector2(randi_range(0, 150), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(-150, 0), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(0, 150), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(-150, 0), randi_range(-50, 50)), 0.5],
-		[1, Vector2(-600, 0), 0.5]
+		{"delay": 0, "value": Vector2(-400, 0), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(0, 150), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(-150, 0), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(0, 150), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(-150, 0), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(-600, 0), "dur": 0.5},
 	])
 	drone1.set_tweens([],[],[
-		[0, Vector2(400, 0), 0.5],
-		[1, Vector2(randi_range(-150, 0), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(0, 150), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(-150, 0), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(0, 150), randi_range(-50, 50)), 0.5],
-		[1, Vector2(600, 0), 0.5]
+		{"delay": 0, "value": Vector2(400, 0), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(-150, 0), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(0, 150), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(-150, 0), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(0, 150), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(600, 0), "dur": 0.5},
 	])
 	drone1.set_tweens([],[],[
-		[0, Vector2(-400, 0), 0.5],
-		[1, Vector2(randi_range(0, 150), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(-150, 0), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(0, 150), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(-150, 0), randi_range(-50, 50)), 0.5],
-		[1, Vector2(-600, 0), 0.5]
+		{"delay": 0, "value": Vector2(-400, 0), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(0, 150), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(-150, 0), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(0, 150), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(-150, 0), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(-600, 0), "dur": 0.5},
 	])
 	drone1.set_tweens([],[],[
-		[0, Vector2(400, 0), 0.5],
-		[1, Vector2(randi_range(-150, 0), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(0, 150), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(-150, 0), randi_range(-50, 50)), 0.5],
-		[1, Vector2(randi_range(0, 150), randi_range(-50, 50)), 0.5],
-		[1, Vector2(600, 0), 0.5]
+		{"delay": 0, "value": Vector2(400, 0), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(-150, 0), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(0, 150), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(-150, 0), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(randi_range(0, 150), randi_range(-50, 50)), "dur": 0.5},
+		{"delay": 1, "value": Vector2(600, 0), "dur": 0.5},
 	])
 	
 	drone1.play(self)
@@ -303,18 +285,6 @@ func hide_gun_l_cl() -> void:
 	$AnimationsCL.play_backwards("show_gun_l")
 	await $AnimationsCL.animation_finished
 	$AnimationsCL.play_backwards("open")
-
-
-func shoot(bul: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
-	bul.set_collision_mask_value(1, true)
-	Audio.play_sfx(sfx)
-	get_parent().add_child(bul)
-
-
-func _on_move_timer_timeout() -> void:
-	var rand_mov: Vector2 = Vector2(randi_range(300, 850), randi_range(200, 300))
-	var t: Tween = create_tween()
-	t.tween_property(self, "position", rand_mov, 0.4).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 
 func update_status_bar() -> void:
