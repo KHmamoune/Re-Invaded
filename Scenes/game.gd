@@ -7,6 +7,7 @@ extends Node2D
 @onready var energy_label: Node = $PlayerUI/UI/MarginContainer/MarginContainer/VBoxContainer/Energy/Label
 @onready var health_label: Node = $PlayerUI/UI/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/HpValue
 @onready var deck_ui: Node = $PlayerUI/UI/MarginContainer/MarginContainer2/DeckUI
+@onready var modifier_ui: Node = $PlayerUI/UI/MarginContainer2/MarginContainer/VBoxContainer/Modifiers_ui
 @onready var flash_effect: Node = $Flash/FlashEffect
 
 @onready var victory_screen: PackedScene = preload("res://Scenes/victory_screen.tscn")
@@ -37,6 +38,9 @@ func _ready() -> void:
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_blue.png")
 			for card: Card.CardStats in gv.blue_cards:
 				gv.cards.append(card)
+			player.add_modifier(gv.blue_modifier1)
+			player.add_modifier(gv.blue_modifier2)
+			player.add_modifier(gv.blue_modifier3)
 		"orange":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_orange.png")
 			for card: Card.CardStats in gv.orange_cards:
@@ -105,6 +109,7 @@ func _on_player_update_ui() -> void:
 	deck_ui.deck = player.deck
 	deck_ui.current_hand = player.current_hand
 	deck_ui.update_deck()
+	modifier_ui.update(player.modifiers)
 
 
 func _on_player_freeze() -> void:
@@ -195,7 +200,7 @@ func _on_skiped_card() -> void:
 
 
 func _on_bought_card(card: Node, price: int) -> void:
-	if price < scrap_count:
+	if price <= scrap_count:
 		player.full_deck.append(card.new_card)
 		update_scrap(price, "decrement")
 		card.get_node("../").queue_free()
@@ -369,3 +374,6 @@ func play_trans_end(state: String) -> void:
 	for en in get_tree().get_nodes_in_group("enemy"):
 		en.start()
 	player.state = state
+	
+	for modifier: Modifiers.Modifier in player.modifiers["combat_start"]:
+		modifier.play(player) 

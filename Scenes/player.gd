@@ -21,8 +21,13 @@ var energy: float = 0
 var energy_max: int = 5
 var afterimage: bool = false
 var gen_modifier: float = 1
-var status_effects: Dictionary = {}
 var hurt: bool = false
+var status_effects: Dictionary = {}
+var modifiers: Dictionary = {
+	"shuffle": [],
+	"hurt": [],
+	"combat_start": []
+}
 
 
 @onready var sprite_width: float = $Sprite2D.texture.get_size().x
@@ -98,6 +103,9 @@ func _process(delta: float) -> void:
 
 
 func shoot(bullet: Node, seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
+	if is_dead:
+		return
+	
 	bullet.set_collision_layer_value(3, true)
 	
 	if status_effects.has("reinforce"):
@@ -110,7 +118,7 @@ func shoot(bullet: Node, seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> 
 			bullet.z_index = -1
 		add_child(bullet)
 	else:
-		get_parent().add_child(bullet)
+		get_parent().call_deferred("add_child", bullet)
 	
 	on_cooldown = true
 	%FireCooldownTimer.wait_time = seconds
@@ -128,6 +136,9 @@ func dash() -> void:
 
 
 func lose_health() -> void:
+	for modifier: Modifiers.Modifier in modifiers["hurt"]:
+		modifier.play(self) 
+	
 	if hp > 0:
 		hp -= 1
 	
@@ -163,7 +174,21 @@ func shuffle_deck() -> void:
 	
 	current_hand[0] = deck.pop_front()
 	current_hand[1] = deck.pop_front()
+	
+	for modifier: Modifiers.Modifier in modifiers["shuffle"]:
+		modifier.play(self)
+	
 	emit_signal("update_ui")
+
+
+func add_modifier(modifier: Modifiers.Modifier) -> void:
+	match modifier.modifier_type:
+		Modifiers.Types.SHUFFLE:
+			modifiers["shuffle"].append(modifier)
+		Modifiers.Types.HURT:
+			modifiers["hurt"].append(modifier)
+		Modifiers.Types.COMBAT_START:
+			modifiers["combat_start"].append(modifier)
 
 
 func _on_dash_timer_timeout() -> void:
@@ -210,7 +235,6 @@ func update_status_bar() -> void:
 
 
 func _on_area_entered(area: Node) -> void:
-	if "damage" in area:
-		hurt = true
-		lose_health()
-		area.queue_free()
+	hurt = true
+	lose_health()
+	area.queue_free()

@@ -159,6 +159,9 @@ var violet_drone2: Card.AttackPattren = Card.AttackPattren.new(drone, 5, 1, [0],
 var violet_card3: Card.CardStats = Card.CardStats.new(1, "Charging Force", "res://Images/Other/charging_force_card.png", "summon", "summon a volley of raming turrets", Color.BLUE_VIOLET, [{"effect": violet_drone2}])
 
 var blue_cards: Array = [blue_card1, blue_card2, blue_card3]
+var blue_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("res://Images/Other/charging_force_card.png", Modifiers.Types.SHUFFLE, 100, Callable(Modifiers.max_hp_on_shuffle), "increase max hp by 1 whenever you shuffle")
+var blue_modifier2: Modifiers.Modifier = Modifiers.Modifier.new("res://Images/Other/blast_store_card.png", Modifiers.Types.HURT, 100, Callable(Modifiers.return_fire), "fire bullets when you get hit")
+var blue_modifier3: Modifiers.Modifier = Modifiers.Modifier.new("res://Images/Other/flare_card.png", Modifiers.Types.COMBAT_START, 100, Callable(Modifiers.dramatic_entrence), "deal 10 damage to all enemies at the start of combat")
 var orange_cards: Array = [orange_card1, orange_card2, orange_card3]
 var red_cards: Array = [red_card1, red_card2, red_card3]
 var green_cards: Array = [green_card1, green_card2, green_card3, green_card4]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsolvcsh3ycok"]
+
+[ext_resource type="Script" path="res://Modifier.gd" id="1_emyy7"]
+[ext_resource type="Texture2D" uid="uid://chl5humsx53o1" path="res://Images/Icons/battle.png" id="2_k5a1t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1bd6"]
+bg_color = Color(0.6, 0.6, 0.6, 0.529412)
+
+[node name="Modifier" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+pivot_offset = Vector2(20, 20)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_emyy7")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_k5a1t")
+expand_mode = 1
+
+[node name="DescriptionContainer" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -227.0
+offset_top = 43.0
+offset_right = 43.0
+offset_bottom = 66.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1bd6")
+
+[node name="Label" type="Label" parent="DescriptionContainer"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Description"
+autowrap_mode = 2
