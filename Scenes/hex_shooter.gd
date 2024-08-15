@@ -42,5 +42,11 @@ func _on_shoot_timer_timeout() -> void:
 		attack.play(self)
 
 
+func hit_flash() -> void:
+	$body.material.set_shader_parameter("flash_modifier", 1)
+	await get_tree().create_timer(0.02).timeout
+	$body.material.set_shader_parameter("flash_modifier", 0)
+
+
 func update_status_bar() -> void:
 	$StatusEffectsBar.update_status_effects(status_effects)

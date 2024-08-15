@@ -1,11 +1,24 @@
-[gd_scene load_steps=14 format=3 uid="uid://dl8ydb1qopfix"]
+[gd_scene load_steps=17 format=3 uid="uid://dl8ydb1qopfix"]
 
 [ext_resource type="Script" path="res://Scenes/starly.gd" id="1_86h42"]
 [ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="2_a0o4e"]
 [ext_resource type="Texture2D" uid="uid://iqpcuvtjaggu" path="res://Images/Enemies/starly_back.png" id="2_c1ec6"]
+[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_p1lsa"]
 [ext_resource type="Texture2D" uid="uid://007d6ecqtxcn" path="res://Images/Enemies/starly.png" id="3_df3b1"]
 [ext_resource type="Shader" path="res://Shaders/black_white.gdshader" id="4_ibqt2"]
 [ext_resource type="Texture2D" uid="uid://b72h6fp1iwsmc" path="res://Images/Enemies/amathyst.png" id="5_mlqfq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0st67"]
+resource_local_to_scene = true
+shader = ExtResource("2_p1lsa")
+shader_parameter/flash_color = Vector4(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iod5v"]
+resource_local_to_scene = true
+shader = ExtResource("2_p1lsa")
+shader_parameter/flash_color = Vector4(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l4y53"]
 shader = ExtResource("4_ibqt2")
@@ -108,10 +121,12 @@ script = ExtResource("1_86h42")
 [node name="Sprite" type="Node2D" parent="."]
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sprite"]
+material = SubResource("ShaderMaterial_0st67")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_c1ec6")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite"]
+material = SubResource("ShaderMaterial_iod5v")
 position = Vector2(0, -2)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_df3b1")
@@ -122,7 +137,6 @@ position = Vector2(0, 15)
 texture = ExtResource("5_mlqfq")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -0.5)
 shape = SubResource("CircleShape2D_51i3q")
 
@@ -152,4 +166,5 @@ points = PackedVector2Array(-1, -2, 0, -1116)
 width = 1.0
 default_color = Color(0.808267, 0, 0.151515, 1)
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

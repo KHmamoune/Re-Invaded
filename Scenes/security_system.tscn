@@ -1,11 +1,18 @@
-[gd_scene load_steps=28 format=3 uid="uid://cjhmaa846w0vk"]
+[gd_scene load_steps=30 format=3 uid="uid://cjhmaa846w0vk"]
 
 [ext_resource type="Script" path="res://Scenes/security_system.gd" id="1_2peis"]
 [ext_resource type="Texture2D" uid="uid://c3qy4imv6apt5" path="res://Images/Enemies/security_system.png" id="2_kcvg0"]
+[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_q371w"]
 [ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="3_345p2"]
 [ext_resource type="Texture2D" uid="uid://ir112ujlkqt6" path="res://Images/Enemies/security_system_hatch.png" id="3_gxglq"]
 [ext_resource type="Texture2D" uid="uid://b7tqh6bb0h1ic" path="res://Images/Enemies/security_system_turret.png" id="4_q7jxu"]
 [ext_resource type="Texture2D" uid="uid://fvmhpsanexip" path="res://Images/Enemies/security_system_gun.png" id="5_ttofn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_00ofn"]
+resource_local_to_scene = true
+shader = ExtResource("2_q371w")
+shader_parameter/flash_color = Vector4(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ypl4c"]
 size = Vector2(700, 269)
@@ -771,12 +778,13 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_2peis")
 
-[node name="Sprites" type="Node2D" parent="."]
-
-[node name="Gate" type="Sprite2D" parent="Sprites"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
+material = SubResource("ShaderMaterial_00ofn")
 position = Vector2(0, 1)
 texture = ExtResource("2_kcvg0")
+
+[node name="Sprites" type="Node2D" parent="."]
 
 [node name="CR" type="Sprite2D" parent="Sprites"]
 position = Vector2(210, 85)

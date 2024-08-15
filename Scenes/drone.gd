@@ -37,8 +37,9 @@ func _process(delta: float) -> void:
 		look_at(get_tree().get_nodes_in_group("player")[0].global_position)
 		rotation_degrees -= 90
 	elif look == "enemy":
-		look_at(get_closest().global_position)
-		rotation_degrees -= 90
+		if get_closest() != null:
+			look_at(get_closest().global_position)
+			rotation_degrees += 90
 	
 	if bouncy:
 		if global_position.x >= 925 or global_position.x <= 225:

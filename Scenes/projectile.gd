@@ -28,8 +28,8 @@ var marker_type: String = ""
 
 
 func shoot(bullet: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
-	bullet.set_collision_mask_value(1, get_collision_mask_value(1))
-	bullet.set_collision_mask_value(2, get_collision_mask_value(2))
+	bullet.set_collision_layer_value(3, get_collision_layer_value(3))
+	bullet.set_collision_layer_value(5, get_collision_layer_value(5))
 	Audio.play_sfx(sfx)
 	if bullet.follow_player:
 		bullet.position = Vector2.ZERO

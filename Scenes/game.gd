@@ -39,28 +39,42 @@ func _ready() -> void:
 			for card: Card.CardStats in gv.blue_cards:
 				gv.cards.append(card)
 			player.add_modifier(gv.blue_modifier1)
-			player.add_modifier(gv.blue_modifier2)
-			player.add_modifier(gv.blue_modifier3)
+			player.add_modifier(gv.orange_modifier1)
+			player.add_modifier(gv.red_modifier1)
+			player.add_modifier(gv.green_modifier1)
+			player.add_modifier(gv.yellow_modifier1)
+			player.add_modifier(gv.violet_modifier1)
+			player.add_modifier(gv.blue_modifier1)
+			player.add_modifier(gv.orange_modifier1)
+			player.add_modifier(gv.red_modifier1)
+			player.add_modifier(gv.green_modifier1)
+			player.add_modifier(gv.yellow_modifier1)
+			player.add_modifier(gv.violet_modifier1)
 		"orange":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_orange.png")
 			for card: Card.CardStats in gv.orange_cards:
 				gv.cards.append(card)
+			player.add_modifier(gv.orange_modifier1)
 		"red":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_red.png")
 			for card: Card.CardStats in gv.red_cards:
 				gv.cards.append(card)
+			player.add_modifier(gv.red_modifier1)
 		"green":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_green.png")
 			for card: Card.CardStats in gv.green_cards:
 				gv.cards.append(card)
+			player.add_modifier(gv.green_modifier1)
 		"yellow":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_yellow.png")
 			for card: Card.CardStats in gv.yellow_cards:
 				gv.cards.append(card)
+			player.add_modifier(gv.yellow_modifier1)
 		"violet":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_violet.png")
 			for card: Card.CardStats in gv.violet_cards:
 				gv.cards.append(card)
+			player.add_modifier(gv.violet_modifier1)
 	
 	player.add_to_group("player")
 	player.position = Vector2(575, 600)
@@ -122,6 +136,9 @@ func _on_player_unfreeze() -> void:
 
 func _on_enemy_death(scrap: int) -> void:
 	update_scrap(scrap, "increment")
+	for modifier: Modifiers.Modifier in player.modifiers["kill"]:
+		modifier.play(player)
+	
 	await get_tree().create_timer(0.1).timeout
 	
 	if get_tree().get_nodes_in_group("enemy").is_empty() and not enemies_dead:
@@ -154,6 +171,7 @@ func add_victory_screen() -> void:
 	await get_tree().create_timer(1.0).timeout
 	player.state = "cutscene"
 	vs.pick_card.connect(_on_pick_card)
+	vs.pick_modifier.connect(_on_pick_modifier)
 	vs.skiped_card.connect(_on_skiped_card)
 	
 	victory_canvas.add_child(vs)
@@ -165,6 +183,7 @@ func add_victory_screen() -> void:
 func add_rest_screen() -> void:
 	var rest_ui: Node = rest_screen.instantiate()
 	rest_ui.bought_card.connect(_on_bought_card)
+	rest_ui.bought_modifier.connect(_on_bought_modifier)
 	rest_ui.healed_player.connect(_on_healed_player)
 	rest_canvas.add_child(rest_ui)
 	rest_canvas.layer = 0
@@ -187,9 +206,28 @@ func _on_pick_card(card: Node) -> void:
 	await t2.finished
 	remove_child(victory_canvas)
 	victory_canvas.get_child(0).queue_free()
-	deck_screen.update(player.full_deck)
+	deck_screen.update(player.full_deck, player.modifiers)
 	await get_tree().create_timer(0.1).timeout
 	player.state = "post_combat"
+
+
+func _on_pick_modifier(modifier: Node) -> void:
+	modifier.get_parent().release_focus()
+	player.add_modifier(modifier.new_modifier)
+	deck_screen.update(player.full_deck, player.modifiers)
+	var curr_victory_screen: Node = victory_canvas.get_child(0)
+	
+	var t1: Tween = create_tween()
+	var t2: Tween = create_tween()
+	t1.tween_property(modifier, "position:y", -50, 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	t1.tween_property(modifier, "position:y", 600, 0.8).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	t1.parallel().tween_property(modifier, "scale", Vector2(0.6, 0.6), 1)
+	t2.tween_property(curr_victory_screen.get_node("VBoxContainer/reward_cards"), "modulate:a", 0, 1.2)
+	await t2.finished
+	curr_victory_screen.get_node("VBoxContainer/reward_cards").get_child(0).queue_free()
+	curr_victory_screen.generate_cards()
+	create_tween().tween_property(curr_victory_screen.get_node("VBoxContainer/Text"), "modulate:a", 1, 0.5)
+	create_tween().tween_property(curr_victory_screen.get_node("VBoxContainer/reward_cards"), "modulate:a", 1, 0.5)
 
 
 func _on_skiped_card() -> void:
@@ -205,7 +243,16 @@ func _on_bought_card(card: Node, price: int) -> void:
 		update_scrap(price, "decrement")
 		card.get_node("../").queue_free()
 		player.shuffle_deck()
-		deck_screen.update(player.full_deck)
+		deck_screen.update(player.full_deck, player.modifiers)
+
+
+func _on_bought_modifier(modifier: Node, price: int) -> void:
+	if price <= scrap_count:
+		player.add_modifier(modifier.new_modifier)
+		update_scrap(price, "decrement")
+		modifier.get_node("../").queue_free()
+		modifier_ui.update(player.modifiers)
+		deck_screen.update(player.full_deck, player.modifiers)
 
 
 func _on_healed_player(price: int) -> void:
@@ -225,7 +272,7 @@ func spawn_enemies() -> void:
 		if en_map.enemies[i].has("rotate"):
 			new_enemy.rotation_degrees = en_map.enemies[i]["rotate"]
 		
-		new_enemy.dead.connect(Callable(_on_enemy_death).bind(new_enemy.scrap))
+		new_enemy.dead.connect(Callable(_on_enemy_death))
 		new_enemy.add_to_group("enemy")
 		new_enemy.global_position = en_map.positions[i] + Vector2(225,0)
 		add_child(new_enemy)
@@ -257,11 +304,12 @@ func add_map(map: Map.MapData) -> void:
 	add_child(map_canvas)
 
 
+#adding the deck menu to the scene tree
 func add_deck(deck: Array) -> void:
 	deck_canvas.add_child(deck_screen)
 	deck_screen.position -= Vector2(0.0, -650)
-	deck_screen.update(deck)
 	add_child(deck_canvas)
+	deck_screen.update(deck, player.modifiers)
 
 
 func create_line(room: Map.Room, next_room: Map.Room) -> Line2D:
@@ -289,6 +337,7 @@ func on_room_select(room: Map.Room) -> void:
 		remove_child(rest_canvas)
 	
 	await play_trans_start()
+	gv.current_room_type = room.type
 	
 	if room.type == 1:
 		play_trans_end("combat")
@@ -296,7 +345,9 @@ func on_room_select(room: Map.Room) -> void:
 		spawn_enemies()
 		
 	elif room.type == 2:
-		play_trans_end("post_combat")
+		play_trans_end("combat")
+		en_map = gv.res_maps[floor(randf() * len(gv.res_maps))]
+		spawn_enemies()
 		
 	elif room.type == 3:
 		play_trans_end("in_rest")
@@ -332,7 +383,7 @@ func change_deck_state() -> void:
 		prev_state = player.state
 		player.state = "in_deck"
 		prev_focus = get_viewport().gui_get_focus_owner()
-		deck_screen.get_node("PanelContainer/VBoxContainer/HBoxContainer/ScrollContainer/Cards").get_child(0).grab_focus()
+		deck_screen.get_node("PanelContainer/VBoxContainer/HBoxContainer2/ScrollContainer/Cards").get_child(0).grab_focus()
 	elif deck_screen.state == "visible":
 		create_tween().tween_property(deck_screen, "position", Vector2(0,650), 0.5)
 		deck_screen.state = "hidden"
@@ -375,5 +426,6 @@ func play_trans_end(state: String) -> void:
 		en.start()
 	player.state = state
 	
-	for modifier: Modifiers.Modifier in player.modifiers["combat_start"]:
-		modifier.play(player) 
+	if state == "combat":
+		for modifier: Modifiers.Modifier in player.modifiers["combat_start"]:
+			modifier.play(player) 

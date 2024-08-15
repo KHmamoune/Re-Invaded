@@ -48,6 +48,7 @@ horizontal_alignment = 1
 
 [node name="Text" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "choose a card"
 horizontal_alignment = 1

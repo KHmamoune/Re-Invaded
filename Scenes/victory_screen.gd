@@ -2,9 +2,12 @@ extends Control
 
 
 signal pick_card(card: Node)
+signal pick_modifier(modifier: Node)
 signal skiped_card
 
 
+var card_ui: PackedScene = preload("res://Scenes/card_ui.tscn")
+var modifier_ui: PackedScene = preload("res://Scenes/victory_screen_modifier.tscn")
 var cards: Array = []
 var j: int = -1
 
@@ -18,8 +21,29 @@ func _ready() -> void:
 	create_tween().parallel().tween_property(%reward_cards, "position:x", 0, 1)
 	create_tween().parallel().tween_property(self, "modulate:a", 1, 0.5)
 	create_tween().parallel().tween_property(%Button, "modulate:a", 1, 1)
-	var card_ui: PackedScene = preload("res://Scenes/card_ui.tscn")
 	
+	if gv.current_room_type == Map.Type.MINIBOSS:
+		generate_modifier()
+		return
+	
+	generate_cards()
+
+
+
+func generate_modifier() -> void:
+	var modifier_button: TextureButton = TextureButton.new()
+	var new_modifier: Node = modifier_ui.instantiate()
+	modifier_button.custom_minimum_size = Vector2(280, 230)
+	new_modifier.update(gv.modifiers[floor(randf() * len(gv.modifiers))])
+	modifier_button.focus_entered.connect(Callable(focus).bind(new_modifier))
+	modifier_button.focus_exited.connect(Callable(unfocus).bind(new_modifier))
+	modifier_button.pressed.connect(Callable(choose_modifier).bind(new_modifier))
+	modifier_button.add_child(new_modifier)
+	%reward_cards.add_child(modifier_button)
+	modifier_button.grab_focus()
+
+
+func generate_cards() -> void:
 	for i in range(0, 3):
 		var card_button: TextureButton = TextureButton.new()
 		var new_card: Node = card_ui.instantiate()
@@ -28,7 +52,7 @@ func _ready() -> void:
 		card_button.custom_minimum_size = Vector2(240, 320)
 		card_button.focus_entered.connect(Callable(focus).bind(new_card))
 		card_button.focus_exited.connect(Callable(unfocus).bind(new_card))
-		card_button.pressed.connect(Callable(pick).bind(new_card))
+		card_button.pressed.connect(Callable(choose_card).bind(new_card))
 		card_button.add_child(new_card)
 		%reward_cards.add_child(card_button)
 		
@@ -46,9 +70,14 @@ func unfocus(card: Node) -> void:
 	card.hide_details()
 
 
-func pick(card: Node) -> void:
+func choose_card(card: Node) -> void:
 	release_focus()
 	pick_card.emit(card)
+
+
+func choose_modifier(modifier: Node) -> void:
+	release_focus()
+	pick_modifier.emit(modifier)
 
 
 func _on_button_pressed() -> void:

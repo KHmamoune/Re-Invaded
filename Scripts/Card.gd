@@ -44,15 +44,21 @@ class CardStats:
 
 class StatusAffliction:
 	var status_effect: String
+	var status_type: String
 	var status_duration: float
 	var status_stack: int
 	
-	func _init(se: String, sd: float = 0, ss: int = 1) -> void:
+	func _init(se: String, sd: float = 0, ss: int = 1, st: String = "buff") -> void:
 		status_effect = se
+		status_type = st
 		status_duration = sd
 		status_stack = ss
 	
 	func play(pl: Node) -> void:
+		if status_type == "debuff":
+			if "modifiers" in pl:
+				for modifier: Modifiers.Modifier in pl.modifiers["debuff"]:
+					modifier.play(pl)
 		match status_effect:
 			"impede":
 				StatusEffects.apply_impede(pl, status_duration)
@@ -64,6 +70,8 @@ class StatusAffliction:
 				StatusEffects.apply_heat(pl, status_stack)
 			"reinforce":
 				StatusEffects.apply_reinforce(pl, status_stack)
+			"fragile":
+				StatusEffects.apply_fragile(pl, status_stack)
 
 
 class DeckManipulation:
@@ -77,6 +85,8 @@ class DeckManipulation:
 	func play(pl: Node) -> void:
 		match manipulation_type:
 			"add":
+				for modifier: Modifiers.Modifier in pl.modifiers["create"]:
+					modifier.play(pl)
 				pl.full_deck.push_back(card)
 				pl.deck.push_back(card)
 

@@ -1,18 +1,25 @@
 extends Node
 
 
+#info that i need to know globaly
 var current_scene: Node
 var current_map: Map.MapData
+var current_room_type: Map.Type
 var player_color: String
 
+#loading enemies scenes
+var scrap_pile: PackedScene = preload("res://Scenes/scrap_pile.tscn")
 var turret: PackedScene = preload("res://Scenes/turret.tscn")
 var maxim: PackedScene = preload("res://Scenes/maxim.tscn")
 var hex_shooter: PackedScene = preload("res://Scenes/hex_shooter.tscn")
 var mine: PackedScene = preload("res://Scenes/mine.tscn")
 var radar: PackedScene = preload("res://Scenes/radar.tscn")
+var splice: PackedScene = preload("res://Scenes/splice.tscn")
 var starly: PackedScene = preload("res://Scenes/starly.tscn")
 var security_system: PackedScene = preload("res://Scenes/security_system.tscn")
 
+#enemy maps and such
+#syntax: Battle.EnemyMap.new([{"enemy": *enemy*}], ["enemy_position"])
 var en_map1: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": maxim },
 	{ "enemy": maxim },
@@ -34,11 +41,34 @@ var en_maps: Array = [en_map1, en_map2]
 
 var mini_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": radar }], [Vector2(350, 200)])
 var mini_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": starly }], [Vector2(350, 200)])
-var mini_maps: Array = [mini_map1, mini_map2]
+var mini_map3: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": splice }, { "enemy": splice }], [Vector2(250, -150), Vector2(450, -150)])
+var mini_maps: Array = [mini_map1, mini_map2, mini_map3]
 
 var boss_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": security_system }], [Vector2(350, 120)])
 var boss_maps: Array = [boss_map1]
 
+var res_map1: Battle.EnemyMap = Battle.EnemyMap.new([
+	{ "enemy": scrap_pile }, 
+	{ "enemy": scrap_pile }, 
+	{ "enemy": scrap_pile }
+	], [Vector2(350, 200), Vector2(150, 230), Vector2(550, 230)])
+	
+var res_map2: Battle.EnemyMap = Battle.EnemyMap.new([
+	{ "enemy": scrap_pile },
+	{ "enemy": scrap_pile },
+	{ "enemy": scrap_pile },
+	{ "enemy": scrap_pile }
+	], [Vector2(150, 150), Vector2(300, 200), Vector2(400, 200), Vector2(550, 150)])
+	
+var res_map3: Battle.EnemyMap = Battle.EnemyMap.new([
+	{ "enemy": scrap_pile },
+	{ "enemy": scrap_pile },
+	{ "enemy": scrap_pile },
+	{ "enemy": scrap_pile },
+	], [Vector2(320, 200), Vector2(380, 200), Vector2(100, 250), Vector2(600, 250)])
+var res_maps: Array = [res_map1, res_map2, res_map3]
+
+#loading bullets and spawnable things
 var bullet: PackedScene = preload("res://Scenes/bullet.tscn")
 var laser: PackedScene = preload("res://Scenes/laser.tscn")
 var bomb: PackedScene = preload("res://Scenes/bomb.tscn")
@@ -104,20 +134,20 @@ var drone1: Card.AttackPattren = Card.AttackPattren.new(drone, 2, 1, [0], 0.1, 0
 #var card23 = Card.CardStats.new(1, "rapid fire", "res://Images/Other/HelixFirePicture.png", "attack", "shoot a line of fast shots", Color.GREEN, [drone1], 50)
 var cards: Array = []
 
-var blue_effect1: Card.StatusAffliction = Card.StatusAffliction.new("reinforce", 0, 2)
+var blue_effect1: Card.StatusAffliction = Card.StatusAffliction.new("reinforce", 0, 1, "buff")
 var blue_card1: Card.CardStats = Card.CardStats.new(2, "Reinforced Rounds", "res://Images/Other/reinforced_rounds_card.png", "skill", "gain 2 reinforced.", Color.CYAN, [{"effect": blue_effect1}], 120, ["reinforce"])
-var blue_attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 20, [0], 0.05, 1500, [Vector2.ZERO], 1200, 4)
+var blue_attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 20, [0], 0.05, 1500, [Vector2.ZERO], 1200, 1)
 var blue_card2: Card.CardStats = Card.CardStats.new(2, "Spray and Pray", "res://Images/Other/spray_and_pray_card.png", "attack", "lob a barrage of randomly aimed bullets, 4 damage", Color.CYAN, [{"effect": blue_attack1}])
-var blue_attack2: Card.AttackPattren = Card.AttackPattren.new(bullet, 2, 6, [0], 0.05, 1800, [Vector2(20, 0), Vector2(-20, 0)], 800, 2)
+var blue_attack2: Card.AttackPattren = Card.AttackPattren.new(bullet, 2, 6, [0], 0.05, 1800, [Vector2(20, 0), Vector2(-20, 0)], 800, 1)
 var blue_card3: Card.CardStats = Card.CardStats.new(1, "Dual Fire", "res://Images/Other/dual_fire_card.png", "attack", "fire two bursts of fast bullets, 2 damage.", Color.CYAN, [{"effect": blue_attack2}])
 
 var orange_attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 1, [0], 0.1, 800, [Vector2.ZERO], 800, 5)
-var orange_effect1: Card.StatusAffliction = Card.StatusAffliction.new("flame", 5, 1)
-var orange_effect2: Card.StatusAffliction = Card.StatusAffliction.new("heat", 0, 1)
+var orange_effect1: Card.StatusAffliction = Card.StatusAffliction.new("flame", 5, 1, "debuff")
+var orange_effect2: Card.StatusAffliction = Card.StatusAffliction.new("heat", 0, 1, "buff")
 var orange_card1: Card.CardStats = Card.CardStats.new(1, "Flare", "res://Images/Other/flare_card.png", "attack", "fire a shot that applies flame on hit, gain 1 heat, 5 damage.", Color.ORANGE, [{"effect": orange_attack1}, {"effect": orange_effect2}], 40, ["flame", "heat"])
 var orange_attack2_1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [-10], 0.1, 1200, [Vector2.ZERO], 800, 2)
 var orange_attack2_2: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [10], 0.1, 1200, [Vector2.ZERO], 800, 2)
-var orange_effect3: Card.StatusAffliction = Card.StatusAffliction.new("flame", 0.6, 1)
+var orange_effect3: Card.StatusAffliction = Card.StatusAffliction.new("flame", 0.6, 1, "debuff")
 var orange_card2: Card.CardStats = Card.CardStats.new(1, "Flare", "res://Images/Other/flame_thrower_card.png", "attack", "shoot a spray of flames that apply flame on hit, 3 damage.", Color.ORANGE, [{"effect": orange_attack2_1}, {"delay": 0.6, "effect": orange_attack2_2}, {"delay": 0.6, "effect": orange_attack2_1}, {"delay": 0.6, "effect": orange_attack2_2}], 110, ["flame"])
 var orange_attack3: Card.AttackPattren = Card.AttackPattren.new(bomb, 1, 3, [-45], 0.1, 1200, [Vector2.ZERO], 800, 1)
 var orange_card3: Card.CardStats = Card.CardStats.new(2, "Explosion Shower", "res://Images/Other/explosion_shower_card.png", "attack", "shoot 3 bombs that explode after.", Color.ORANGE, [{"effect": orange_attack3}])
@@ -125,8 +155,8 @@ var orange_card3: Card.CardStats = Card.CardStats.new(2, "Explosion Shower", "re
 var red_attack1_1: Card.AttackPattren = Card.AttackPattren.new(bullet, 4, 1, [5, 2, -2, -5], 0.5, 800, [Vector2(25,0),Vector2(10,-15),Vector2(-10,-15),Vector2(-25,0)], 500, 10)
 var red_attack1_2: Card.AttackPattren = Card.AttackPattren.new(bullet, 5, 1, [5, 2.5, 0, -2.5, -5], 0.5, 800, [Vector2.ZERO], 500, 10)
 var red_card1: Card.CardStats = Card.CardStats.new(1, "Double Burst", "res://Images/Other/double_burst_card.png", "attack", "fire 2 burst shots, 5 damage.", Color.RED, [{"effect": red_attack1_1}, {"delay": 0.05, "effect": red_attack1_2}])
-var red_effect1_1: Card.StatusAffliction = Card.StatusAffliction.new("impede", 2, 1)
-var red_effect1_2: Card.StatusAffliction = Card.StatusAffliction.new("gen_boost", 2, 1)
+var red_effect1_1: Card.StatusAffliction = Card.StatusAffliction.new("impede", 2, 1, "debuff")
+var red_effect1_2: Card.StatusAffliction = Card.StatusAffliction.new("gen_boost", 2, 1, "buff")
 var red_card2: Card.CardStats = Card.CardStats.new(1, "Rewire", "res://Images/Other/rewire_card.png", "skill", "apply 1 impede, gain generation boost for 2 seconds.", Color.RED, [{"effect": red_effect1_1}, {"effect": red_effect1_2}], 80, ["impede", "generation boost"])
 var red_attack3: Card.AttackPattren = Card.AttackPattren.new(bullet, 20, 1, [50,45,40,35,30,25,20,15,10,5,-5,-10,-15,-20,-25,-30,-35,-40,-45,-50], 0.1, 1200, [Vector2.ZERO], 800, 2)
 var red_card3: Card.CardStats = Card.CardStats.new(1, "Fan Shot", "res://Images/Other/fan_shot_card.png", "attack", "fire 20 bullets in a fan shape that, 2 damage.", Color.RED, [{"effect": red_attack3}])
@@ -159,15 +189,22 @@ var violet_drone2: Card.AttackPattren = Card.AttackPattren.new(drone, 5, 1, [0],
 var violet_card3: Card.CardStats = Card.CardStats.new(1, "Charging Force", "res://Images/Other/charging_force_card.png", "summon", "summon a volley of raming turrets", Color.BLUE_VIOLET, [{"effect": violet_drone2}])
 
 var blue_cards: Array = [blue_card1, blue_card2, blue_card3]
-var blue_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("res://Images/Other/charging_force_card.png", Modifiers.Types.SHUFFLE, 100, Callable(Modifiers.max_hp_on_shuffle), "increase max hp by 1 whenever you shuffle")
-var blue_modifier2: Modifiers.Modifier = Modifiers.Modifier.new("res://Images/Other/blast_store_card.png", Modifiers.Types.HURT, 100, Callable(Modifiers.return_fire), "fire bullets when you get hit")
-var blue_modifier3: Modifiers.Modifier = Modifiers.Modifier.new("res://Images/Other/flare_card.png", Modifiers.Types.COMBAT_START, 100, Callable(Modifiers.dramatic_entrence), "deal 10 damage to all enemies at the start of combat")
+var blue_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("Blue capsule, bloodlust", "res://Images/Icons/blue_capsule.png", Modifiers.Types.KILL, 0, Callable(Modifiers.blue_capsule), "gain 1 reinforce whenever an enemy dies", ["reinforce"])
 var orange_cards: Array = [orange_card1, orange_card2, orange_card3]
+var orange_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("Orange capsule, arson", "res://Images/Icons/orange_capsule.png", Modifiers.Types.FLAME, 0, Callable(Modifiers.orange_capsule), "whenever flame is applied apply 1 fragile", ["flame", "fragile"])
 var red_cards: Array = [red_card1, red_card2, red_card3]
+var red_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("Red capsule, shared pain", "res://Images/Icons/red_capsule.png", Modifiers.Types.DEBUFF, 0, Callable(Modifiers.red_capsule), "whenever you gain a debuff deal 5 damage to all enemies")
 var green_cards: Array = [green_card1, green_card2, green_card3, green_card4]
+var green_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("Green capsule, second wind", "res://Images/Icons/green_capsule.png", Modifiers.Types.DEATH, 0, Callable(Modifiers.green_capsule), "endure a fatal hit and heal 2 hp, gain full energy")
 var yellow_cards: Array = [yellow_card1, yellow_card2, yellow_card3]
+var yellow_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("Yellow capsule, stored energy", "res://Images/Icons/yellow_capsule.png", Modifiers.Types.CREATE, 0, Callable(Modifiers.yellow_capsule), "whenever a card is created restore 0.5 energy")
 var violet_cards: Array = [violet_card1, violet_card2, violet_card3]
+var violet_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("Violet capsule, mercenary turrets", "res://Images/Icons/violet_capsule.png", Modifiers.Types.COMBAT_START, 0, Callable(Modifiers.violet_capsule), "at the start of battle lose 2 scrap and summone 2 helper turrets")
 var other_cards: Array = [orange_card1, red_card2, violet_card3, blue_card1, green_card2, yellow_card3]
+
+var modifier1: Modifiers.Modifier = Modifiers.Modifier.new("dramatic entrance", "res://Images/Other/place_holder_card.png", Modifiers.Types.COMBAT_START, 30, Callable(Modifiers.dramatic_entrence), "deal 5 damage to all enemies at the start of combat")
+var modifier2: Modifiers.Modifier = Modifiers.Modifier.new("return fire", "res://Images/Other/place_holder_card.png", Modifiers.Types.COMBAT_START, 30, Callable(Modifiers.return_fire), "fire bullets on hit")
+var modifiers: Array = [modifier1, modifier2, blue_modifier1]
 
 func _ready() -> void:
 	#attack4.set_change_values([9, -9], [80, 80])
@@ -242,11 +279,11 @@ func _ready() -> void:
 	green_shield2.set_sheild_properties(0.5)
 	green_shield2.set_properties(false, true)
 	
-	violet_drone_sub_attack1.set_aim("enemy")
-	
 	violet_drone1.set_drone_properties(5)
 	violet_drone1.set_tweens([], [], [{"delay": 0, "value": Vector2(0, -100), "dur": 0.4}])
 	violet_drone1.set_attack(2, violet_drone_sub_attack1)
+	violet_drone1.set_look("enemy")
+	violet_drone1.set_sprite_and_size(preload("res://Images/Characters/violet_detector.png"), 1, 0, Vector2(0.4,0.4), Vector2(1,1))
 	
 	violet_drone2.set_drone_properties(10)
 	violet_drone2.set_tweens([], [{"delay": 0, "value": 1000, "dur": 1}], [])

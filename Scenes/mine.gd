@@ -32,7 +32,7 @@ func take_damage(dmg: int) -> void:
 		attack.play(self)
 		is_dead = true
 		$Hurtbox.set_deferred("disabled", true)
-		emit_signal("dead")
+		dead.emit(scrap)
 		queue_free()
 
 

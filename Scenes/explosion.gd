@@ -3,6 +3,8 @@ extends Area2D
 var damage: int = 10
 var type: String = "explosion"
 var rad: Vector2 = Vector2(1, 1)
+var on_hit_effects: Array = []
+var piercing: bool = true
 
 
 func _ready() -> void:

@@ -103,6 +103,15 @@ func boss_at3() -> void:
 	attack.play(self)
 	await get_tree().create_timer(6).timeout
 
+
+func hit_flash() -> void:
+	$Sprite/Sprite2D.material.set_shader_parameter("flash_modifier", 1)
+	$Sprite/Sprite2D2.material.set_shader_parameter("flash_modifier", 1)
+	await get_tree().create_timer(0.02).timeout
+	$Sprite/Sprite2D.material.set_shader_parameter("flash_modifier", 0)
+	$Sprite/Sprite2D2.material.set_shader_parameter("flash_modifier", 0)
+
+
 func reset_position() -> void:
 	var pos_tween: Tween = create_tween()
 	pos_tween.tween_property(self, "position", Vector2(575, 150), 1)

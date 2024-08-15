@@ -2,6 +2,7 @@ extends Control
 
 
 signal bought_card(card: Node, price: int)
+signal bought_modifier(modifier: Node, price: int)
 signal healed_player(price: int)
 
 @onready var card_ui: PackedScene = preload("res://Scenes/shop_card.tscn")
@@ -23,6 +24,18 @@ func _ready() -> void:
 		rands.append(rand)
 		elem.get_node("ShopCard/CardUI").update(gv.other_cards[rand])
 		elem.get_node("ShopCard/HBoxContainer/Cost").text = str(gv.other_cards[rand].card_price)
+	
+	rands = []
+	
+	for elem in %Modifiers.get_children():
+		var rand: int = floor(randf() * len(gv.modifiers))
+		
+		while rand in rands:
+			rand = floor(randf() * len(gv.modifiers))
+		
+		rands.append(rand)
+		elem.get_node("ShopModifier/Modifier").update(gv.modifiers[rand])
+		elem.get_node("ShopModifier/HBoxContainer/Cost").text = str(gv.modifiers[rand].modifier_price)
 	
 	%card1.grab_focus()
 
@@ -76,27 +89,27 @@ func _on_card_6_focus_exited() -> void:
 
 
 func _on_card_1_pressed() -> void:
-	buy(%card1)
+	buy_card(%card1)
 
 
 func _on_card_2_pressed() -> void:
-	buy(%card2)
+	buy_card(%card2)
 
 
 func _on_card_3_pressed() -> void:
-	buy(%card3)
+	buy_card(%card3)
 
 
 func _on_card_4_pressed() -> void:
-	buy(%card4)
+	buy_card(%card4)
 
 
 func _on_card_5_pressed() -> void:
-	buy(%card5)
+	buy_card(%card5)
 
 
 func _on_card_6_pressed() -> void:
-	buy(%card6)
+	buy_card(%card6)
 
 
 func focus(card: Node) -> void:
@@ -111,10 +124,63 @@ func unfocus(card: Node) -> void:
 		card.get_node("ShopCard/CardUI").hide_details()
 
 
-func buy(card: Node) -> void:
+func buy_card(card: Node) -> void:
 	if is_instance_valid(card.get_node_or_null("ShopCard")):
 		bought_card.emit(card.get_node("ShopCard/CardUI"), card.get_node("ShopCard/CardUI").new_card.card_price)
 
 
+func buy_modifier(modifier: Node) -> void:
+	if is_instance_valid(modifier.get_node_or_null("ShopModifier")):
+		bought_modifier.emit(modifier.get_node("ShopModifier/Modifier"), modifier.get_node("ShopModifier/Modifier").new_modifier.modifier_price)
+
+
 func _on_heal_pressed() -> void:
 	healed_player.emit(heal_price)
+
+
+func _on_modifier_1_pressed() -> void:
+	buy_modifier(%Modifier1)
+
+
+func _on_modifier_1_focus_entered() -> void:
+	if is_instance_valid(%Modifier1.get_node_or_null("ShopModifier")):
+		create_tween().tween_property(%Modifier1.get_node("ShopModifier/Modifier"), "scale", Vector2(1.1, 1.1), 0.2)
+		%Modifier1.get_node("ShopModifier/Modifier").show_details()
+
+
+func _on_modifier_1_focus_exited() -> void:
+	if is_instance_valid(%Modifier1.get_node_or_null("ShopModifier")):
+		create_tween().tween_property(%Modifier1.get_node("ShopModifier/Modifier"), "scale", Vector2(1, 1), 0.2)
+		%Modifier1.get_node("ShopModifier/Modifier").hide_details()
+
+
+func _on_modifier_2_pressed() -> void:
+	buy_modifier(%Modifier2)
+
+
+func _on_modifier_2_focus_entered() -> void:
+	if is_instance_valid(%Modifier2.get_node_or_null("ShopModifier")):
+		create_tween().tween_property(%Modifier2.get_node("ShopModifier/Modifier"), "scale", Vector2(1.1, 1.1), 0.2)
+		%Modifier2.get_node("ShopModifier/Modifier").show_details()
+
+
+func _on_modifier_2_focus_exited() -> void:
+	if is_instance_valid(%Modifier2.get_node_or_null("ShopModifier")):
+		create_tween().tween_property(%Modifier2.get_node("ShopModifier/Modifier"), "scale", Vector2(1, 1), 0.2)
+		%Modifier2.get_node("ShopModifier/Modifier").hide_details()
+
+
+func _on_modifier_3_pressed() -> void:
+	buy_modifier(%Modifier3)
+
+
+func _on_modifier_3_focus_entered() -> void:
+	if is_instance_valid(%Modifier3.get_node_or_null("ShopModifier")):
+		create_tween().tween_property(%Modifier3.get_node("ShopModifier/Modifier"), "scale", Vector2(1.1, 1.1), 0.2)
+		%Modifier3.get_node("ShopModifier/Modifier").show_details()
+
+
+func _on_modifier_3_focus_exited() -> void:
+	if is_instance_valid(%Modifier3.get_node_or_null("ShopModifier")):
+		create_tween().tween_property(%Modifier3.get_node("ShopModifier/Modifier"), "scale", Vector2(1, 1), 0.2)
+		%Modifier3.get_node("ShopModifier/Modifier").hide_details()

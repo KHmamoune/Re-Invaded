@@ -161,3 +161,16 @@ func apply_reinforce(target: Node, stack: int) -> void:
 func dispel_reinforce(target: Node) -> void:
 	target.status_effects["reinforce"] = 0
 	target.update_status_bar()
+
+
+func apply_fragile(target: Node, stack: int) -> void:
+	if "fragile" in target.status_effects:
+		target.status_effects["fragile"] += stack
+	else:
+		target.status_effects["fragile"] = stack
+	target.update_status_bar()
+
+
+func dispel_fragile(target: Node) -> void:
+	target.status_effects["fragile"] = 0
+	target.update_status_bar()

@@ -1,7 +1,7 @@
 extends Area2D
 class_name Enemy
 
-signal dead
+signal dead(scrap: int)
 
 var hp: int
 var is_dead: bool = false
@@ -12,10 +12,26 @@ var status_effects: Dictionary = {}
 @onready var drone: PackedScene = preload("res://Scenes/drone.tscn")
 
 
+func start() -> void:
+	pass
+
+
 func _on_area_entered(area: Node) -> void:
 	if "damage" in area:
+		for effect: Card.StatusAffliction in area.on_hit_effects:
+			if effect.status_effect == "flame":
+				var player: Node = get_tree().get_first_node_in_group("player")
+				for modifier: Modifiers.Modifier in player.modifiers["flame"]:
+					modifier.play(self)
+			
+			effect.play(self)
+		
 		take_damage(area.damage)
-		area.queue_free()
+		if area.type == "bomb":
+			area.explode()
+		
+		if area.type != "drone" and not area.piercing:
+			area.queue_free()
 
 
 func shoot(bul: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
@@ -36,11 +52,18 @@ func shoot(bul: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> vo
 
 func take_damage(dmg: int) -> void:
 	Audio.play_sfx(Audio.sfx_hit)
+	hit_flash()
 	hp -= dmg
 	$hp.text = str(hp)
 	
 	if hp <= 0 and !is_dead:
 		is_dead = true
 		$Hurtbox.set_deferred("disabled", true)
-		emit_signal("dead")
+		dead.emit(scrap)
 		queue_free()
+
+
+func hit_flash() -> void:
+	$Sprite2D.material.set_shader_parameter("flash_modifier", 1)
+	await get_tree().create_timer(0.02).timeout
+	$Sprite2D.material.set_shader_parameter("flash_modifier", 0)

@@ -1,8 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvu0lo184qhqu"]
+[gd_scene load_steps=11 format=3 uid="uid://cvu0lo184qhqu"]
 
 [ext_resource type="Script" path="res://Scenes/turret.gd" id="1_h3pot"]
+[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_cxgkm"]
 [ext_resource type="Texture2D" uid="uid://c1scd73p4d75t" path="res://Images/Enemies/turret.png" id="2_rk1yq"]
 [ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="3_daq50"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehcet"]
+resource_local_to_scene = true
+shader = ExtResource("2_cxgkm")
+shader_parameter/flash_color = Vector4(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nx8ts"]
 size = Vector2(92, 93)
@@ -68,6 +75,7 @@ collision_mask = 5
 script = ExtResource("1_h3pot")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ehcet")
 position = Vector2(0, 10)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_rk1yq")

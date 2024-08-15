@@ -1,11 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://dtc8ymuaq7ard"]
+[gd_scene load_steps=14 format=3 uid="uid://dtc8ymuaq7ard"]
 
 [ext_resource type="Script" path="res://Scenes/hex_shooter.gd" id="1_aacsd"]
 [ext_resource type="Texture2D" uid="uid://bpkbm4ai7vt41" path="res://Images/Enemies/Gun.png" id="1_epkyj"]
 [ext_resource type="Texture2D" uid="uid://cbhinqjaiuhe" path="res://Images/Enemies/hex_shooter.png" id="2_e4uxn"]
+[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_gqjf8"]
 [ext_resource type="Shader" path="res://Shaders/black_white.gdshader" id="4_qcjvx"]
 [ext_resource type="Texture2D" uid="uid://doie8g5ahchnb" path="res://Images/Enemies/Ruby.png" id="5_bgayt"]
 [ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="6_2osmw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7gxk5"]
+resource_local_to_scene = true
+shader = ExtResource("2_gqjf8")
+shader_parameter/flash_color = Vector4(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cclug"]
 shader = ExtResource("4_qcjvx")
@@ -107,6 +114,7 @@ script = ExtResource("1_aacsd")
 
 [node name="body" type="Sprite2D" parent="."]
 top_level = true
+material = SubResource("ShaderMaterial_7gxk5")
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_e4uxn")
 

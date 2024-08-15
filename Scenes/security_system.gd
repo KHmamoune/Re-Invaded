@@ -287,6 +287,12 @@ func hide_gun_l_cl() -> void:
 	$AnimationsCL.play_backwards("open")
 
 
+func hit_flash() -> void:
+	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.5)
+	await get_tree().create_timer(0.02).timeout
+	$Sprite2D.material.set_shader_parameter("flash_modifier", 0)
+
+
 func update_status_bar() -> void:
 	$StatusEffectsBar.update_status_effects(status_effects)
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5xf71vuwecp4"]
+[gd_scene load_steps=7 format=3 uid="uid://c5xf71vuwecp4"]
 
 [ext_resource type="Script" path="res://Scenes/rest.gd" id="1_b8vgs"]
 [ext_resource type="PackedScene" uid="uid://c8baqi0uh4cma" path="res://Scenes/shop_card.tscn" id="2_4scl7"]
 [ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Images/Icons/scrap.png" id="3_35iao"]
+[ext_resource type="PackedScene" uid="uid://dfud3521ufsa0" path="res://Scenes/shop_modifier.tscn" id="3_sclgl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f7rs4"]
 bg_color = Color(0.4, 0.4, 0.4, 1)
@@ -76,7 +77,7 @@ grow_vertical = 2
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../card1")
-focus_neighbor_right = NodePath("../../../../MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/Heal")
+focus_neighbor_right = NodePath("../../../../MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier1")
 focus_neighbor_bottom = NodePath("../card4")
 
 [node name="ShopCard" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card2" instance=ExtResource("2_4scl7")]
@@ -95,7 +96,7 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../card3")
 focus_neighbor_top = NodePath("../card2")
-focus_neighbor_right = NodePath("../../../../MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/Heal")
+focus_neighbor_right = NodePath("../../../../MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier1")
 focus_neighbor_bottom = NodePath("../card6")
 
 [node name="ShopCard" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card4" instance=ExtResource("2_4scl7")]
@@ -139,11 +140,47 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_f7rs4")
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2"]
 custom_minimum_size = Vector2(250, 200)
 layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer"]
+[node name="Modifiers" type="HBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "W.I.P"
-horizontal_alignment = 1
+theme_override_constants/separation = 100
+
+[node name="Modifier1" type="TextureButton" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../../../../VBoxContainer/PanelContainer/Cards/card2")
+focus_neighbor_right = NodePath("../Modifier2")
+focus_neighbor_bottom = NodePath("../../../../PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/Heal")
+
+[node name="ShopModifier" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier1" instance=ExtResource("3_sclgl")]
+layout_mode = 2
+offset_bottom = 110.0
+
+[node name="Modifier2" type="TextureButton" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../Modifier1")
+focus_neighbor_right = NodePath("../Modifier3")
+focus_neighbor_bottom = NodePath("../../../../PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/Heal")
+
+[node name="ShopModifier" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier2" instance=ExtResource("3_sclgl")]
+layout_mode = 2
+offset_bottom = 110.0
+
+[node name="Modifier3" type="TextureButton" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ShopModifier" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier3" instance=ExtResource("3_sclgl")]
+layout_mode = 2
+offset_bottom = 110.0
+focus_neighbor_left = NodePath("../../Modifier2")
+focus_neighbor_bottom = NodePath("../../../../../PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/Heal")
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2"]
 layout_mode = 2
@@ -166,6 +203,7 @@ layout_mode = 2
 [node name="Heal" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../../../../../../../VBoxContainer/PanelContainer/Cards/card4")
+focus_neighbor_top = NodePath("../../../../../PanelContainer2/MarginContainer/Modifiers/Modifier1")
 focus_neighbor_bottom = NodePath("../../VBoxContainer2/Upgrade")
 text = "Repair (Restore 1 HP)"
 
@@ -226,4 +264,13 @@ text = "100"
 [connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card6" to="." method="_on_card_6_focus_entered"]
 [connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card6" to="." method="_on_card_6_focus_exited"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card6" to="." method="_on_card_6_pressed"]
+[connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier1" to="." method="_on_modifier_1_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier1" to="." method="_on_modifier_1_focus_exited"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier1" to="." method="_on_modifier_1_pressed"]
+[connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier2" to="." method="_on_modifier_2_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier2" to="." method="_on_modifier_2_focus_exited"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier2" to="." method="_on_modifier_2_pressed"]
+[connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier3" to="." method="_on_modifier_3_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier3" to="." method="_on_modifier_3_focus_exited"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier3" to="." method="_on_modifier_3_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/Heal" to="." method="_on_heal_pressed"]

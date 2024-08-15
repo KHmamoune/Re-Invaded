@@ -26,7 +26,12 @@ var status_effects: Dictionary = {}
 var modifiers: Dictionary = {
 	"shuffle": [],
 	"hurt": [],
-	"combat_start": []
+	"combat_start": [],
+	"kill": [],
+	"death": [],
+	"debuff": [],
+	"create": [],
+	"flame": [],
 }
 
 
@@ -189,6 +194,16 @@ func add_modifier(modifier: Modifiers.Modifier) -> void:
 			modifiers["hurt"].append(modifier)
 		Modifiers.Types.COMBAT_START:
 			modifiers["combat_start"].append(modifier)
+		Modifiers.Types.KILL:
+			modifiers["kill"].append(modifier)
+		Modifiers.Types.DEATH:
+			modifiers["death"].append(modifier)
+		Modifiers.Types.FLAME:
+			modifiers["flame"].append(modifier)
+		Modifiers.Types.CREATE:
+			modifiers["create"].append(modifier)
+		Modifiers.Types.DEBUFF:
+			modifiers["debuff"].append(modifier)
 
 
 func _on_dash_timer_timeout() -> void:
@@ -210,6 +225,15 @@ func _on_freeze_timer_timeout() -> void:
 	get_tree().paused = false
 	$Hurtbox.set_deferred("disabled", true)
 	emit_signal("unfreeze")
+	
+	if len(modifiers["death"]) > 0:
+		is_dead = false
+		$InvincibilityTimer.start()
+		modifiers["death"][0].play(self)
+		modifiers["death"].pop_back()
+		emit_signal("update_ui")
+		return
+	
 	hide()
 	
 	var particle: Node = $DeathEffect
