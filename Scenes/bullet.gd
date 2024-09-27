@@ -10,6 +10,9 @@ func _ready() -> void:
 	$Sprite2D.hframes = frames
 	$Sprite2D.texture = sprite
 	
+	if after_image_interval > 0:
+		play_after_image()
+	
 	if frames > 1:
 		var tween: Tween = create_tween()
 		tween.set_loops()

@@ -135,6 +135,7 @@ func dash() -> void:
 	dashing = true
 	$Hurtbox.disabled = true
 	speed *= 6
+	%AfterImageTimer.start()
 	%DashCooldownTimer.start()
 	%DashCooldownBar.visible = true
 	%DashTimer.start()
@@ -209,7 +210,9 @@ func add_modifier(modifier: Modifiers.Modifier) -> void:
 func _on_dash_timer_timeout() -> void:
 	dashing = false
 	speed = default_speed
+	await get_tree().create_timer(0.05).timeoutzzz
 	$Hurtbox.disabled = false
+	%AfterImageTimer.stop()
 
 
 func _on_fire_cooldown_timer_timeout() -> void:
@@ -262,3 +265,13 @@ func _on_area_entered(area: Node) -> void:
 	hurt = true
 	lose_health()
 	area.queue_free()
+
+
+func _on_after_image_timer_timeout():
+	var after_image_instance: Node = preload("res://Scenes/after_image.tscn").instantiate()
+	after_image_instance.get_node("Sprite2D").texture = $Sprite2D.texture
+	after_image_instance.get_node("Sprite2D").hframes = $Sprite2D.hframes
+	after_image_instance.scale = $Sprite2D.scale
+	after_image_instance.rotation = rotation
+	after_image_instance.global_position = global_position
+	get_parent().add_child(after_image_instance)

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5j61sn5ccfrv"]
+
+[ext_resource type="Script" path="res://Scenes/death_effect.gd" id="1_p06qp"]
+
+[sub_resource type="Curve" id="Curve_stdee"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="DeathEffect" type="Node2D"]
+script = ExtResource("1_p06qp")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 0.9
+randomness = 0.5
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+scale_amount_min = 5.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_stdee")
+
+[connection signal="finished" from="CPUParticles2D" to="." method="_on_cpu_particles_2d_finished"]

@@ -133,6 +133,8 @@ class AttackPattren:
 	var bullet_hitbox_size: Vector2 = Vector2(0.3, 0.175)
 	var marker_type: String = ""
 	var marker_duration: float =  0
+	var after_image_delay: float = 0
+	var after_image_interval: float = 0
 	
 	
 	func _init(bt: PackedScene, bam: int, fam: int, fan: Array, fde: float, bsp: float, fpo: Array, bra: float, bda: int) -> void:
@@ -248,6 +250,9 @@ class AttackPattren:
 			bullet.marker_type = marker_type
 			bullet.wait_time = marker_duration
 		
+		bullet.after_image_delay = after_image_delay
+		bullet.after_image_interval = after_image_interval
+		
 		return bullet
 	
 	func set_laser_stats(i: int, player: Node) -> Node:
@@ -354,6 +359,10 @@ class AttackPattren:
 	func set_marker(type: String, time: float) -> void:
 		marker_type = type
 		marker_duration = time
+	
+	func set_after_image(aid, aii):
+		after_image_delay = aid
+		after_image_interval = aii
 	
 	func get_position(j: int) -> Vector2:
 		if len(fire_positions) > 1:

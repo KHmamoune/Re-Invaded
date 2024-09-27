@@ -8,6 +8,7 @@ var i: int = 0
 
 
 func _ready() -> void:
+	color = Color.DARK_BLUE
 	hp = 200
 	scrap = 200
 	$hp.text = str(hp)

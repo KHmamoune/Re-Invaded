@@ -6,6 +6,7 @@ var attack: Card.AttackPattren
 
 
 func _ready() -> void:
+	color = Color.ORANGE
 	area_entered.connect(_on_area_entered)
 	hp = 10
 	scrap = 10

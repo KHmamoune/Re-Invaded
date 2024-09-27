@@ -15,14 +15,14 @@ resource_local_to_scene = true
 shader = ExtResource("2_gft25")
 shader_parameter/speed = 0.1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3lw3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpm3u"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ail3y"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fd7lp"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpm3u"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3lw3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="Animation" id="Animation_ncvel"]
@@ -140,10 +140,10 @@ focus_neighbor_left = NodePath("../Quit")
 focus_neighbor_top = NodePath("../Quit")
 focus_neighbor_right = NodePath("../Options")
 focus_neighbor_bottom = NodePath("../Options")
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
-theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
 button_mask = 0
 text = "Start Game"
 
@@ -154,10 +154,10 @@ focus_neighbor_left = NodePath("../Play")
 focus_neighbor_top = NodePath("../Play")
 focus_neighbor_right = NodePath("../Extras")
 focus_neighbor_bottom = NodePath("../Extras")
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
-theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
 button_mask = 0
 text = "Options"
 
@@ -168,10 +168,10 @@ focus_neighbor_left = NodePath("../Options")
 focus_neighbor_top = NodePath("../Options")
 focus_neighbor_right = NodePath("../Quit")
 focus_neighbor_bottom = NodePath("../Quit")
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
-theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
 button_mask = 0
 text = "Extras"
 
@@ -182,10 +182,10 @@ focus_neighbor_left = NodePath("../Extras")
 focus_neighbor_top = NodePath("../Extras")
 focus_neighbor_right = NodePath("../Play")
 focus_neighbor_bottom = NodePath("../Play")
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
-theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
 button_mask = 0
 text = "Quit"
 

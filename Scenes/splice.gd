@@ -8,6 +8,7 @@ var look_at_player: bool = false
 
 
 func _ready() -> void:
+	color = Color.DARK_ORANGE
 	hp = 200
 	scrap = 200
 	$hp.text = str(hp)

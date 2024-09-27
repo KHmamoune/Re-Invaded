@@ -136,7 +136,7 @@ class MapData:
 	func setup_rooms() -> void:
 		for room: Room in map_data[0]:
 			if room.next_rooms.size() > 0:
-				room.type = Type.RESOURCE #change this to change starting rooms type
+				room.type = Type.BOSS #change this to change starting rooms type
 				
 		for room: Room in map_data[FLOOR_COUNT - 2]:
 			if room.next_rooms.size() > 0:
@@ -212,5 +212,3 @@ class MapData:
 			for j in range(ROOM_COUNT):
 				floor_rooms.append(Room.new(j, i))
 			map_data.append(floor_rooms)
-
-

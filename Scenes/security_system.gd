@@ -187,6 +187,7 @@ func boss_at3() -> void:
 		{"delay": 1, "value": Vector2(randi_range(0, 150), randi_range(-50, 50)), "dur": 0.5},
 		{"delay": 1, "value": Vector2(600, 0), "dur": 0.5},
 	])
+	drone1.set_after_image(0.1, 0.02)
 	
 	drone1.play(self)
 	
@@ -295,4 +296,3 @@ func hit_flash() -> void:
 
 func update_status_bar() -> void:
 	$StatusEffectsBar.update_status_effects(status_effects)
-

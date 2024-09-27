@@ -12,6 +12,9 @@ func _ready() -> void:
 	$Timer.wait_time = time
 	$Timer.start()
 	
+	if after_image_interval > 0:
+		play_after_image()
+	
 	if target != null:
 		rotation_degrees = aim()
 	

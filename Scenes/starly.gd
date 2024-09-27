@@ -9,6 +9,7 @@ var spining: bool = false
 
 
 func _ready() -> void:
+	color = Color.WEB_GRAY
 	hp = 200
 	scrap = 200
 	$hp.text = str(hp)
