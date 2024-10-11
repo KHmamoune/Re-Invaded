@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://ehbe7cigucym"]
+
+[ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Images/Other/place_holder_card.png" id="1_gu4wr"]
+[ext_resource type="Script" path="res://Scenes/dialogue_ui.gd" id="1_yf8wm"]
+
+[node name="DialogueUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yf8wm")
+
+[node name="dialogueup" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 200.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="dialogueup"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="dialogueup/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("1_gu4wr")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="dialogueup/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "placeholder"
+
+[node name="dialoguedown" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="dialoguedown"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="dialoguedown/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "placeholder"
+
+[node name="TextureRect" type="TextureRect" parent="dialoguedown/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("1_gu4wr")
+expand_mode = 1

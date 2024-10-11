@@ -131,6 +131,7 @@ class AttackPattren:
 	var animation_speed: float = 0
 	var bullet_sprite_size: Vector2 = Vector2(0.3, 0.175)
 	var bullet_hitbox_size: Vector2 = Vector2(0.3, 0.175)
+	var bullet_color: Color = Color.WHITE
 	var marker_type: String = ""
 	var marker_duration: float =  0
 	var after_image_delay: float = 0
@@ -243,6 +244,7 @@ class AttackPattren:
 		bullet.anm_speed = animation_speed
 		bullet.sprite_size = bullet_sprite_size
 		bullet.hitbox_size = bullet_hitbox_size
+		bullet.bullet_color = bullet_color
 		
 		bullet.look = look
 		
@@ -360,9 +362,17 @@ class AttackPattren:
 		marker_type = type
 		marker_duration = time
 	
-	func set_after_image(aid, aii):
+	func set_after_image(aid: float, aii: float) -> void:
 		after_image_delay = aid
 		after_image_interval = aii
+	
+	func set_sprite_preset(preset: Dictionary, color: Color) -> void:
+		bullet_sprite = preset["sprite"]
+		animation_frames = preset["frames"]
+		animation_speed = preset["anm_speed"]
+		bullet_sprite_size = preset["scale"]
+		bullet_hitbox_size = preset["hitbox_scale"]
+		bullet_color = color
 	
 	func get_position(j: int) -> Vector2:
 		if len(fire_positions) > 1:

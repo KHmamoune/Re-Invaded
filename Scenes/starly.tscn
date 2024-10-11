@@ -115,7 +115,7 @@ _data = {
 [node name="Starly" type="Area2D"]
 z_index = 20
 collision_layer = 2
-collision_mask = 5
+collision_mask = 4
 script = ExtResource("1_86h42")
 
 [node name="Sprite" type="Node2D" parent="."]
@@ -143,6 +143,9 @@ shape = SubResource("CircleShape2D_51i3q")
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="AfterImageTimer" type="Timer" parent="."]
+wait_time = 0.05
+
 [node name="hp" type="Label" parent="."]
 offset_left = -20.0
 offset_top = 32.0
@@ -168,3 +171,4 @@ default_color = Color(0.808267, 0, 0.151515, 1)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="AfterImageTimer" to="." method="_on_after_image_timer_timeout"]

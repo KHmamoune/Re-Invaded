@@ -108,7 +108,7 @@ expand_mode = 1
 
 [node name="PauseScreen" type="CanvasLayer" parent="."]
 process_mode = 3
-layer = 5
+layer = 30
 visible = false
 
 [node name="PauseMenu" parent="PauseScreen" instance=ExtResource("1_c6vdv")]

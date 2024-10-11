@@ -45,8 +45,8 @@ func _on_charge_timer_timeout() -> void:
 	$ChargeTimer.start(randf_range(2.0, 4.0))
 
 
-func flash(color: Color, mod: float) -> void:
-	$Sprite2D.material.set_shader_parameter("flash_color", color)
+func flash(flash_color: Color, mod: float) -> void:
+	$Sprite2D.material.set_shader_parameter("flash_color", flash_color)
 	$Sprite2D.material.set_shader_parameter("flash_modifier", mod)
 
 

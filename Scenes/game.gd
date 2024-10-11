@@ -19,6 +19,7 @@ var victory_canvas: CanvasLayer = CanvasLayer.new()
 var map_canvas: CanvasLayer = CanvasLayer.new()
 var rest_canvas: CanvasLayer = CanvasLayer.new()
 var deck_canvas: CanvasLayer = CanvasLayer.new()
+var dialogue_canvas: CanvasLayer = CanvasLayer.new()
 var enemies_dead: bool = false
 var prev_state: String
 var prev_focus: Node
@@ -39,17 +40,6 @@ func _ready() -> void:
 			for card: Card.CardStats in gv.blue_cards:
 				gv.cards.append(card)
 			player.add_modifier(gv.blue_modifier1)
-			player.add_modifier(gv.orange_modifier1)
-			player.add_modifier(gv.red_modifier1)
-			player.add_modifier(gv.green_modifier1)
-			player.add_modifier(gv.yellow_modifier1)
-			player.add_modifier(gv.violet_modifier1)
-			player.add_modifier(gv.blue_modifier1)
-			player.add_modifier(gv.orange_modifier1)
-			player.add_modifier(gv.red_modifier1)
-			player.add_modifier(gv.green_modifier1)
-			player.add_modifier(gv.yellow_modifier1)
-			player.add_modifier(gv.violet_modifier1)
 		"orange":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_orange.png")
 			for card: Card.CardStats in gv.orange_cards:
@@ -209,6 +199,10 @@ func _on_pick_card(card: Node) -> void:
 	deck_screen.update(player.full_deck, player.modifiers)
 	await get_tree().create_timer(0.1).timeout
 	player.state = "post_combat"
+	
+	if gv.current_room_type == Map.Type.BOSS:
+		player.state = "in_dialogue"
+		play_cutscene()
 
 
 func _on_pick_modifier(modifier: Node) -> void:
@@ -260,6 +254,24 @@ func _on_healed_player(price: int) -> void:
 		update_scrap(price, "decrement")
 		player.hp += 1
 		player.emit_signal("update_ui")
+
+
+func _on_dialogue_end():
+	player.state = "post_combat"
+
+
+func play_cutscene() -> void:
+	match gv.act:
+		1:
+			play_dialogue(gv.story_script["code_" + gv.player_color]["security_system_defeat"])
+
+
+func play_dialogue(script: Array) -> void:
+	var dialogue_screen: Node = preload("res://Scenes/dialogue_ui.tscn").instantiate()
+	dialogue_screen.dialogue_script = script
+	dialogue_screen.connect("dialogue_done", _on_dialogue_end)
+	dialogue_canvas.add_child(dialogue_screen)
+	add_child(dialogue_canvas)
 
 
 func spawn_enemies() -> void:
@@ -401,6 +413,10 @@ func _on_time_timeout() -> void:
 
 
 func play_trans_start() -> void:
+	#remove all of the player status effects
+	player.status_effects = {}
+	player.update_status_bar()
+	#play the blast off animation
 	player.state = "cutscene"
 	Audio.play_sfx(Audio.sfx_blast_off)
 	var tween: Tween = create_tween()

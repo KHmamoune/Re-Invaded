@@ -21,6 +21,7 @@ var sprite_size: Vector2
 var hitbox_size: Vector2
 var anm_speed: float
 var frames: int
+var bullet_color: Color
 var look: String
 var sprite: Texture
 var wait_time: float = 0
@@ -100,16 +101,17 @@ func execute_position_tweens() -> void:
 			t.tween_property(self, "position:y", position.y + tween["value"].y, tween["dur"]).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		await t.finished
 
-func play_after_image():
+func play_after_image() -> void:
 	$AfterImageTimer.wait_time = after_image_interval
 	await get_tree().create_timer(after_image_delay).timeout
 	$AfterImageTimer.start()
 
-func _on_after_image_timer_timeout():
+func _on_after_image_timer_timeout() -> void:
 	var after_image_instance: Node = preload("res://Scenes/after_image.tscn").instantiate()
 	after_image_instance.get_node("Sprite2D").texture = $Sprite2D.texture
 	after_image_instance.get_node("Sprite2D").hframes = $Sprite2D.hframes
 	after_image_instance.scale = $Sprite2D.scale
 	after_image_instance.rotation = rotation
 	after_image_instance.global_position = global_position
+	after_image_instance.get_node("Sprite2D").modulate = bullet_color
 	get_parent().add_child(after_image_instance)

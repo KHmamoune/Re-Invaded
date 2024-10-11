@@ -13,6 +13,7 @@ func _ready() -> void:
 	hp = 200
 	scrap = 200
 	$hp.text = str(hp)
+	play_after_image()
 
 
 func _process(_delta: float) -> void:
@@ -48,6 +49,8 @@ func boss_at1() -> void:
 	attack.set_tweens([], [{"delay": 0, "value": 50, "dur": 0.1}, {"delay": 0.6, "value": 500, "dur": 0.5}])
 	attack.set_tweens([], [{"delay": 0, "value": 50, "dur": 0.1}, {"delay": 0.6, "value": 500, "dur": 0.5}])
 	attack.set_change_values([-15, -15, -15, -15, -15])
+	attack.set_sprite_preset(gv.bullet2_preset, Color.WEB_GREEN)
+	attack.set_after_image(0.6, 0.05)
 	
 	spining = true
 	var pos_tween: Tween = create_tween()
@@ -129,3 +132,25 @@ func _on_move_timer_timeout() -> void:
 
 func update_status_bar() -> void:
 	$StatusEffectsBar.update_status_effects(status_effects)
+
+func play_after_image() -> void:
+	$AfterImageTimer.start()
+
+func stop_after_image() -> void:
+	$AfterImageTimer.stop()
+
+func _on_after_image_timer_timeout() -> void:
+	var after_image_instance: Node = preload("res://Scenes/after_image.tscn").instantiate()
+	var after_image_instance1: Node = preload("res://Scenes/after_image.tscn").instantiate()
+	after_image_instance.get_node("Sprite2D").texture = $Sprite/Sprite2D.texture
+	after_image_instance.get_node("Sprite2D").hframes = $Sprite/Sprite2D.hframes
+	after_image_instance.scale = $Sprite/Sprite2D.scale
+	after_image_instance.rotation = $Sprite.rotation
+	after_image_instance.global_position = global_position
+	after_image_instance1.get_node("Sprite2D").texture = $Sprite/Sprite2D2.texture
+	after_image_instance1.get_node("Sprite2D").hframes = $Sprite/Sprite2D2.hframes
+	after_image_instance1.scale = $Sprite/Sprite2D2.scale
+	after_image_instance1.rotation = $Sprite.rotation
+	after_image_instance1.global_position = global_position
+	get_parent().add_child(after_image_instance)
+	get_parent().add_child(after_image_instance1)

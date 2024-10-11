@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+gdt="*res://Scripts/Game_Data.gd"
 Battle="*res://Scripts/Battle.gd"
 Audio="*res://Scripts/Audio.gd"
 Card="*res://Scripts/Card.gd"
@@ -27,6 +28,8 @@ gv="*res://Scripts/Global_Variables.gd"
 
 [debug]
 
+gdscript/warnings/unassigned_variable=0
+gdscript/warnings/unused_signal=0
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/integer_division=0
 

@@ -8,6 +8,7 @@ var is_dead: bool = false
 var scrap: int
 var status_effects: Dictionary = {}
 var color: Color = Color.WHITE
+var type: String = "enemy"
 
 
 @onready var drone: PackedScene = preload("res://Scenes/drone.tscn")
@@ -65,7 +66,7 @@ func take_damage(dmg: int) -> void:
 		queue_free()
 
 
-func play_death_effect():
+func play_death_effect() -> void:
 	var death_effect: Node = preload("res://Scenes/death_effect.tscn").instantiate()
 	death_effect.get_node("CPUParticles2D").color = color
 	death_effect.global_position = global_position

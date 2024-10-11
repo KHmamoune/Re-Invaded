@@ -1,0 +1,307 @@
+{
+	"code_blue": {
+		"security_system_defeat": [
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "the security system has been eliminated, awaiting next order",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "...commander?",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "this wasn't supposed to happen this early",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "i have a bad feeling about this",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "but the mission always comes first",
+				"side": "down"
+			},
+		]
+	},
+	
+	"code_orange": {
+		"security_system_defeat": [
+			{
+				"speaker": "code orange",
+				"color": "orange",
+				"text": "target eliminated, proceeding with the mission",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code orange",
+				"color": "orange",
+				"text": "as unreliable as always",
+				"side": "down"
+			},
+			{
+				"speaker": "code orange",
+				"color": "orange",
+				"text": "i guess i still have no choice but to keep going",
+				"side": "down"
+			},
+			{
+				"speaker": "code orange",
+				"color": "orange",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code orange",
+				"color": "orange",
+				"text": "losing comunication this early is still unatural though",
+				"side": "down"
+			},
+		]
+	},
+	
+	"code_red": {
+		"security_system_defeat": [
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "the security system has been eliminated, awaiting next order",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "...commander?",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "this wasn't supposed to happen this early",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "i have a bad feeling about this",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "but the mission always comes first",
+				"side": "down"
+			},
+		]
+	},
+	
+	"code_green": {
+		"security_system_defeat": [
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "the security system has been eliminated, awaiting next order",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "...commander?",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "this wasn't supposed to happen this early",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "i have a bad feeling about this",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "but the mission always comes first",
+				"side": "down"
+			},
+		]
+	},
+	
+	"code_yellow": {
+		"security_system_defeat": [
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "the security system has been eliminated, awaiting next order",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "...commander?",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "this wasn't supposed to happen this early",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "i have a bad feeling about this",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "but the mission always comes first",
+				"side": "down"
+			},
+		]
+	},
+	
+	"code_violet": {
+		"security_system_defeat": [
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "the security system has been eliminated, awaiting next order",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "...commander?",
+				"side": "down"
+			},
+			{
+				"speaker": "commander",
+				"color": "gray",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "this wasn't supposed to happen this early",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "...",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "i have a bad feeling about this",
+				"side": "down"
+			},
+			{
+				"speaker": "code blue",
+				"color": "blue",
+				"text": "but the mission always comes first",
+				"side": "down"
+			},
+		]
+	}
+}

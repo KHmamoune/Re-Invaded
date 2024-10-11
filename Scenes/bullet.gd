@@ -9,6 +9,7 @@ func _ready() -> void:
 	$Hitbox.scale = hitbox_size
 	$Sprite2D.hframes = frames
 	$Sprite2D.texture = sprite
+	$Sprite2D.modulate = bullet_color
 	
 	if after_image_interval > 0:
 		play_after_image()

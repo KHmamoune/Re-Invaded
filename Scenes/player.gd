@@ -13,8 +13,8 @@ var state: String = "post_combat"
 var on_cooldown: bool = false
 var can_dash: bool = true
 var dashing: bool = false
-var max_hp: int = 5
-var hp: int = 5
+var max_hp: int = 200
+var hp: int = 200
 var direction: Vector2 = Vector2.ZERO
 var is_dead: bool = false
 var energy: float = 0
@@ -210,7 +210,7 @@ func add_modifier(modifier: Modifiers.Modifier) -> void:
 func _on_dash_timer_timeout() -> void:
 	dashing = false
 	speed = default_speed
-	await get_tree().create_timer(0.05).timeoutzzz
+	await get_tree().create_timer(0.05).timeout
 	$Hurtbox.disabled = false
 	%AfterImageTimer.stop()
 
@@ -264,10 +264,12 @@ func update_status_bar() -> void:
 func _on_area_entered(area: Node) -> void:
 	hurt = true
 	lose_health()
-	area.queue_free()
+	#if the attacker is not an enemy free it
+	if area.type != "enemy":
+		area.queue_free()
 
-
-func _on_after_image_timer_timeout():
+#every time the after image timer timesout we add a new after image
+func _on_after_image_timer_timeout() -> void:
 	var after_image_instance: Node = preload("res://Scenes/after_image.tscn").instantiate()
 	after_image_instance.get_node("Sprite2D").texture = $Sprite2D.texture
 	after_image_instance.get_node("Sprite2D").hframes = $Sprite2D.hframes
