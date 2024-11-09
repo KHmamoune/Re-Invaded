@@ -73,17 +73,20 @@ script = ExtResource("1_bl1vg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="BGC" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+self_modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0701524, 0.0701524, 0.0701524, 1)
-metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+[node name="BG1" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
 modulate = Color(0.534361, 0.534361, 0.534361, 1)
+self_modulate = Color(0, 0, 0, 1)
 material = SubResource("ShaderMaterial_dwh1b")
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,7 +96,9 @@ grow_vertical = 2
 texture = ExtResource("3_22mxn")
 stretch_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
+[node name="BG2" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+self_modulate = Color(0, 0, 0, 1)
 material = SubResource("ShaderMaterial_r146n")
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,28 +116,61 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="main" type="VBoxContainer" parent="CanvasLayer/Menus"]
+[node name="Title" type="Label" parent="CanvasLayer/Menus"]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.0
+offset_top = -99.5
+offset_right = 249.0
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 110
+text = "Re-Invaded"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartText" type="Label" parent="CanvasLayer/Menus"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.5
+offset_top = 15.0
+offset_right = 176.5
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.394353, 0.394353, 0.394353, 1)
+theme_override_font_sizes/font_size = 32
+text = "Press 'Z' to start"
+horizontal_alignment = 1
+
+[node name="MenuButtons" type="VBoxContainer" parent="CanvasLayer/Menus"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_top = 287.2
+offset_right = 1152.0
+offset_bottom = 411.2
 mouse_filter = 0
 
-[node name="texture" type="Sprite2D" parent="CanvasLayer/Menus/main"]
+[node name="texture" type="Sprite2D" parent="CanvasLayer/Menus/MenuButtons"]
 unique_name_in_owner = true
-position = Vector2(578.5, 132)
+modulate = Color(0, 0, 1, 1)
+position = Vector2(578.5, 14)
 texture = ExtResource("2_xfab1")
 
-[node name="Label" type="Label" parent="CanvasLayer/Menus/main"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 85
-text = "Re-Invaded"
-
-[node name="Play" type="Button" parent="CanvasLayer/Menus/main"]
+[node name="Play" type="Button" parent="CanvasLayer/Menus/MenuButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
@@ -140,6 +178,7 @@ focus_neighbor_left = NodePath("../Quit")
 focus_neighbor_top = NodePath("../Quit")
 focus_neighbor_right = NodePath("../Options")
 focus_neighbor_bottom = NodePath("../Options")
+theme_override_font_sizes/font_size = 28
 theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
@@ -147,13 +186,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
 button_mask = 0
 text = "Start Game"
 
-[node name="Options" type="Button" parent="CanvasLayer/Menus/main"]
+[node name="Options" type="Button" parent="CanvasLayer/Menus/MenuButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../Play")
 focus_neighbor_top = NodePath("../Play")
 focus_neighbor_right = NodePath("../Extras")
 focus_neighbor_bottom = NodePath("../Extras")
+theme_override_font_sizes/font_size = 28
 theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
@@ -161,13 +201,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
 button_mask = 0
 text = "Options"
 
-[node name="Extras" type="Button" parent="CanvasLayer/Menus/main"]
+[node name="Extras" type="Button" parent="CanvasLayer/Menus/MenuButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../Options")
 focus_neighbor_top = NodePath("../Options")
 focus_neighbor_right = NodePath("../Quit")
 focus_neighbor_bottom = NodePath("../Quit")
+theme_override_font_sizes/font_size = 28
 theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
@@ -175,13 +216,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_j3lw3")
 button_mask = 0
 text = "Extras"
 
-[node name="Quit" type="Button" parent="CanvasLayer/Menus/main"]
+[node name="Quit" type="Button" parent="CanvasLayer/Menus/MenuButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../Extras")
 focus_neighbor_top = NodePath("../Extras")
 focus_neighbor_right = NodePath("../Play")
 focus_neighbor_bottom = NodePath("../Play")
+theme_override_font_sizes/font_size = 28
 theme_override_styles/focus = SubResource("StyleBoxFlat_hpm3u")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ail3y")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_fd7lp")
@@ -211,13 +253,13 @@ libraries = {
 "": SubResource("AnimationLibrary_eu85h")
 }
 
-[connection signal="focus_entered" from="CanvasLayer/Menus/main/Play" to="." method="_on_play_focus_entered"]
-[connection signal="pressed" from="CanvasLayer/Menus/main/Play" to="." method="_on_play_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/Menus/main/Options" to="." method="_on_options_focus_entered"]
-[connection signal="pressed" from="CanvasLayer/Menus/main/Options" to="." method="_on_quit_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/Menus/main/Extras" to="." method="_on_extras_focus_entered"]
-[connection signal="pressed" from="CanvasLayer/Menus/main/Extras" to="." method="_on_quit_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/Menus/main/Quit" to="." method="_on_quit_focus_entered"]
-[connection signal="pressed" from="CanvasLayer/Menus/main/Quit" to="." method="_on_quit_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menus/MenuButtons/Play" to="." method="_on_play_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/Menus/MenuButtons/Play" to="." method="_on_play_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menus/MenuButtons/Options" to="." method="_on_options_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/Menus/MenuButtons/Options" to="." method="_on_quit_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menus/MenuButtons/Extras" to="." method="_on_extras_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/Menus/MenuButtons/Extras" to="." method="_on_quit_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Menus/MenuButtons/Quit" to="." method="_on_quit_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/Menus/MenuButtons/Quit" to="." method="_on_quit_pressed"]
 [connection signal="move_main" from="CanvasLayer/Menus/PlayerSelect" to="." method="_on_player_select_move_main"]
 [connection signal="player_selected" from="CanvasLayer/Menus/PlayerSelect" to="." method="_on_player_select_player_selected"]

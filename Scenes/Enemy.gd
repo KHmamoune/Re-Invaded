@@ -38,6 +38,8 @@ func _on_area_entered(area: Node) -> void:
 
 func shoot(bul: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
 	bul.set_collision_layer_value(5, true)
+	
+	#if there is an indicator before the attack we set its values
 	if bul.wait_time > 0:
 		var indicator: Node = preload("res://Scenes/indicator.tscn").instantiate()
 		indicator.time = bul.wait_time
@@ -46,6 +48,10 @@ func shoot(bul: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> vo
 		indicator.position = bul.position
 		get_parent().add_child(indicator)
 		await get_tree().create_timer(bul.wait_time).timeout
+	
+	if "bullet_speed_boost" in status_effects:
+		if status_effects["bullet_speed_boost"] == 1:
+			bul.speed += 200
 	
 	Audio.play_sfx(sfx)
 	bul.z_index = -1

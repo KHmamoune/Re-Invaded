@@ -181,7 +181,8 @@ text = "Code Color:"
 [node name="Label2" type="Label" parent="MarginContainer/characterInfo/HBoxContainer/VBoxContainer/description"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "a figther specialized with rapid fire weaponry and enhancment technology."
+theme_override_font_sizes/font_size = 20
+text = "a fighter specialized with rapid fire weaponry and enhancment technology."
 autowrap_mode = 2
 
 [node name="stats" type="VBoxContainer" parent="MarginContainer/characterInfo/HBoxContainer/VBoxContainer"]

@@ -32,6 +32,7 @@ var radar: PackedScene = preload("res://Scenes/radar.tscn")
 var splice: PackedScene = preload("res://Scenes/splice.tscn")
 var starly: PackedScene = preload("res://Scenes/starly.tscn")
 var security_system: PackedScene = preload("res://Scenes/security_system.tscn")
+var code_boss: PackedScene = preload("res://Scenes/code_boss.tscn")
 
 #enemy maps and such
 #syntax: Battle.EnemyMap.new([{"enemy": *enemy*}], ["enemy_position"])
@@ -60,7 +61,8 @@ var mini_map3: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": splice }, { "en
 var mini_maps: Array = [mini_map1]
 
 var boss_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": security_system }], [Vector2(350, 120)])
-var boss_maps: Array = [boss_map1]
+var boss_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_boss }], [Vector2(350, 50)])
+var boss_maps: Array = [boss_map2]
 
 var res_map1: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": scrap_pile }, 

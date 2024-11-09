@@ -174,3 +174,13 @@ func apply_fragile(target: Node, stack: int) -> void:
 func dispel_fragile(target: Node) -> void:
 	target.status_effects["fragile"] = 0
 	target.update_status_bar()
+
+
+func apply_bullet_speed_boost(target: Node):
+	target.status_effects["bullet_speed_boost"] = 1
+	target.update_status_bar()
+
+
+func dispel_bullet_speed_boost(target: Node):
+	target.status_effects["bullet_speed_boost"] = 0
+	target.update_status_bar()

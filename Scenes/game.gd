@@ -256,7 +256,7 @@ func _on_healed_player(price: int) -> void:
 		player.emit_signal("update_ui")
 
 
-func _on_dialogue_end():
+func _on_dialogue_end() -> void:
 	player.state = "post_combat"
 
 

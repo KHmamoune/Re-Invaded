@@ -38,6 +38,10 @@ gdscript/warnings/integer_division=0
 window/size/mode=3
 window/stretch/mode="canvas_items"
 
+[gui]
+
+theme/custom_font="res://Fonts/disposable-droid-bb-font/DisposabledroidbbBold-6j7D.otf"
+
 [input]
 
 ui_accept={
