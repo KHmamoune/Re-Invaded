@@ -1,13 +1,8 @@
-extends Area2D
+extends Projectile
 
 
-var damage: int = 1
-var bouncy: bool = false
-var target: Node = null
 var type: String = "laser"
-var angle_tweens: Array = []
 var duration: float = 1
-var follow_player: bool
 
 
 func _ready() -> void:

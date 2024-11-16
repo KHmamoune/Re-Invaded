@@ -63,10 +63,10 @@ func _on_area_entered(area: Node) -> void:
 func explode() -> void:
 	if !is_dead:
 		is_dead = true
-		Audio.play_sfx(Audio.sfx_explosion)
 		explosion.rad = rad
 		explosion.position = position
 		explosion.damage = explosion_damage
+		explosion.set_collision_layer_value(5, true)
 		gv.current_scene.call_deferred("add_child", explosion)
 
 

@@ -1,16 +1,14 @@
-extends Area2D
+extends Projectile
 
-var damage: int = 10
 var type: String = "explosion"
 var rad: Vector2 = Vector2(1, 1)
-var on_hit_effects: Array = []
-var piercing: bool = true
 
 
 func _ready() -> void:
 	$Sprite2D.scale = rad
 	$HitBox.scale = rad
 	$Animations.play("explode")
+	Audio.play_sfx(Audio.sfx_explosion)
 	
 	for i in get_overlapping_areas():
 		if i.has_method("take_damage"):

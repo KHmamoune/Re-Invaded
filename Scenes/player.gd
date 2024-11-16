@@ -66,7 +66,7 @@ func _process(delta: float) -> void:
 			enemy.take_damage(1000000)
 	
 	if energy < 5:
-		energy += 0.01 * gen_modifier
+		energy += (0.5 * gen_modifier) * delta
 	
 	if state == "combat" or state == "post_combat":
 		direction = Vector2(Input.get_axis("move_left", "move_right"), 0.0)
@@ -265,7 +265,7 @@ func _on_area_entered(area: Node) -> void:
 	hurt = true
 	lose_health()
 	#if the attacker is not an enemy free it
-	if area.type != "enemy":
+	if area.type != "enemy" and area.type != "drone" and area.type != "laser" and area.type != "explosion":
 		area.queue_free()
 
 #every time the after image timer timesout we add a new after image

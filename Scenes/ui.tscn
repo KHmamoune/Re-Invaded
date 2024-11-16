@@ -66,6 +66,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 24
 text = "en / maxEn"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -75,11 +76,13 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Life    "
 
 [node name="HpValue" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "hp/maxhp"
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
@@ -106,6 +109,7 @@ layout_mode = 2
 
 [node name="Time" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "00 : 00 : 00"
 horizontal_alignment = 1
 
@@ -121,6 +125,7 @@ expand_mode = 3
 [node name="Scrap" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "0"
 
 [node name="Modifiers_ui" parent="MarginContainer2/MarginContainer/VBoxContainer" instance=ExtResource("3_45blw")]

@@ -32,7 +32,9 @@ var radar: PackedScene = preload("res://Scenes/radar.tscn")
 var splice: PackedScene = preload("res://Scenes/splice.tscn")
 var starly: PackedScene = preload("res://Scenes/starly.tscn")
 var security_system: PackedScene = preload("res://Scenes/security_system.tscn")
-var code_boss: PackedScene = preload("res://Scenes/code_boss.tscn")
+var code_blue_boss: PackedScene = preload("res://Scenes/code_blue_boss.tscn")
+var code_orange_boss: PackedScene = preload("res://Scenes/code_orange_boss.tscn")
+var code_red_boss: PackedScene = preload("res://Scenes/code_red_boss.tscn")
 
 #enemy maps and such
 #syntax: Battle.EnemyMap.new([{"enemy": *enemy*}], ["enemy_position"])
@@ -61,8 +63,10 @@ var mini_map3: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": splice }, { "en
 var mini_maps: Array = [mini_map1]
 
 var boss_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": security_system }], [Vector2(350, 120)])
-var boss_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_boss }], [Vector2(350, 50)])
-var boss_maps: Array = [boss_map2]
+var boss_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_blue_boss }], [Vector2(350, 50)])
+var boss_map3: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_orange_boss }], [Vector2(350, 50)])
+var boss_map4: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_red_boss }], [Vector2(350, 50)])
+var boss_maps: Array = [boss_map4]
 
 var res_map1: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": scrap_pile }, 
@@ -89,6 +93,7 @@ var res_maps: Array = [res_map1, res_map2, res_map3]
 var bullet: PackedScene = preload("res://Scenes/bullet.tscn")
 var laser: PackedScene = preload("res://Scenes/laser.tscn")
 var bomb: PackedScene = preload("res://Scenes/bomb.tscn")
+var explosion: PackedScene = preload("res://Scenes/explosion.tscn")
 var sheild: PackedScene = preload("res://Scenes/sheild.tscn")
 var drone: PackedScene = preload("res://Scenes/drone.tscn")
 

@@ -49,11 +49,15 @@ func _process(delta: float) -> void:
 			rotation_degrees = -rotation_degrees
 	
 	if traveled > move_range:
-		queue_free()
+		var t = create_tween()
+		t.tween_property(self, "modulate:a", 0, 0.2)
+		t.tween_callback(Callable(queue_free))
 
 
 func _on_attack_delay_timeout() -> void:
 	attack[1].play(self)
+	if attack[2]:
+		queue_free()
 
 
 func _on_area_entered(area: Node) -> void:

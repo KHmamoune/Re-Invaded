@@ -32,6 +32,7 @@ expand_mode = 1
 [node name="Label" type="Label" parent="dialogueup/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 32
 text = "placeholder"
 
 [node name="dialoguedown" type="PanelContainer" parent="."]
@@ -52,6 +53,7 @@ alignment = 2
 [node name="Label" type="Label" parent="dialoguedown/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 32
 text = "placeholder"
 
 [node name="TextureRect" type="TextureRect" parent="dialoguedown/HBoxContainer"]

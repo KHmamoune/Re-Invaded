@@ -32,7 +32,7 @@ func _on_area_entered(area: Node) -> void:
 		if area.type == "bomb":
 			area.explode()
 		
-		if area.type != "drone" and not area.piercing:
+		if area.type != "drone" and area.type != "laser" and area.type != "explosion" and not area.piercing:
 			area.queue_free()
 
 

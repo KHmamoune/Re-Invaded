@@ -342,8 +342,8 @@ class AttackPattren:
 			return nearest
 		return null
 	
-	func set_attack(delay: float, attack: Card.AttackPattren) -> void:
-		bullet_attack = [delay, attack]
+	func set_attack(delay: float, attack: Card.AttackPattren, free: bool = false) -> void:
+		bullet_attack = [delay, attack, free]
 	
 	func set_abs_position(pos: Array) -> void:
 		abs_position = pos

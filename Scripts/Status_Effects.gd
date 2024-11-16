@@ -184,3 +184,18 @@ func apply_bullet_speed_boost(target: Node):
 func dispel_bullet_speed_boost(target: Node):
 	target.status_effects["bullet_speed_boost"] = 0
 	target.update_status_bar()
+
+
+func apply_self_repair(target: Node, duration: float, amount: int) -> void:
+	var heal_timer:Timer = Timer.new()
+	heal_timer.wait_time = duration
+	heal_timer.timeout.connect(self_repair.bind(target, amount))
+	heal_timer.name = "heal_timer"
+	target.add_child(heal_timer)
+	heal_timer.start()
+
+
+func self_repair(target: Node, amount: int):
+	print("healed")
+	if target.has_method("take_damage"):
+		target.take_damage(amount)
