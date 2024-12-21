@@ -107,19 +107,24 @@ func _process(delta: float) -> void:
 		shuffle_deck()
 
 
-func shoot(bullet: Node, seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
+func shoot(bullet: Node, seconds: float) -> void:
 	if is_dead:
 		return
 	
-	bullet.set_collision_layer_value(3, true)
+	match bullet.type:
+		"bullet":
+			bullet.set_collision_layer_value(3, true)
+		"shield":
+			bullet.set_collision_layer_value(4, true)
+			bullet.set_collision_mask_value(5, true)
 	
 	if status_effects.has("reinforce"):
 		bullet.damage += status_effects["reinforce"]
 	
-	Audio.play_sfx(sfx)
+	Audio.play_sfx(bullet.sound_effect)
 	if bullet.follow_player:
 		bullet.position = Vector2.ZERO
-		if !bullet.type == "sheild":
+		if !bullet.type == "shield":
 			bullet.z_index = -1
 		add_child(bullet)
 	else:

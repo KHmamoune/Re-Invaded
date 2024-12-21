@@ -6,11 +6,8 @@ extends Enemy
 @onready var bomb: PackedScene = preload("res://Scenes/bomb.tscn")
 var awake: bool = false
 var attacks: Array = [boss_at3]
-var spining: bool = false
 var passive_attack: Card.AttackPattren
 var follow: bool = false
-var bullet_speed_applied: bool = false
-var self_repair_applied: bool = false
 
 
 func _ready() -> void:
@@ -41,14 +38,6 @@ func _on_shoot_timer_timeout() -> void:
 	$PassiveTimer.stop()
 	$ShootTimer.stop()
 	await get_tree().create_timer(0.1).timeout
-	
-	if hp <= 500 and !bullet_speed_applied:
-		boss_at5()
-		bullet_speed_applied = true
-	
-	if hp <= 200 and !self_repair_applied:
-		boss_at6()
-		self_repair_applied = true
 	
 	await attacks[randi_range(0, len(attacks)-1)].call()
 	

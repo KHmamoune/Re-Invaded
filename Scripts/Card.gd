@@ -101,7 +101,7 @@ class AttackPattren:
 	var bullet_range: float
 	var bullet_damage: int
 	var bullet_type: PackedScene
-	var sound_effect: AudioStream
+	var sound_effect: AudioStream = Audio.sfx_shoot
 	var change_angle_by: Array = []
 	var change_speed_by: Array = []
 	var change_position_by: Array = []
@@ -109,6 +109,7 @@ class AttackPattren:
 	var move_speed_to: Array = []
 	var move_position_to: Array = []
 	var move_size_to: Array = []
+	var additive_tweens: bool = false
 	var bounce: bool = false
 	var on_hit_effects: Array = []
 	var random_range: float = 0
@@ -124,8 +125,11 @@ class AttackPattren:
 	var pierce: bool = false
 	var shield_time: float = 0
 	var shield_scale: Vector2 = Vector2(1, 1)
+	var shield_reflect: bool = false
 	var drone_time: float = 0
 	var look: String = ""
+	var look_delay: float = 0
+	var look_duration: float = 0
 	var bullet_sprite: Texture = preload("res://Images/Bullets/Bullet.png")
 	var animation_frames: int = 1
 	var animation_speed: float = 0
@@ -161,10 +165,10 @@ class AttackPattren:
 							var bomb: Node = set_stats(j, i, pl)
 							set_bomb_stats(bomb)
 							pl.shoot(bomb, fire_delay * float(fire_amount))
-						elif bullet_type == preload("res://Scenes/sheild.tscn"):
-							var sheild: Node = set_stats(j, i, pl)
-							set_sheild_stats(sheild)
-							pl.shoot(sheild, fire_delay * float(fire_amount))
+						elif bullet_type == preload("res://Scenes/shield.tscn"):
+							var shield: Node = set_stats(j, i, pl)
+							set_shield_stats(shield)
+							pl.shoot(shield, fire_delay * float(fire_amount))
 						elif bullet_type == preload("res://Scenes/drone.tscn"):
 							var drone: Node = set_stats(j, i, pl)
 							set_drone_stats(drone)
@@ -239,6 +243,8 @@ class AttackPattren:
 		if len(bullet_attack) > 0:
 			bullet.attack = bullet_attack
 		
+		bullet.additive = additive_tweens
+		
 		bullet.sprite = bullet_sprite
 		bullet.frames = animation_frames
 		bullet.anm_speed = animation_speed
@@ -247,6 +253,8 @@ class AttackPattren:
 		bullet.bullet_color = bullet_color
 		
 		bullet.look = look
+		bullet.look_delay = look_delay
+		bullet.look_duration = look_duration
 		
 		if marker_type != "":
 			bullet.marker_type = marker_type
@@ -254,6 +262,8 @@ class AttackPattren:
 		
 		bullet.after_image_delay = after_image_delay
 		bullet.after_image_interval = after_image_interval
+		
+		bullet.sound_effect = sound_effect
 		
 		return bullet
 	
@@ -277,9 +287,10 @@ class AttackPattren:
 		bomb.explosion_damage = explosion_damage
 		bomb.rad = explosion_radius
 	
-	func set_sheild_stats(shield: Node) -> void:
+	func set_shield_stats(shield: Node) -> void:
 		shield.time = shield_time
 		shield.size = shield_scale
+		shield.reflect = shield_reflect
 	
 	func set_drone_stats(drone: Node) -> void:
 		drone.time = drone_time
@@ -292,9 +303,10 @@ class AttackPattren:
 		explosion_radius = radius
 		explosion_damage = damage
 	
-	func set_sheild_properties(time: float = 1, size: Vector2 = Vector2(1, 1)) -> void:
+	func set_shield_properties(time: float = 1, size: Vector2 = Vector2(1, 1), reflect: bool = false) -> void:
 		shield_time = time
 		shield_scale = size
+		shield_reflect = reflect
 	
 	func set_drone_properties(time: float) -> void:
 		drone_time = time
@@ -315,10 +327,12 @@ class AttackPattren:
 		else:
 			random_range = fire_range
 	
-	func set_look(target: String) -> void:
+	func set_look(target: String, delay: float = 0, duration: float = 0) -> void:
 		look = target
+		look_delay = delay
+		look_duration = duration
 	
-	func set_tweens(mat: Array = [], mst: Array = [], mpt: Array = [], msit: Array = []) -> void:
+	func set_tweens(mat: Array = [], mst: Array = [], mpt: Array = [], msit: Array = [], additive: bool = false) -> void:
 		if len(mat) > 0:
 			move_angle_to.append(mat)
 		
@@ -330,6 +344,8 @@ class AttackPattren:
 		
 		if len(msit) > 0:
 			move_size_to.append(msit)
+		
+		additive_tweens = additive
 	
 	func get_closest(bullet: Node) -> Node:
 		var list: Array = gv.current_scene.get_tree().get_nodes_in_group(aim)
@@ -373,6 +389,9 @@ class AttackPattren:
 		bullet_sprite_size = preset["scale"]
 		bullet_hitbox_size = preset["hitbox_scale"]
 		bullet_color = color
+	
+	func set_sfx(sfx: AudioStream = Audio.sfx_shoot) -> void:
+		sound_effect = sfx
 	
 	func get_position(j: int) -> Vector2:
 		if len(fire_positions) > 1:

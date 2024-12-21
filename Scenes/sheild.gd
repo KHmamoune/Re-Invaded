@@ -1,8 +1,9 @@
 extends Projectile
 
-var type: String = "sheild"
+var type: String = "shield"
 var size: Vector2 = Vector2(1,1)
 var time: float = 0
+var reflect: bool = false
 
 
 func _ready() -> void:
@@ -44,7 +45,12 @@ func _on_attack_delay_timeout() -> void:
 
 
 func _on_area_entered(area: Node) -> void:
-	area.queue_free()
+	if reflect:
+		area.set_collision_layer_value(3, get_collision_layer_value(4))
+		area.set_collision_layer_value(5, get_collision_layer_value(6))
+		area.rotation_degrees += 180
+	else:
+		area.queue_free()
 
 
 func _on_timer_timeout() -> void:

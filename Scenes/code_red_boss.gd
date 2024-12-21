@@ -136,7 +136,7 @@ func boss_at2() -> void:
 
 
 func boss_at3() -> void:
-	var rand_mod = randi_range(0, 9)
+	var rand_mod: int = randi_range(0, 9)
 	var arr1: Array = []
 	var arr2: Array = []
 	var arr3: Array = []
@@ -213,7 +213,7 @@ func boss_at3() -> void:
 
 
 func boss_at4() -> void:
-	var arr1 = []
+	var arr1: Array = []
 	
 	for i in range(0, 10):
 		arr1.append(i * 36)
@@ -239,7 +239,7 @@ func boss_at4() -> void:
 
 
 func boss_at5() -> void:
-	var rand_mod = randi_range(0, 9)
+	var rand_mod: int = randi_range(0, 9)
 	var arr1: Array = []
 	var arr2: Array = []
 	var arr3: Array = []

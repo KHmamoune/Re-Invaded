@@ -14,6 +14,9 @@ var sfx_alert: AudioStream = preload("res://SFX/alert.wav")
 
 
 func play_sfx(sfx: AudioStream) -> void:
+	if sfx == null:
+		return
+	
 	var player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 	player.stream = sfx
 	gv.current_scene.add_child(player)

@@ -23,20 +23,33 @@ var anm_speed: float
 var frames: int
 var bullet_color: Color
 var look: String
+var look_delay: float = 0
+var look_duration: float = 0
+var looking: bool = false
 var sprite: Texture
 var wait_time: float = 0
 var marker_type: String = ""
 var after_image_interval: float = 0
 var after_image_delay: float = 0
+var additive: bool = false
+var sound_effect: AudioStream = null
 
 
-func shoot(bullet: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
-	bullet.set_collision_layer_value(3, get_collision_layer_value(3))
-	bullet.set_collision_layer_value(5, get_collision_layer_value(5))
-	Audio.play_sfx(sfx)
+func shoot(bullet: Node, _seconds: float) -> void:
+	match bullet.type:
+		"bullet":
+			bullet.set_collision_layer_value(3, get_collision_layer_value(3))
+			bullet.set_collision_layer_value(5, get_collision_layer_value(5))
+		"shield":
+			bullet.set_collision_layer_value(6, get_collision_layer_value(5))
+			bullet.set_collision_layer_value(4, get_collision_layer_value(3))
+			bullet.set_collision_mask_value(3, get_collision_layer_value(5))
+			bullet.set_collision_mask_value(5, get_collision_layer_value(3))
+	
+	Audio.play_sfx(bullet.sound_effect)
 	if bullet.follow_player:
 		bullet.position = Vector2.ZERO
-		if !bullet.type == "sheild":
+		if !bullet.type == "shield":
 			bullet.z_index = -1
 		add_child(bullet)
 	else:
@@ -72,7 +85,10 @@ func execute_angle_tweens() -> void:
 				target = get_closest()
 				t.tween_property(self, "rotation_degrees", aim(), tween["dur"])
 		else:
-			t.tween_property(self, "rotation_degrees", tween["value"], tween["dur"])
+			if additive:
+				t.tween_property(self, "rotation_degrees", rotation_degrees + tween["value"], tween["dur"])
+			else:
+				t.tween_property(self, "rotation_degrees", tween["value"], tween["dur"])
 
 
 func execute_speed_tweens() -> void:

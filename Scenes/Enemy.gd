@@ -36,26 +36,39 @@ func _on_area_entered(area: Node) -> void:
 			area.queue_free()
 
 
-func shoot(bul: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
-	bul.set_collision_layer_value(5, true)
+func shoot(bullet: Node, _seconds: float) -> void:
+	match bullet.type:
+		"bullet":
+			bullet.set_collision_layer_value(5, true)
+		"drone":
+			bullet.set_collision_layer_value(5, true)
+		"shield":
+			bullet.set_collision_layer_value(6, true)
+			bullet.set_collision_mask_value(3, true)
 	
 	#if there is an indicator before the attack we set its values
-	if bul.wait_time > 0:
+	if bullet.wait_time > 0:
 		var indicator: Node = preload("res://Scenes/indicator.tscn").instantiate()
-		indicator.time = bul.wait_time
-		indicator.type = bul.marker_type
-		indicator.angle = bul.rotation_degrees
-		indicator.position = bul.position
+		indicator.time = bullet.wait_time
+		indicator.type = bullet.marker_type
+		indicator.angle = bullet.rotation_degrees
+		indicator.position = bullet.position
 		get_parent().add_child(indicator)
-		await get_tree().create_timer(bul.wait_time).timeout
+		await get_tree().create_timer(bullet.wait_time).timeout
 	
 	if "bullet_speed_boost" in status_effects:
 		if status_effects["bullet_speed_boost"] == 1:
-			bul.speed += 200
+			bullet.speed += 200
 	
-	Audio.play_sfx(sfx)
-	bul.z_index = -1
-	get_parent().add_child(bul)
+	Audio.play_sfx(bullet.sound_effect)
+	
+	if bullet.follow_player:
+		bullet.position = Vector2.ZERO
+		if !bullet.type == "shield":
+			bullet.z_index = -1
+		add_child(bullet)
+	else:
+		get_parent().call_deferred("add_child", bullet)
 
 
 func take_damage(dmg: int) -> void:

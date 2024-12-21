@@ -176,12 +176,12 @@ func dispel_fragile(target: Node) -> void:
 	target.update_status_bar()
 
 
-func apply_bullet_speed_boost(target: Node):
+func apply_bullet_speed_boost(target: Node) -> void:
 	target.status_effects["bullet_speed_boost"] = 1
 	target.update_status_bar()
 
 
-func dispel_bullet_speed_boost(target: Node):
+func dispel_bullet_speed_boost(target: Node) -> void:
 	target.status_effects["bullet_speed_boost"] = 0
 	target.update_status_bar()
 
@@ -195,7 +195,7 @@ func apply_self_repair(target: Node, duration: float, amount: int) -> void:
 	heal_timer.start()
 
 
-func self_repair(target: Node, amount: int):
+func self_repair(target: Node, amount: int) -> void:
 	print("healed")
 	if target.has_method("take_damage"):
 		target.take_damage(amount)

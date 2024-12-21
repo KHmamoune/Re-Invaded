@@ -35,6 +35,7 @@ var security_system: PackedScene = preload("res://Scenes/security_system.tscn")
 var code_blue_boss: PackedScene = preload("res://Scenes/code_blue_boss.tscn")
 var code_orange_boss: PackedScene = preload("res://Scenes/code_orange_boss.tscn")
 var code_red_boss: PackedScene = preload("res://Scenes/code_red_boss.tscn")
+var code_green_boss: PackedScene = preload("res://Scenes/code_green_boss.tscn")
 
 #enemy maps and such
 #syntax: Battle.EnemyMap.new([{"enemy": *enemy*}], ["enemy_position"])
@@ -66,7 +67,8 @@ var boss_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": security_system
 var boss_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_blue_boss }], [Vector2(350, 50)])
 var boss_map3: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_orange_boss }], [Vector2(350, 50)])
 var boss_map4: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_red_boss }], [Vector2(350, 50)])
-var boss_maps: Array = [boss_map4]
+var boss_map5: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_green_boss }], [Vector2(350, 50)])
+var boss_maps: Array = [boss_map5]
 
 var res_map1: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": scrap_pile }, 
@@ -94,7 +96,7 @@ var bullet: PackedScene = preload("res://Scenes/bullet.tscn")
 var laser: PackedScene = preload("res://Scenes/laser.tscn")
 var bomb: PackedScene = preload("res://Scenes/bomb.tscn")
 var explosion: PackedScene = preload("res://Scenes/explosion.tscn")
-var sheild: PackedScene = preload("res://Scenes/sheild.tscn")
+var shield: PackedScene = preload("res://Scenes/shield.tscn")
 var drone: PackedScene = preload("res://Scenes/drone.tscn")
 
 var sub_attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 2, 50, [90, -90], 0.08, 500, [Vector2.ZERO], 1000, 1)
@@ -104,7 +106,7 @@ var sub_attack3: Card.AttackPattren = Card.AttackPattren.new(bullet, 10, 1, [0, 
 var effect1: Card.StatusAffliction = Card.StatusAffliction.new("impede", 2, 1)
 var effect2: Card.StatusAffliction = Card.StatusAffliction.new("gen_boost", 2, 1)
 
-var sheild1: Card.AttackPattren = Card.AttackPattren.new(sheild, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
+var shield1: Card.AttackPattren = Card.AttackPattren.new(shield, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
 
 var drone1: Card.AttackPattren = Card.AttackPattren.new(drone, 2, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
 
@@ -140,11 +142,11 @@ var red_card3: Card.CardStats = Card.CardStats.new(1, card_data["fan_shot"]["tit
 var green_attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 8, [0], 0.05, 1200, [Vector2.ZERO], 1200, 2)
 var green_card1: Card.CardStats = Card.CardStats.new(2, card_data["take_aim"]["title"], card_data["take_aim"]["image"], card_data["card_types"]["attack"], card_data["take_aim"]["description"], Color.GREEN, [{"effect": green_attack1}])
 var green_attack2: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 10, [0], 0.05, 900, [Vector2.ZERO], 1200, 4)
-var green_sub_shield1: Card.AttackPattren = Card.AttackPattren.new(sheild, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
+var green_sub_shield1: Card.AttackPattren = Card.AttackPattren.new(shield, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
 var green_card2: Card.CardStats = Card.CardStats.new(3, card_data["cover_fire"]["title"], card_data["cover_fire"]["image"], card_data["card_types"]["attack"], card_data["cover_fire"]["description"], Color.GREEN, [{"effect": green_attack2}])
-var green_shield1: Card.AttackPattren = Card.AttackPattren.new(sheild, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
+var green_shield1: Card.AttackPattren = Card.AttackPattren.new(shield, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
 var green_card3: Card.CardStats = Card.CardStats.new(2, card_data["force_field"]["title"], card_data["force_field"]["image"], card_data["card_types"]["defence"], card_data["force_field"]["description"], Color.GREEN, [{"effect": green_shield1}])
-var green_shield2: Card.AttackPattren = Card.AttackPattren.new(sheild, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
+var green_shield2: Card.AttackPattren = Card.AttackPattren.new(shield, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
 var green_card4: Card.CardStats = Card.CardStats.new(0, card_data["deflection"]["title"], card_data["deflection"]["image"], card_data["card_types"]["defence"], card_data["deflection"]["description"], Color.GREEN, [{"effect": green_shield2}])
 
 var yellow_sub_attack1: Card.AttackPattren = Card.AttackPattren.new(laser, 1, 1, [180], 0.1, 1200, [Vector2.ZERO], 800, 5)
@@ -216,13 +218,13 @@ func _ready() -> void:
 	green_attack2.set_aim("", 40)
 	green_attack2.set_attack(0, green_sub_shield1)
 	
-	green_shield1.set_sheild_properties(2, Vector2(1,1))
+	green_shield1.set_shield_properties(2, Vector2(1,1))
 	green_shield1.set_properties(false, true)
 	
-	green_sub_shield1.set_sheild_properties(5, Vector2(0.5, 0.5))
+	green_sub_shield1.set_shield_properties(5, Vector2(0.5, 0.5))
 	green_sub_shield1.set_properties(false, true)
 	
-	green_shield2.set_sheild_properties(0.5)
+	green_shield2.set_shield_properties(0.5)
 	green_shield2.set_properties(false, true)
 	
 	violet_drone1.set_drone_properties(5)

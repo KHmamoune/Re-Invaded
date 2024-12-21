@@ -84,23 +84,23 @@ libraries = {
 wait_time = 2.5
 
 [node name="PassiveTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.4
 
 [node name="AfterImageTimer" type="Timer" parent="."]
 wait_time = 0.02
 
 [node name="hp" type="Label" parent="."]
-offset_left = 19.0
-offset_top = -41.0
-offset_right = 59.0
-offset_bottom = -25.0
+offset_left = 20.0
+offset_top = -30.0
+offset_right = 60.0
+offset_bottom = -14.0
 rotation = 3.14159
 text = "hp"
 horizontal_alignment = 1
 
 [node name="StatusEffectsBar" parent="." instance=ExtResource("3_axqje")]
-offset_top = -93.0
-offset_bottom = -63.0
+offset_top = -78.0
+offset_bottom = -48.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

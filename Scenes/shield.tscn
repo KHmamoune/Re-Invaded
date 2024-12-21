@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://1ofygfmr0sj1"]
 
-[ext_resource type="Script" path="res://Scenes/sheild.gd" id="1_86g7m"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="1_um5fn"]
-[ext_resource type="Texture2D" uid="uid://cqc3twp5tp15" path="res://Images/Bullets/sheild.png" id="3_8in7m"]
+[ext_resource type="Script" path="res://Scenes/sheild.gd" id="1_grjmk"]
+[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_y50pq"]
+[ext_resource type="Texture2D" uid="uid://cqc3twp5tp15" path="res://Images/Bullets/sheild.png" id="3_isk0h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jtr01"]
 resource_local_to_scene = true
-shader = ExtResource("1_um5fn")
+shader = ExtResource("2_y50pq")
 shader_parameter/flash_color = Vector4(1, 0, 0, 1)
 shader_parameter/flash_modifier = 0.0
 
@@ -53,15 +53,15 @@ _data = {
 }
 
 [node name="Sheild" type="Area2D"]
-collision_layer = 8
-collision_mask = 16
-script = ExtResource("1_86g7m")
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_grjmk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.392157)
 material = SubResource("ShaderMaterial_jtr01")
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("3_8in7m")
+texture = ExtResource("3_isk0h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dw6j7")
