@@ -64,6 +64,8 @@ class StatusAffliction:
 				StatusEffects.apply_impede(pl, status_duration)
 			"gen_boost":
 				StatusEffects.apply_generation_boost(pl, status_duration)
+			"gen_impede":
+				StatusEffects.apply_generation_impede(pl, status_duration)
 			"flame":
 				StatusEffects.apply_flame(pl, status_duration)
 			"heat":
@@ -159,23 +161,24 @@ class AttackPattren:
 				for j in range(bullet_amount): #looping through each bullet in a wave
 					if pl.is_dead == false:
 						if bullet_type == preload("res://Scenes/laser.tscn"):
-							var laser: Node = set_laser_stats(j, pl)
-							pl.shoot(laser, fire_delay * float(fire_amount))
+							var laser: Node = set_stats(j, i, pl)
+							set_laser_stats(laser)
+							pl.shoot(laser, fire_delay * float(fire_amount), i, j)
 						elif bullet_type == preload("res://Scenes/bomb.tscn"):
 							var bomb: Node = set_stats(j, i, pl)
 							set_bomb_stats(bomb)
-							pl.shoot(bomb, fire_delay * float(fire_amount))
+							pl.shoot(bomb, fire_delay * float(fire_amount), i, j)
 						elif bullet_type == preload("res://Scenes/shield.tscn"):
 							var shield: Node = set_stats(j, i, pl)
 							set_shield_stats(shield)
-							pl.shoot(shield, fire_delay * float(fire_amount))
+							pl.shoot(shield, fire_delay * float(fire_amount), i, j)
 						elif bullet_type == preload("res://Scenes/drone.tscn"):
 							var drone: Node = set_stats(j, i, pl)
 							set_drone_stats(drone)
-							pl.shoot(drone, fire_delay * float(fire_amount))
+							pl.shoot(drone, fire_delay * float(fire_amount), i, j)
 						else:
 							var bullet: Node = set_stats(j, i, pl)
-							pl.shoot(bullet, fire_delay * float(fire_amount))
+							pl.shoot(bullet, fire_delay * float(fire_amount), i, j)
 				
 				if is_instance_valid(pl.get_tree()):
 					await pl.get_tree().create_timer(fire_delay).timeout
@@ -267,20 +270,12 @@ class AttackPattren:
 		
 		return bullet
 	
-	func set_laser_stats(i: int, player: Node) -> Node:
-		var laser: Node = bullet_type.instantiate()
-		laser.global_position = player.global_position + get_position(i)
-		laser.rotation_degrees = player.rotation_degrees + get_angle(i)
+	func set_laser_stats(laser: Node) -> void:
 		laser.duration = laser_duration
 		laser.damage = bullet_damage
 		
-		if len(move_angle_to) > 0:
-			laser.angle_tweens = move_angle_to[i]
-		
 		if follow_player:
 			laser.follow_player = true
-		
-		return laser
 	
 	func set_bomb_stats(bomb: Node) -> void:
 		bomb.time = explosion_delay

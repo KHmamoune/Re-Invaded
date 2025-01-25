@@ -107,16 +107,17 @@ func _process(delta: float) -> void:
 		shuffle_deck()
 
 
-func shoot(bullet: Node, seconds: float) -> void:
+func shoot(bullet: Node, seconds: float, _i: int, _j: int) -> void:
 	if is_dead:
 		return
 	
-	match bullet.type:
-		"bullet":
-			bullet.set_collision_layer_value(3, true)
-		"shield":
-			bullet.set_collision_layer_value(4, true)
-			bullet.set_collision_mask_value(5, true)
+	if bullet.type == "shield":
+		bullet.set_collision_layer_value(4, true)
+		bullet.set_collision_mask_value(5, true)
+	else:
+		if bullet.type == "laser":
+			bullet.z_index = z_index - 1
+		bullet.set_collision_layer_value(3, true)
 	
 	if status_effects.has("reinforce"):
 		bullet.damage += status_effects["reinforce"]
@@ -128,7 +129,7 @@ func shoot(bullet: Node, seconds: float) -> void:
 			bullet.z_index = -1
 		add_child(bullet)
 	else:
-		get_parent().call_deferred("add_child", bullet)
+		gv.current_scene.call_deferred("add_child", bullet)
 	
 	on_cooldown = true
 	%FireCooldownTimer.wait_time = seconds
@@ -174,6 +175,7 @@ func disable_hurtbox() -> void:
 	if !is_dead:
 		%InvincibilityTimer.start()
 		$Animations.play("hit")
+
 
 func shuffle_deck() -> void:
 	deck = []
@@ -268,10 +270,14 @@ func update_status_bar() -> void:
 
 func _on_area_entered(area: Node) -> void:
 	hurt = true
+	for effect: Card.StatusAffliction in area.on_hit_effects:
+		effect.play(self)
+	
 	lose_health()
 	#if the attacker is not an enemy free it
 	if area.type != "enemy" and area.type != "drone" and area.type != "laser" and area.type != "explosion":
-		area.queue_free()
+		if !area.piercing:
+			area.queue_free()
 
 #every time the after image timer timesout we add a new after image
 func _on_after_image_timer_timeout() -> void:

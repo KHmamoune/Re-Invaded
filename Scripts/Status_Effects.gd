@@ -62,6 +62,33 @@ func dispel_generation_boost(target: Node) -> void:
 	target.update_status_bar()
 
 
+func apply_generation_impede(target: Node, duration: float) -> void:
+	var gen_impede_timer: Timer
+	if !is_instance_valid(target.get_node_or_null("gen_impede_timer")):
+		gen_impede_timer = Timer.new()
+	else:
+		gen_impede_timer = target.get_node_or_null("gen_impede_timer")
+	
+	if gen_impede_timer.time_left > 0:
+		gen_impede_timer.start(gen_impede_timer.time_left + duration)
+		return
+	
+	gen_impede_timer.timeout.connect(dispel_generation_impede.bind(target))
+	gen_impede_timer.name = "gen_impede_timer"
+	target.add_child(gen_impede_timer)
+	gen_impede_timer.start(duration)
+	target.gen_modifier -= 0.5
+	target.status_effects["generation impede"] = 1
+	target.update_status_bar()
+
+
+func dispel_generation_impede(target: Node) -> void:
+	target.gen_modifier += 0.5
+	target.get_node_or_null("gen_impede_timer").queue_free()
+	target.status_effects["generation impede"] = 0
+	target.update_status_bar()
+
+
 func apply_flame(target: Node, duration: float) -> void:
 	var flame_timer: Timer
 	print("applied flame")
@@ -178,6 +205,11 @@ func dispel_fragile(target: Node) -> void:
 
 func apply_bullet_speed_boost(target: Node) -> void:
 	target.status_effects["bullet_speed_boost"] = 1
+	target.update_status_bar()
+
+
+func apply_heat_boss(target: Node) -> void:
+	target.status_effects["heat_boss"] = 1
 	target.update_status_bar()
 
 

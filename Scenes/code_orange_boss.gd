@@ -5,15 +5,27 @@ extends Enemy
 @onready var explosion: PackedScene = preload("res://Scenes/explosion.tscn")
 @onready var bomb: PackedScene = preload("res://Scenes/bomb.tscn")
 var awake: bool = false
-var attacks: Array = [boss_at3]
-var passive_attack: Card.AttackPattren
+var attacks: Array = [boss_at1, boss_at2, boss_at3, boss_at4, boss_at5]
+var passive_attack1: Card.AttackPattren
+var passive_attack2: Card.AttackPattren
+var heat_applied: bool = false
 var follow: bool = false
 
 
 func _ready() -> void:
 	$Animations.play("default")
-	passive_attack = Card.AttackPattren.new(bullet, 2, 6, [0], 0.05, 800, [Vector2(20, 0), Vector2(-20, 0)], 800, 1)
-	hp = 1000
+	passive_attack1 = Card.AttackPattren.new(bullet, 1, 5, [-15], 0.08, 500, [Vector2.ZERO], 1200, 1)
+	passive_attack2 = Card.AttackPattren.new(bullet, 1, 5, [15], 0.08, 500, [Vector2.ZERO], 1200, 1)
+	passive_attack1.set_change_values([6])
+	passive_attack2.set_change_values([-6])
+	passive_attack1.set_sprite_preset(gv.fire_bullet_preset, Color.WHITE)
+	passive_attack2.set_sprite_preset(gv.fire_bullet_preset, Color.WHITE)
+	passive_attack1.set_properties(false, false, true)
+	passive_attack2.set_properties(false, false, true)
+	passive_attack1.set_tweens([], [], [], [{"delay": 0, "value": Vector2(1.5,1.5), "dur": 0.5}])
+	passive_attack2.set_tweens([], [], [], [{"delay": 0, "value": Vector2(1.5,1.5), "dur": 0.5}])
+	
+	hp = 401
 	scrap = 500
 	$hp.text = str(hp)
 
@@ -38,6 +50,14 @@ func _on_shoot_timer_timeout() -> void:
 	$PassiveTimer.stop()
 	$ShootTimer.stop()
 	await get_tree().create_timer(0.1).timeout
+	
+	if hp <= 400 and !heat_applied:
+		boss_at6()
+		var effect: Card.StatusAffliction = Card.StatusAffliction.new("gen_impede", 5, 1, "debuff")
+		passive_attack1.set_after_image(0, 0.1)
+		passive_attack2.set_after_image(0, 0.1)
+		passive_attack1.set_on_hit_effects([effect])
+		passive_attack2.set_on_hit_effects([effect])
 	
 	await attacks[randi_range(0, len(attacks)-1)].call()
 	
@@ -125,41 +145,90 @@ func boss_at3() -> void:
 
 
 func boss_at4() -> void:
-	var attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 2, 50, [0], 0.1, 400, [Vector2.ZERO], 1200, 1)
-	var attack2: Card.AttackPattren = Card.AttackPattren.new(bullet, 2, 20, [135, 225], 0.2, 300, [Vector2.ZERO], 1200, 1)
+	var attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 20, [-50], 0.08, 400, [Vector2.ZERO], 1200, 1)
+	var attack2: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 20, [50], 0.08, 400, [Vector2.ZERO], 1200, 1)
+	attack1.set_change_values([5])
+	attack2.set_change_values([-5])
+	attack1.set_sprite_preset(gv.fire_bullet_preset, Color.WHITE)
+	attack2.set_sprite_preset(gv.fire_bullet_preset, Color.WHITE)
+	attack1.set_properties(false, false, true)
+	attack2.set_properties(false, false, true)
+	attack1.set_tweens([], [], [], [{"delay": 0, "value": Vector2(1.5,1.5), "dur": 0.2}])
+	attack2.set_tweens([], [], [], [{"delay": 0, "value": Vector2(1.5,1.5), "dur": 0.2}])
 	
-	attack1.set_tweens([
-		{"delay": 0, "value": 225, "dur": 0.2}, 
-		{"delay": 0.2, "value": 135, "dur": 0.2},
-		{"delay": 0.4, "value": 225, "dur": 0.2}
-		])
-	attack1.set_tweens([
-		{"delay": 0, "value": 135, "dur": 0.2}, 
-		{"delay": 0.2, "value": 225, "dur": 0.2},
-		{"delay": 0.4, "value": 135, "dur": 0.2}
-		])
+	if status_effects.has("heat_boss"):
+		var effect: Card.StatusAffliction = Card.StatusAffliction.new("gen_impede", 5, 1, "debuff")
+		attack1.set_after_image(0, 0.1)
+		attack2.set_after_image(0, 0.1)
+		attack1.set_on_hit_effects([effect])
+		attack2.set_on_hit_effects([effect])
 	
-	attack2.set_tweens([
-		{"delay": 0, "value": 170, "dur": 0.5},
-		])
-	attack2.set_tweens([
-		{"delay": 0, "value": 550, "dur": 0.5},
-		])
-	attack2.set_change_values([-20, 20])
-	
+	await dash(575, 0.2)
 	attack1.play(self)
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1.5).timeout
 	attack2.play(self)
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(1.5).timeout
+	attack1.play(self)
+	await get_tree().create_timer(1.5).timeout
+	attack2.play(self)
+	await get_tree().create_timer(2).timeout
 
 
 func boss_at5() -> void:
-	StatusEffects.apply_bullet_speed_boost(self)
+	var attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [-15], 0.1, 400, [Vector2.ZERO], 1200, 1)
+	var attack2: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [15], 0.1, 400, [Vector2.ZERO], 1200, 1)
+	attack1.set_change_values([6])
+	attack2.set_change_values([-6])
+	attack1.set_sprite_preset(gv.fire_bullet_preset, Color.WHITE)
+	attack2.set_sprite_preset(gv.fire_bullet_preset, Color.WHITE)
+	attack1.set_properties(false, false, true)
+	attack2.set_properties(false, false, true)
+	attack1.set_tweens([], [], [], [{"delay": 0, "value": Vector2(2,2), "dur": 0.5}])
+	attack2.set_tweens([], [], [], [{"delay": 0, "value": Vector2(2,2), "dur": 0.5}])
+	
+	if status_effects.has("heat_boss"):
+		var effect: Card.StatusAffliction = Card.StatusAffliction.new("gen_impede", 5, 1, "debuff")
+		attack1.set_after_image(0, 0.1)
+		attack2.set_after_image(0, 0.1)
+		attack1.set_on_hit_effects([effect])
+		attack2.set_on_hit_effects([effect])
+	
+	await dash(get_tree().get_first_node_in_group("player").position.x, 0.2)
+	attack1.play(self)
+	attack2.play(self)
 	await get_tree().create_timer(0.5).timeout
+	attack2.play(self)
+	attack1.play(self)
+	await get_tree().create_timer(0.5).timeout
+	attack1.play(self)
+	attack2.play(self)
+	await get_tree().create_timer(0.8).timeout
+	
+	await dash(get_tree().get_first_node_in_group("player").position.x, 0.2)
+	attack1.play(self)
+	attack2.play(self)
+	await get_tree().create_timer(0.5).timeout
+	attack2.play(self)
+	attack1.play(self)
+	await get_tree().create_timer(0.5).timeout
+	attack1.play(self)
+	attack2.play(self)
+	await get_tree().create_timer(0.8).timeout
+	
+	await dash(get_tree().get_first_node_in_group("player").position.x, 0.2)
+	attack1.play(self)
+	attack2.play(self)
+	await get_tree().create_timer(0.5).timeout
+	attack2.play(self)
+	attack1.play(self)
+	await get_tree().create_timer(0.5).timeout
+	attack1.play(self)
+	attack2.play(self)
+	await get_tree().create_timer(1).timeout
 
 
 func boss_at6() -> void:
-	StatusEffects.apply_self_repair(self, 2, -10)
+	StatusEffects.apply_heat_boss(self)
 	await get_tree().create_timer(0.5).timeout
 
 
@@ -168,6 +237,7 @@ func update_status_bar() -> void:
 
 
 func _on_passive_timer_timeout() -> void:
-	dash(get_tree().get_first_node_in_group("player").position.x, 0.2)
-	await get_tree().create_timer(0.5).timeout
-	passive_attack.play(self)
+	await dash(randi_range(275, 850), 0.2)
+	passive_attack1.play(self)
+	await get_tree().create_timer(0.4).timeout
+	passive_attack2.play(self)

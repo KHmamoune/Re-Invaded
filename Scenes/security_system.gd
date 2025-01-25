@@ -2,6 +2,7 @@ extends Enemy
 
 
 @onready var bullet: PackedScene = preload("res://Scenes/bullet.tscn")
+@onready var drone: PackedScene = preload("res://Scenes/drone.tscn")
 var awake: bool = false
 var attacks: Array = [boss_at1, boss_at2, boss_at3]
 var i: int = 0

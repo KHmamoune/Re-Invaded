@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://xpt0pqup4iow"]
+[gd_scene load_steps=13 format=3 uid="uid://xpt0pqup4iow"]
 
 [ext_resource type="PackedScene" uid="uid://diup4akafq8u0" path="res://Scenes/ui.tscn" id="1_1jn15"]
 [ext_resource type="PackedScene" uid="uid://durrbr4c6h5gu" path="res://Scenes/pause_menu.tscn" id="1_c6vdv"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://drsxjfxwkyntd" path="res://SFX/Act1_ambient.wav" id="2_cuwig"]
 [ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="3_2lxi7"]
 [ext_resource type="Texture2D" uid="uid://cmnp43rf0ix10" path="res://Images/Backgrounds/space_background.png" id="4_q7q0k"]
+[ext_resource type="PackedScene" uid="uid://b5o3h6xymfaub" path="res://Scenes/fps_counter.tscn" id="7_vqgec"]
 
 [sub_resource type="Animation" id="Animation_bjrjs"]
 length = 0.001
@@ -136,5 +137,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Counter" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="FPSCounter" parent="Counter" instance=ExtResource("7_vqgec")]
+offset_left = 1112.0
+offset_top = 632.0
+offset_right = 1152.0
+offset_bottom = 648.0
+horizontal_alignment = 1
 
 [connection signal="timeout" from="Time" to="." method="_on_time_timeout"]

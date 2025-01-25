@@ -1,24 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1vx4jbumf2y1"]
+[gd_scene load_steps=10 format=3 uid="uid://dxqlxf77b1obk"]
 
-[ext_resource type="Texture2D" uid="uid://bfa1h8gaia5k4" path="res://Images/Characters/code_orange.png" id="1_ofvej"]
-[ext_resource type="Script" path="res://Scenes/code_orange_boss.gd" id="1_vol2b"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_cl5g5"]
-[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="2_vatyg"]
+[ext_resource type="Script" path="res://Scenes/code_yellow_boss.gd" id="1_a3cq8"]
+[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="1_sbv1b"]
+[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_dsxpg"]
+[ext_resource type="Texture2D" uid="uid://bwnsgaactu1hj" path="res://Images/Characters/code_yellow.png" id="2_scbim"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w1w20"]
-shader = ExtResource("2_cl5g5")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1vj0"]
+shader = ExtResource("2_dsxpg")
 shader_parameter/flash_color = Vector4(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7j5ke"]
-size = Vector2(56, 66)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbllp"]
+size = Vector2(40, 66)
 
-[sub_resource type="Animation" id="Animation_v72kj"]
+[sub_resource type="Animation" id="Animation_xa7pd"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -28,15 +28,15 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_n7ew8"]
+[sub_resource type="Animation" id="Animation_y2a36"]
 resource_name = "default"
 length = 0.3
 loop_mode = 1
-step = 0.15
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -46,53 +46,56 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ge7mo"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_of2wr"]
 _data = {
-"RESET": SubResource("Animation_v72kj"),
-"default": SubResource("Animation_n7ew8")
+"RESET": SubResource("Animation_xa7pd"),
+"default": SubResource("Animation_y2a36")
 }
 
-[node name="CodeOrangeBoss" type="Area2D"]
+[node name="CodeYellowBoss" type="Area2D"]
 rotation = 3.14159
 collision_layer = 2
 collision_mask = 4
-script = ExtResource("1_vol2b")
+script = ExtResource("1_a3cq8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_w1w20")
+material = SubResource("ShaderMaterial_j1vj0")
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_ofvej")
+texture = ExtResource("2_scbim")
 hframes = 2
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_7j5ke")
+shape = SubResource("RectangleShape2D_lbllp")
 
 [node name="Animations" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Hurtbox")
 libraries = {
-"": SubResource("AnimationLibrary_ge7mo")
+"": SubResource("AnimationLibrary_of2wr")
 }
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.5
 
 [node name="PassiveTimer" type="Timer" parent="."]
+wait_time = 0.7
 
 [node name="AfterImageTimer" type="Timer" parent="."]
 wait_time = 0.02
 
 [node name="hp" type="Label" parent="."]
-offset_left = 20.0
-offset_top = -41.0
-offset_right = 60.0
-offset_bottom = -25.0
+offset_left = 19.0
+offset_top = -33.9999
+offset_right = 59.0
+offset_bottom = -17.9999
 rotation = 3.14159
 text = "hp"
 horizontal_alignment = 1
 
-[node name="StatusEffectsBar" parent="." instance=ExtResource("2_vatyg")]
-offset_top = -93.0
-offset_bottom = -63.0
+[node name="StatusEffectsBar" parent="." instance=ExtResource("1_sbv1b")]
+offset_left = 14.9999
+offset_top = -49.9999
+offset_right = 44.9999
+offset_bottom = -19.9999
+rotation = 3.14159
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

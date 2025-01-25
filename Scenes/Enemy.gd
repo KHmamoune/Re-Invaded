@@ -11,9 +11,6 @@ var color: Color = Color.WHITE
 var type: String = "enemy"
 
 
-@onready var drone: PackedScene = preload("res://Scenes/drone.tscn")
-
-
 func start() -> void:
 	pass
 
@@ -36,30 +33,36 @@ func _on_area_entered(area: Node) -> void:
 			area.queue_free()
 
 
-func shoot(bullet: Node, _seconds: float) -> void:
-	match bullet.type:
-		"bullet":
-			bullet.set_collision_layer_value(5, true)
-		"drone":
-			bullet.set_collision_layer_value(5, true)
-		"shield":
-			bullet.set_collision_layer_value(6, true)
-			bullet.set_collision_mask_value(3, true)
+func shoot(bullet: Node, _seconds: float, i: int, j: int) -> void:
+	#set the correct collision layers for the bullet
+	if bullet.type == "shield":
+		bullet.set_collision_layer_value(6, true)
+		bullet.set_collision_mask_value(3, true)
+	else:
+		if bullet.type == "laser":
+			bullet.z_index = z_index - 1
+		bullet.set_collision_layer_value(5, true)
 	
 	#if there is an indicator before the attack we set its values
 	if bullet.wait_time > 0:
 		var indicator: Node = preload("res://Scenes/indicator.tscn").instantiate()
+		
+		if i == 0 and j == 0:
+			indicator.mute = false
+		
 		indicator.time = bullet.wait_time
 		indicator.type = bullet.marker_type
 		indicator.angle = bullet.rotation_degrees
 		indicator.position = bullet.position
-		get_parent().add_child(indicator)
+		gv.current_scene.add_child(indicator)
 		await get_tree().create_timer(bullet.wait_time).timeout
 	
+	#accounting if the enemy has X buffs
 	if "bullet_speed_boost" in status_effects:
 		if status_effects["bullet_speed_boost"] == 1:
 			bullet.speed += 200
 	
+	#playing the sound effect of the bullet
 	Audio.play_sfx(bullet.sound_effect)
 	
 	if bullet.follow_player:
@@ -68,7 +71,7 @@ func shoot(bullet: Node, _seconds: float) -> void:
 			bullet.z_index = -1
 		add_child(bullet)
 	else:
-		get_parent().call_deferred("add_child", bullet)
+		gv.current_scene.call_deferred("add_child", bullet)
 
 
 func take_damage(dmg: int) -> void:

@@ -22,6 +22,15 @@ var bullet2_preset: Dictionary = {
 	"frames": 1
 }
 
+var fire_bullet_preset: Dictionary = {
+	"sprite": preload("res://Images/Bullets/fire_bullet.png"),
+	"scale": Vector2(0.5, 0.5),
+	"hitbox_scale": Vector2(1.4, 0.5),
+	"anm_speed": 0.2,
+	"frames": 5
+}
+
+
 #loading enemies scenes
 var scrap_pile: PackedScene = preload("res://Scenes/scrap_pile.tscn")
 var turret: PackedScene = preload("res://Scenes/turret.tscn")
@@ -36,6 +45,8 @@ var code_blue_boss: PackedScene = preload("res://Scenes/code_blue_boss.tscn")
 var code_orange_boss: PackedScene = preload("res://Scenes/code_orange_boss.tscn")
 var code_red_boss: PackedScene = preload("res://Scenes/code_red_boss.tscn")
 var code_green_boss: PackedScene = preload("res://Scenes/code_green_boss.tscn")
+var code_yellow_boss: PackedScene = preload("res://Scenes/code_yellow_boss.tscn")
+var code_violet_boss: PackedScene = preload("res://Scenes/code_violet_boss.tscn")
 
 #enemy maps and such
 #syntax: Battle.EnemyMap.new([{"enemy": *enemy*}], ["enemy_position"])
@@ -68,7 +79,9 @@ var boss_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_blue_boss 
 var boss_map3: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_orange_boss }], [Vector2(350, 50)])
 var boss_map4: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_red_boss }], [Vector2(350, 50)])
 var boss_map5: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_green_boss }], [Vector2(350, 50)])
-var boss_maps: Array = [boss_map5]
+var boss_map6: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_yellow_boss }], [Vector2(350, 50)])
+var boss_map7: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_violet_boss }], [Vector2(350, 50)])
+var boss_maps: Array = [boss_map7]
 
 var res_map1: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": scrap_pile }, 
@@ -126,7 +139,7 @@ var orange_card1: Card.CardStats = Card.CardStats.new(1, card_data["flare"]["tit
 var orange_attack2_1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [-10], 0.1, 1200, [Vector2.ZERO], 800, 2)
 var orange_attack2_2: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [10], 0.1, 1200, [Vector2.ZERO], 800, 2)
 var orange_effect3: Card.StatusAffliction = Card.StatusAffliction.new("flame", 0.6, 1, "debuff")
-var orange_card2: Card.CardStats = Card.CardStats.new(1, card_data["flame_thrower"]["title"], card_data["flame_thrower"]["image"], card_data["card_types"]["attack"], card_data["flame_thrower"]["description"], Color.ORANGE, [{"effect": orange_attack2_1}, {"delay": 0.6, "effect": orange_attack2_2}, {"delay": 0.6, "effect": orange_attack2_1}, {"delay": 0.6, "effect": orange_attack2_2}], 110, ["flame"])
+var orange_card2: Card.CardStats = Card.CardStats.new(1, card_data["flame_thrower"]["title"], card_data["flame_thrower"]["image"], card_data["card_types"]["attack"], card_data["flame_thrower"]["description"], Color.ORANGE, [{"effect": orange_attack2_1}, {"delay": 0.4, "effect": orange_attack2_2}, {"delay": 0.4, "effect": orange_attack2_1}, {"delay": 0.4, "effect": orange_attack2_2}], 110, ["flame"])
 var orange_attack3: Card.AttackPattren = Card.AttackPattren.new(bomb, 1, 3, [-45], 0.1, 1200, [Vector2.ZERO], 800, 1)
 var orange_card3: Card.CardStats = Card.CardStats.new(2, card_data["explosion_shower"]["title"], card_data["explosion_shower"]["image"], card_data["card_types"]["attack"], card_data["explosion_shower"]["description"], Color.ORANGE, [{"effect": orange_attack3}])
 
@@ -149,11 +162,11 @@ var green_card3: Card.CardStats = Card.CardStats.new(2, card_data["force_field"]
 var green_shield2: Card.AttackPattren = Card.AttackPattren.new(shield, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
 var green_card4: Card.CardStats = Card.CardStats.new(0, card_data["deflection"]["title"], card_data["deflection"]["image"], card_data["card_types"]["defence"], card_data["deflection"]["description"], Color.GREEN, [{"effect": green_shield2}])
 
-var yellow_sub_attack1: Card.AttackPattren = Card.AttackPattren.new(laser, 1, 1, [180], 0.1, 1200, [Vector2.ZERO], 800, 5)
+var yellow_sub_attack1: Card.AttackPattren = Card.AttackPattren.new(laser, 1, 1, [0], 0.1, 1200, [Vector2.ZERO], 800, 5)
 var yellow_sub_card1: Card.CardStats = Card.CardStats.new(1, card_data["blast"]["title"], card_data["blast"]["image"], card_data["card_types"]["attack"], card_data["blast"]["description"], Color.YELLOW, [{"effect": yellow_sub_attack1}])
-var yellow_attack1: Card.AttackPattren = Card.AttackPattren.new(laser, 3, 1, [178, 182, 180], 0.1, 1200, [Vector2.ZERO], 800, 5)
+var yellow_attack1: Card.AttackPattren = Card.AttackPattren.new(laser, 3, 1, [-2, 2, 0], 0.1, 1200, [Vector2.ZERO], 800, 5)
 var yellow_card1: Card.CardStats = Card.CardStats.new(1, card_data["shine"]["title"], card_data["shine"]["image"], card_data["card_types"]["attack"], card_data["shine"]["description"], Color.YELLOW, [{"effect": yellow_attack1}])
-var yellow_attack2: Card.AttackPattren = Card.AttackPattren.new(laser, 2, 2, [135, 225], 0.5, 1200, [Vector2.ZERO], 800, 5)
+var yellow_attack2: Card.AttackPattren = Card.AttackPattren.new(laser, 2, 2, [-45, 45], 0.5, 1200, [Vector2.ZERO], 800, 5)
 var yellow_card2: Card.CardStats = Card.CardStats.new(2, card_data["laser_sweep"]["title"], card_data["laser_sweep"]["image"], card_data["card_types"]["attack"], card_data["laser_sweep"]["description"], Color.YELLOW, [{"effect": yellow_attack2}])
 var yellow_effect1: Card.DeckManipulation = Card.DeckManipulation.new("add", yellow_sub_card1)
 var yellow_card3: Card.CardStats = Card.CardStats.new(1, card_data["blast_store"]["title"], card_data["blast_store"]["image"], card_data["card_types"]["skill"], card_data["blast_store"]["description"], Color.YELLOW, [{"effect": yellow_effect1}], 50, [yellow_sub_card1])
@@ -191,8 +204,8 @@ func _ready() -> void:
 	yellow_attack1.set_laser_properties(0.1)
 	
 	yellow_attack2.set_properties(false, true)
-	yellow_attack2.set_tweens([{"delay": 0.1, "value": 225, "dur": 0.2}], [])
-	yellow_attack2.set_tweens([{"delay": 0.1, "value": 135, "dur": 0.2}], [])
+	yellow_attack2.set_tweens([{"delay": 0.1, "value": 45, "dur": 0.2}], [])
+	yellow_attack2.set_tweens([{"delay": 0.1, "value": -45, "dur": 0.2}], [])
 	yellow_attack2.set_laser_properties(0.2)
 	
 	orange_attack1.set_on_hit_effects([orange_effect1])
@@ -202,12 +215,12 @@ func _ready() -> void:
 	orange_attack2_1.set_change_values([5])
 	orange_attack2_1.set_on_hit_effects([orange_effect3])
 	orange_attack2_1.set_tweens([], [], [], [{"delay": 0, "value": Vector2(2,2), "dur": 0.2}])
-	orange_attack2_1.set_sprite_and_size(preload("res://Images/Bullets/explosion.png"), 12, 2, Vector2(1,1), Vector2(1.5,0.5))
+	orange_attack2_1.set_sprite_preset(fire_bullet_preset, Color.WHITE)
 	orange_attack2_2.set_properties(false, false, true)
 	orange_attack2_2.set_change_values([-5])
 	orange_attack2_2.set_on_hit_effects([orange_effect3])
 	orange_attack2_2.set_tweens([], [], [], [{"delay": 0, "value": Vector2(2,2), "dur": 0.2}])
-	orange_attack2_2.set_sprite_and_size(preload("res://Images/Bullets/explosion.png"), 12, 2, Vector2(1,1), Vector2(1.5,0.5))
+	orange_attack2_2.set_sprite_preset(fire_bullet_preset, Color.WHITE)
 	
 	orange_attack3.set_change_values([45])
 	orange_attack3.set_tweens([], [{"delay": 0, "value": 0, "dur": 0.8}])

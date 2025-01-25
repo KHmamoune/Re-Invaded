@@ -3,14 +3,13 @@ extends Enemy
 
 @onready var bullet: PackedScene = preload("res://Scenes/bullet.tscn")
 var awake: bool = false
-var attacks: Array = [boss_at5]
+var attacks: Array = [boss_at1, boss_at2, boss_at3, boss_at4, boss_at5]
 var spining: bool = false
 var passive_attack1: Card.AttackPattren
 var passive_attack2: Card.AttackPattren
 var passive_attack3: Card.AttackPattren
 var follow: bool = false
-var bullet_speed_applied: bool = false
-var self_repair_applied: bool = false
+var attack_removed:bool = false
 
 
 func _ready() -> void:
@@ -45,13 +44,9 @@ func _on_shoot_timer_timeout() -> void:
 	$ShootTimer.stop()
 	await get_tree().create_timer(0.1).timeout
 	
-	if hp <= 500 and !bullet_speed_applied:
-		boss_at5()
-		bullet_speed_applied = true
-	
-	if hp <= 200 and !self_repair_applied:
-		boss_at6()
-		self_repair_applied = true
+	if hp <= 100 and !attack_removed:
+		attack_removed = true
+		attacks.remove_at(2)
 	
 	await attacks[randi_range(0, len(attacks)-1)].call()
 	
@@ -271,12 +266,6 @@ func boss_at5() -> void:
 	attack4.play(self)
 	
 	await get_tree().create_timer(1).timeout
-
-
-
-func boss_at6() -> void:
-	StatusEffects.apply_self_repair(self, 2, -10)
-	await get_tree().create_timer(0.5).timeout
 
 
 func update_status_bar() -> void:

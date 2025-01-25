@@ -3,6 +3,8 @@ extends Enemy
 
 @onready var bullet: PackedScene = preload("res://Scenes/bullet.tscn")
 @onready var shield: PackedScene = preload("res://Scenes/shield.tscn")
+@onready var drone: PackedScene = preload("res://Scenes/drone.tscn")
+
 var awake: bool = false
 var attacks: Array = [boss_at1, boss_at2, boss_at3, boss_at4, boss_at5]
 var passive_attack: Card.AttackPattren

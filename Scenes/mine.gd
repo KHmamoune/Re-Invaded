@@ -37,7 +37,7 @@ func take_damage(dmg: int) -> void:
 		queue_free()
 
 
-func shoot(bul: Node, _seconds: float, sfx: AudioStream = Audio.sfx_shoot) -> void:
+func shoot(bul: Node, _seconds: float, _i: int, _j: int, sfx: AudioStream = Audio.sfx_shoot) -> void:
 	bul.set_collision_mask_value(5, true)
 	Audio.play_sfx(sfx)
 	get_parent().call_deferred("add_child", bul)

@@ -62,8 +62,8 @@ func _process(delta: float) -> void:
 			look_at(get_tree().get_nodes_in_group("player")[0].global_position)
 			rotation_degrees += 90
 		elif look == "enemy":
-			if get_closest() != null:
-				look_at(get_closest().global_position)
+			if get_closest("enemy") != null:
+				look_at(get_closest("enemy").global_position)
 				rotation_degrees += 90
 		
 	if traveled > move_range:

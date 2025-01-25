@@ -2,20 +2,20 @@ extends Projectile
 
 
 var type: String = "laser"
-var duration: float = 1
+var duration: float = 0.1
 
 
 func _ready() -> void:
 	if len(angle_tweens) > 0:
 		execute_angle_tweens()
 	
-	var tween: Tween = create_tween().set_loops(1)
+	var tween: Tween = create_tween()
+	var tween2: Tween = create_tween()
 	tween.tween_property($Sprite2D2, "scale", Vector2(0.5,5), 0.1)
-	tween.tween_property($CollisionShape2D, "scale", Vector2(1,1), 0.1)
-	tween.tween_interval(duration)
-	tween.tween_property($Sprite2D2, "scale", Vector2(0,5), 0.1)
-	tween.tween_property($CollisionShape2D, "scale", Vector2(0,1), 0.1)
-	tween.tween_callback(queue_free)
+	tween.tween_property($CollisionShape2D, "scale", Vector2(0.7,1), 0.1)
+	tween2.tween_property($Sprite2D2, "scale", Vector2(0,5), 0.1).set_delay(duration)
+	tween2.tween_property($CollisionShape2D, "scale", Vector2(0,1), 0.1)
+	tween2.tween_callback(queue_free)
 	
 	if target != null:
 		rotation = global_position.angle_to_point(target.global_position) + deg_to_rad(90)

@@ -57,7 +57,6 @@ func violet_capsule(pl: Node) -> void:
 	drone.set_tweens([], [], [{"delay": 0, "value": Vector2(-50, 0), "dur": 0.2}])
 	drone.set_drone_properties(3.2)
 	drone.set_properties(false, true)
-	attack.set_properties(false, true)
 	drone.set_attack(1, attack)
 	drone.play(pl)
 

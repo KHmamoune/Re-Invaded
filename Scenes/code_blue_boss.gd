@@ -23,10 +23,10 @@ func _process(_delta: float) -> void:
 	var player: Node = get_tree().get_first_node_in_group("player")
 	
 	if follow:
-		if player.position.x - 5 > position.x:
-			position.x += 5
-		elif player.position.x + 5 < position.x:
-			position.x -= 5
+		if player.position.x - 1.5 > position.x:
+			position.x += 0.5
+		elif player.position.x + 1.5 < position.x:
+			position.x -= 0.5
 
 
 func start() -> void:
