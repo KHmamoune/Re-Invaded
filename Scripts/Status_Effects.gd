@@ -147,6 +147,7 @@ func apply_heat(target: Node, stack: int) -> void:
 		target.status_effects["heat"] += stack
 		if target.status_effects["heat"] > 10:
 			target.status_effects["heat"] = 10
+			apply_meltdown(target)
 		target.speed += 40 * target.status_effects["heat"]
 		target.gen_modifier += 0.1 * target.status_effects["heat"]
 		target.update_status_bar()
@@ -174,6 +175,17 @@ func dispel_heat(target: Node) -> void:
 	target.gen_modifier -= 0.1 * target.status_effects["heat"]
 	target.speed -= 40 * target.status_effects["heat"]
 	target.status_effects["heat"] = 0
+	target.update_status_bar()
+	dispel_meltdown(target)
+
+
+func apply_meltdown(target: Node) -> void:
+	target.status_effects["meltdown"] = 1
+	target.update_status_bar()
+
+
+func dispel_meltdown(target: Node) -> void:
+	target.status_effects["meltdown"] = 0
 	target.update_status_bar()
 
 
@@ -215,6 +227,15 @@ func apply_heat_boss(target: Node) -> void:
 
 func dispel_bullet_speed_boost(target: Node) -> void:
 	target.status_effects["bullet_speed_boost"] = 0
+	target.update_status_bar()
+
+
+func apply_endurance(target: Node, stack: int) -> void:
+	if target.status_effects.has("endurance"):
+		target.status_effects["endurance"] += stack
+	else:
+		target.status_effects["endurance"] = stack
+	
 	target.update_status_bar()
 
 

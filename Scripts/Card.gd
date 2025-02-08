@@ -36,10 +36,20 @@ class CardStats:
 	func play(pl: Node) -> void:
 		pl.energy -= card_cost
 		for card: Dictionary in card_effect:
-			if card.has("delay"):
-				await gv.current_scene.get_tree().create_timer(card["delay"]).timeout
-			
-			card["effect"].play(pl)
+			if card.has("effect"):
+				if typeof(card["effect"]) == typeof(Card.CardStats) or typeof(card["effect"]) == typeof(Card.StatusAffliction) or typeof(card["effect"]) == typeof(Card.DeckManipulation):
+					if card["effect"].animation_name != "":
+						pl.play_animation(card["effect"].animation_name, card["effect"].animation_delay)
+					
+					if card.has("delay"):
+						await gv.current_scene.get_tree().create_timer(card["delay"]).timeout
+					
+					card["effect"].play(pl)
+				else:
+					if card.has("delay"):
+						await gv.current_scene.get_tree().create_timer(card["delay"]).timeout
+					
+					card["effect"].call(pl)
 
 
 class StatusAffliction:
@@ -47,6 +57,8 @@ class StatusAffliction:
 	var status_type: String
 	var status_duration: float
 	var status_stack: int
+	var animation_name: String = ""
+	var animation_delay: float = 0
 	
 	func _init(se: String, sd: float = 0, ss: int = 1, st: String = "buff") -> void:
 		status_effect = se
@@ -74,13 +86,17 @@ class StatusAffliction:
 				StatusEffects.apply_reinforce(pl, status_stack)
 			"fragile":
 				StatusEffects.apply_fragile(pl, status_stack)
+			"endurance":
+				StatusEffects.apply_endurance(pl, status_stack)
 
 
 class DeckManipulation:
 	var manipulation_type: String
 	var card: CardStats
+	var animation_name: String = ""
+	var animation_delay: float = 0
 	
-	func _init(mt: String, c: CardStats) -> void:
+	func _init(mt: String, c: CardStats = null) -> void:
 		manipulation_type = mt
 		card = c
 	
@@ -90,7 +106,18 @@ class DeckManipulation:
 				for modifier: Modifiers.Modifier in pl.modifiers["create"]:
 					modifier.play(pl)
 				pl.full_deck.push_back(card)
-				pl.deck.push_back(card)
+				
+				if len(pl.deck) == 0 and pl.current_hand[0] == null or pl.current_hand[1] == null:
+					if pl.current_hand[0] == null:
+						pl.current_hand[0] = card
+					else:
+						pl.current_hand[1] = card
+				else:
+					pl.deck.push_back(card)
+				pl.emit_signal("update_ui")
+			
+			"shuffle":
+				pl.shuffle_deck(0.01)
 
 
 class AttackPattren:
@@ -142,6 +169,8 @@ class AttackPattren:
 	var marker_duration: float =  0
 	var after_image_delay: float = 0
 	var after_image_interval: float = 0
+	var animation_name: String = ""
+	var animation_delay: float = 0
 	
 	
 	func _init(bt: PackedScene, bam: int, fam: int, fan: Array, fde: float, bsp: float, fpo: Array, bra: float, bda: int) -> void:
@@ -185,6 +214,9 @@ class AttackPattren:
 	
 	func set_stats(j: int, i: int, player: Node) -> Node:
 		var bullet: Node = bullet_type.instantiate()
+		
+		bullet.shooter = player
+		
 		if abs_position != []:
 			if change_position_by.is_empty():
 				bullet.global_position = get_abs_position(j) + get_position(j)
@@ -267,6 +299,9 @@ class AttackPattren:
 		bullet.after_image_interval = after_image_interval
 		
 		bullet.sound_effect = sound_effect
+		
+		bullet.animation_name = animation_name
+		bullet.animation_delay = animation_delay
 		
 		return bullet
 	
@@ -385,6 +420,10 @@ class AttackPattren:
 		bullet_hitbox_size = preset["hitbox_scale"]
 		bullet_color = color
 	
+	func set_animation(name: String, delay: float) -> void:
+		animation_name = name
+		animation_delay = delay 
+	
 	func set_sfx(sfx: AudioStream = Audio.sfx_shoot) -> void:
 		sound_effect = sfx
 	
@@ -405,3 +444,18 @@ class AttackPattren:
 			return fire_angles[j]
 		else:
 			return fire_angles[0]
+
+
+func jammed_fire(pl: Node) -> void:
+	var attack: Card.AttackPattren = AttackPattren.new(gv.bullet, 1, 1, [0], 0.1, 2500, [Vector2.ZERO], 1000, 20)
+	var add_jam: Card.DeckManipulation = DeckManipulation.new("add", gv.jam_card)
+	var rand: int
+	for i in range(0, 5):
+		rand = randi_range(0,1)
+		
+		if rand == 0:
+			attack.play(pl)
+		else:
+			add_jam.play(pl)
+		
+		await get_tree().create_timer(0.2).timeout

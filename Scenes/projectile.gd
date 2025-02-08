@@ -33,6 +33,9 @@ var after_image_interval: float = 0
 var after_image_delay: float = 0
 var additive: bool = false
 var sound_effect: AudioStream = null
+var shooter: Node = null
+var animation_name: String = ""
+var animation_delay: float = 0
 
 
 func shoot(bullet: Node, _seconds: float, i: int, j: int) -> void:

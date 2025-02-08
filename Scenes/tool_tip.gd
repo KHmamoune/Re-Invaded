@@ -23,8 +23,16 @@ func update(tip: String) -> void:
 		"heat":
 			%icon.texture = preload("res://Images/Icons/heat.png")
 			%title.text = "Heat:"
-			%description.text = "Increases Energy generation and movement speed by 10% per stack (caps at 10)."
+			%description.text = "Increases Energy generation and movement speed by 10% per stack (max of 10)."
 		"fragile":
 			%icon.texture = preload("res://Images/Icons/heat.png")
 			%title.text = "Fragile:"
 			%description.text = "take 150% damage, on hit lose 1 fragile."
+		"endurance":
+			%icon.texture = preload("res://Images/Icons/endurance.png")
+			%title.text = "Endurance:"
+			%description.text = "negate the next X instances of damage."
+		"exhaust":
+			%icon.texture = null
+			%title.text = "Exaust:"
+			%description.text = "remove the card from the deck until the end of combat."

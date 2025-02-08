@@ -25,6 +25,8 @@ func update_status_effects(se: Dictionary) -> void:
 				new_se.get_node("Icon").texture = preload("res://Images/Icons/heat.png")
 			"reinforce":
 				new_se.get_node("Icon").texture = preload("res://Images/Icons/reinforced.png")
+			"endurance":
+				new_se.get_node("Icon").texture = preload("res://Images/Icons/endurance.png")
 			
 		new_se.get_node("Stack").text = str(se[k])
 		

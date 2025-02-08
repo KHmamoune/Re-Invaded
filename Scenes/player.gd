@@ -4,6 +4,7 @@ extends Area2D
 signal freeze
 signal unfreeze
 signal update_ui
+signal show_shuffle_delay
 
 
 var default_speed: float = 400.0
@@ -13,8 +14,8 @@ var state: String = "post_combat"
 var on_cooldown: bool = false
 var can_dash: bool = true
 var dashing: bool = false
-var max_hp: int = 200
-var hp: int = 200
+var max_hp: int = 5
+var hp: int = 5
 var direction: Vector2 = Vector2.ZERO
 var is_dead: bool = false
 var energy: float = 0
@@ -22,6 +23,8 @@ var energy_max: int = 5
 var afterimage: bool = false
 var gen_modifier: float = 1
 var hurt: bool = false
+var shuffle_speed: float = 1
+var exhausted_cards: Array = []
 var status_effects: Dictionary = {}
 var modifiers: Dictionary = {
 	"shuffle": [],
@@ -37,18 +40,14 @@ var modifiers: Dictionary = {
 
 @onready var sprite_width: float = $Sprite2D.texture.get_size().x
 @onready var sprite_height: float = $Sprite2D.texture.get_size().y
-@onready var full_deck: Array = []
-@onready var deck: Array = []
+var full_deck: Array = []
+var deck: Array = []
 var current_hand: Array = []
 
 
 func _ready() -> void:
 	$Animations.play("default")
-	for i in range(len(gv.cards)):
-		full_deck.append(gv.cards[i])
-	
-	shuffle_deck()
-	
+	shuffle_deck(0.01)
 	emit_signal("update_ui")
 
 
@@ -89,27 +88,38 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot1"):
 		if !on_cooldown and current_hand[0] != null:
 			if energy > current_hand[0].card_cost:
-				current_hand[0].play(self)
+				var card: Card.CardStats = current_hand[0]
 				current_hand[0] = deck.pop_front()
+				if card.card_tooltips.has("exhaust"):
+					exhausted_cards.append(card)
+					full_deck.erase(card)
+				card.play(self)
 				emit_signal("update_ui")
 	
 	if Input.is_action_just_pressed("shoot2"):
 		if !on_cooldown and current_hand[1] != null:
 			if energy > current_hand[1].card_cost:
-				current_hand[1].play(self)
+				var card: Card.CardStats = current_hand[1]
 				current_hand[1] = deck.pop_front()
+				if card.card_tooltips.has("exhaust"):
+					exhausted_cards.append(card)
+					full_deck.erase(card)
+				card.play(self)
 				emit_signal("update_ui")
 	
 	if Input.is_action_just_pressed("shuffle"):
-		shuffle_deck()
+		shuffle_deck(shuffle_speed)
 	
 	if len(deck) == 0 and current_hand[0] == null and current_hand[1] == null:
-		shuffle_deck()
+		shuffle_deck(shuffle_speed)
 
 
 func shoot(bullet: Node, seconds: float, _i: int, _j: int) -> void:
 	if is_dead:
 		return
+	
+	#if bullet.animation_name != "":
+	#	play_animation(bullet.animation_name, bullet.animation_delay)
 	
 	if bullet.type == "shield":
 		bullet.set_collision_layer_value(4, true)
@@ -121,6 +131,10 @@ func shoot(bullet: Node, seconds: float, _i: int, _j: int) -> void:
 	
 	if status_effects.has("reinforce"):
 		bullet.damage += status_effects["reinforce"]
+	
+	if status_effects.has("meltdown"):
+		if status_effects["meltdown"] == 1:
+			bullet.damage = ceili(bullet.damage * 1.2)
 	
 	Audio.play_sfx(bullet.sound_effect)
 	if bullet.follow_player:
@@ -134,6 +148,13 @@ func shoot(bullet: Node, seconds: float, _i: int, _j: int) -> void:
 	on_cooldown = true
 	%FireCooldownTimer.wait_time = seconds
 	%FireCooldownTimer.start()
+
+
+func play_animation(anm_name: String, delay: float) -> void:
+	await get_tree().create_timer(delay).timeout
+	var instance: Node = gv.attack_animations[anm_name].instantiate()
+	add_child(instance)
+	instance.get_node("AnimationPlayer").play("play")
 
 
 func dash() -> void:
@@ -151,8 +172,16 @@ func lose_health() -> void:
 	for modifier: Modifiers.Modifier in modifiers["hurt"]:
 		modifier.play(self) 
 	
+	
 	if hp > 0:
-		hp -= 1
+		if status_effects.has("endurance"):
+			if status_effects["endurance"] > 0:
+				status_effects["endurance"] -= 1
+				update_status_bar()
+			else:
+				hp -= 1
+		else:
+			hp -= 1
 	
 	disable_hurtbox()
 	Audio.play_sfx(Audio.sfx_damage)
@@ -177,13 +206,16 @@ func disable_hurtbox() -> void:
 		$Animations.play("hit")
 
 
-func shuffle_deck() -> void:
+func shuffle_deck(time: float) -> void:
 	deck = []
 	current_hand = [null, null]
 	
 	randomize()
 	deck = full_deck.duplicate(true)
 	deck.shuffle()
+	
+	emit_signal("show_shuffle_delay", time)
+	await get_tree().create_timer(time).timeout
 	
 	current_hand[0] = deck.pop_front()
 	current_hand[1] = deck.pop_front()
@@ -273,7 +305,9 @@ func _on_area_entered(area: Node) -> void:
 	for effect: Card.StatusAffliction in area.on_hit_effects:
 		effect.play(self)
 	
+	
 	lose_health()
+	
 	#if the attacker is not an enemy free it
 	if area.type != "enemy" and area.type != "drone" and area.type != "laser" and area.type != "explosion":
 		if !area.piercing:

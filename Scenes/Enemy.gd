@@ -15,6 +15,10 @@ func start() -> void:
 	pass
 
 
+func rotate_by(angle: float) -> void:
+	rotation_degrees = angle
+
+
 func _on_area_entered(area: Node) -> void:
 	if "damage" in area:
 		for effect: Card.StatusAffliction in area.on_hit_effects:

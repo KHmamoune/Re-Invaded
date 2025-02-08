@@ -5,6 +5,7 @@ extends Node2D
 @onready var time_label: Node = $PlayerUI/UI/MarginContainer2/MarginContainer/VBoxContainer/Time
 @onready var energy_bar: Node = $PlayerUI/UI/MarginContainer/MarginContainer/VBoxContainer/Energy
 @onready var energy_label: Node = $PlayerUI/UI/MarginContainer/MarginContainer/VBoxContainer/Energy/Label
+@onready var health_text_label: Node = $PlayerUI/UI/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/HpText
 @onready var health_label: Node = $PlayerUI/UI/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/HpValue
 @onready var deck_ui: Node = $PlayerUI/UI/MarginContainer/MarginContainer2/DeckUI
 @onready var modifier_ui: Node = $PlayerUI/UI/MarginContainer2/MarginContainer/VBoxContainer/Modifiers_ui
@@ -27,6 +28,7 @@ var player: Node
 var map_ui: Node
 var time: int = 0
 var scrap_count: int = 0
+var command_state: String = "hidden"
 
 
 func _ready() -> void:
@@ -39,31 +41,43 @@ func _ready() -> void:
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_blue.png")
 			for card: Card.CardStats in gv.blue_cards:
 				gv.cards.append(card)
+			for card: Card.CardStats in gv.blue_starting_cards:
+				player.full_deck.append(card)
 			player.add_modifier(gv.blue_modifier1)
 		"orange":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_orange.png")
 			for card: Card.CardStats in gv.orange_cards:
 				gv.cards.append(card)
+			for card: Card.CardStats in gv.orange_starting_cards:
+				player.full_deck.append(card)
 			player.add_modifier(gv.orange_modifier1)
 		"red":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_red.png")
 			for card: Card.CardStats in gv.red_cards:
 				gv.cards.append(card)
+			for card: Card.CardStats in gv.red_starting_cards:
+				player.full_deck.append(card)
 			player.add_modifier(gv.red_modifier1)
 		"green":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_green.png")
 			for card: Card.CardStats in gv.green_cards:
 				gv.cards.append(card)
+			for card: Card.CardStats in gv.green_starting_cards:
+				player.full_deck.append(card)
 			player.add_modifier(gv.green_modifier1)
 		"yellow":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_yellow.png")
 			for card: Card.CardStats in gv.yellow_cards:
 				gv.cards.append(card)
+			for card: Card.CardStats in gv.yellow_starting_cards:
+				player.full_deck.append(card)
 			player.add_modifier(gv.yellow_modifier1)
 		"violet":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_violet.png")
 			for card: Card.CardStats in gv.violet_cards:
 				gv.cards.append(card)
+			for card: Card.CardStats in gv.violet_starting_cards:
+				player.full_deck.append(card)
 			player.add_modifier(gv.violet_modifier1)
 	
 	player.add_to_group("player")
@@ -72,6 +86,7 @@ func _ready() -> void:
 	player.freeze.connect(_on_player_freeze)
 	player.unfreeze.connect(_on_player_unfreeze)
 	player.update_ui.connect(_on_player_update_ui)
+	player.show_shuffle_delay.connect(_on_player_show_shuffle_delay)
 	add_child(player)
 	
 	var map: Map.MapData = Map.MapData.new()
@@ -106,14 +121,41 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("show_deck") and map_ui.state == "hidden":
 		change_deck_state()
+		
+	if event.is_action_pressed("command"):
+		if command_state == "hidden":
+			$CanvasLayer.show()
+			command_state = "visible"
+			$CanvasLayer/cmd.grab_focus()
+			player.state = "CMD"
+		else:
+			$CanvasLayer.hide()
+			command_state = "hidden"
+			$CanvasLayer/cmd.release_focus()
+			player.state = "post_combat"
 
 
 func _on_player_update_ui() -> void:
 	health_label.text = str(player.hp) + " / " + str(player.max_hp)
+	
+	if float(player.hp) / player.max_hp <= 0.25:
+		health_text_label.set("theme_override_colors/font_color", Color.RED)
+		health_label.set("theme_override_colors/font_color", Color.RED)
+	elif float(player.hp) / player.max_hp <= 0.5:
+		health_text_label.set("theme_override_colors/font_color", Color.ORANGE)
+		health_label.set("theme_override_colors/font_color", Color.ORANGE)
+	else:
+		health_text_label.set("theme_override_colors/font_color", Color.GREEN)
+		health_label.set("theme_override_colors/font_color", Color.GREEN)
+	
 	deck_ui.deck = player.deck
 	deck_ui.current_hand = player.current_hand
 	deck_ui.update_deck()
 	modifier_ui.update(player.modifiers)
+
+
+func _on_player_show_shuffle_delay(delay: float) -> void:
+	deck_ui.show_delay(delay)
 
 
 func _on_player_freeze() -> void:
@@ -183,7 +225,7 @@ func add_rest_screen() -> void:
 func _on_pick_card(card: Node) -> void:
 	card.get_parent().release_focus()
 	player.full_deck.append(card.new_card)
-	player.shuffle_deck()
+	player.shuffle_deck(0.01)
 	
 	var t1: Tween = create_tween()
 	var t2: Tween = create_tween()
@@ -227,7 +269,7 @@ func _on_pick_modifier(modifier: Node) -> void:
 func _on_skiped_card() -> void:
 	remove_child(victory_canvas)
 	victory_canvas.get_child(0).queue_free()
-	player.shuffle_deck()
+	player.shuffle_deck(0.01)
 	player.state = "post_combat"
 
 
@@ -236,7 +278,7 @@ func _on_bought_card(card: Node, price: int) -> void:
 		player.full_deck.append(card.new_card)
 		update_scrap(price, "decrement")
 		card.get_node("../").queue_free()
-		player.shuffle_deck()
+		player.shuffle_deck(0.01)
 		deck_screen.update(player.full_deck, player.modifiers)
 
 
@@ -282,7 +324,7 @@ func spawn_enemies() -> void:
 			new_enemy.fliped = en_map.enemies[i]["fliped"]
 		
 		if en_map.enemies[i].has("rotate"):
-			new_enemy.rotation_degrees = en_map.enemies[i]["rotate"]
+			new_enemy.rotate_by(en_map.enemies[i]["rotate"])
 		
 		new_enemy.dead.connect(Callable(_on_enemy_death))
 		new_enemy.add_to_group("enemy")
@@ -426,7 +468,14 @@ func play_trans_start() -> void:
 	$Animations.play("slide_trans")
 	await $Animations.animation_finished
 	player.energy = 0
-	player.shuffle_deck()
+	restore_cards()
+	player.shuffle_deck(0.01)
+
+
+func restore_cards():
+	for c in player.exhausted_cards:
+		player.full_deck.append(c)
+		player.exhausted_cards.erase(c)
 
 
 func play_trans_end(state: String) -> void:
@@ -445,3 +494,9 @@ func play_trans_end(state: String) -> void:
 	if state == "combat":
 		for modifier: Modifiers.Modifier in player.modifiers["combat_start"]:
 			modifier.play(player) 
+
+
+func _on_cmd_add_card_to_player(card: RefCounted) -> void:
+	player.deck.append(card)
+	player.full_deck.append(card)
+	_on_player_update_ui()

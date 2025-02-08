@@ -94,7 +94,7 @@ func boss_at1() -> void:
 		attack2.set_change_values([-5,-5,-5,-5,-5,-5,-5,-5])
 	
 	attack1.set_attack(1.2, attack2)
-	attack1.set_drone_properties(2)
+	attack1.set_drone_properties(2.2)
 	
 	attack1.play(self)
 	await get_tree().create_timer(2).timeout

@@ -49,6 +49,25 @@ func update_deck() -> void:
 		
 		%Cards.add_child(rect)
 
+
+func show_delay(delay: float) -> void:
+	for child: Node in %Deck.get_children():
+		child.queue_free()
+	
+	for child: Node in %Cards.get_children():
+		child.queue_free()
+	
+	$DelayBar.show()
+	$DelayBar.max_value = delay
+	$DelayTimer.start(delay)
+	
+	while($DelayTimer.time_left > 0):
+		$DelayBar.value = $DelayTimer.time_left
+		await get_tree().create_timer(0.001).timeout
+	
+	$DelayBar.hide()
+
+
 func create_label(card: Card.CardStats) -> Label:
 	var cost: Label = Label.new()
 	cost.text = str(card.card_cost)

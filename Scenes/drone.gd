@@ -59,7 +59,9 @@ func _on_attack_delay_timeout() -> void:
 
 
 func _on_timer_timeout() -> void:
-	queue_free()
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "global_position", shooter.global_position, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_callback(queue_free)
 
 
 func _on_area_entered(area: Node) -> void:
