@@ -63,7 +63,7 @@ material = SubResource("ShaderMaterial_jtr01")
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_isk0h")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dw6j7")
 
 [node name="Timer" type="Timer" parent="."]

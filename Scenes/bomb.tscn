@@ -66,7 +66,7 @@ material = SubResource("ShaderMaterial_jtr01")
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_t12do")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5gql4")
 
 [node name="ExplosionRadius" type="CollisionShape2D" parent="."]

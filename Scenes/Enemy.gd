@@ -9,6 +9,7 @@ var scrap: int
 var status_effects: Dictionary = {}
 var color: Color = Color.WHITE
 var type: String = "enemy"
+var hit_effect: PackedScene = preload("res://Scenes/hit_effect.tscn")
 
 
 func start() -> void:
@@ -34,6 +35,11 @@ func _on_area_entered(area: Node) -> void:
 			area.explode()
 		
 		if area.type != "drone" and area.type != "laser" and area.type != "explosion" and not area.piercing:
+			var inst: Node = hit_effect.instantiate()
+			inst.color = color
+			inst.position = area.position
+			get_parent().add_child(inst)
+			inst.emitting = true
 			area.queue_free()
 
 
@@ -68,6 +74,8 @@ func shoot(bullet: Node, _seconds: float, i: int, j: int) -> void:
 	
 	#playing the sound effect of the bullet
 	Audio.play_sfx(bullet.sound_effect)
+	
+	bullet.add_to_group("bullet")
 	
 	if bullet.follow_player:
 		bullet.position = Vector2.ZERO

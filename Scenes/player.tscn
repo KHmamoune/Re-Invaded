@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2kbgqqa53i6p"]
+[gd_scene load_steps=14 format=3 uid="uid://b2kbgqqa53i6p"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_7qrio"]
 [ext_resource type="Texture2D" uid="uid://681us65p416x" path="res://Images/Characters/code_blue.png" id="2_4dwqm"]
@@ -8,6 +8,9 @@
 radius = 5.0
 height = 18.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xaaqq"]
+radius = 27.0185
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d54ys"]
 bg_color = Color(0.414704, 0.414704, 0.414704, 0.588235)
 
@@ -16,6 +19,10 @@ bg_color = Color(1, 1, 1, 0.588235)
 
 [sub_resource type="Curve" id="Curve_ile8d"]
 _data = [Vector2(0.110687, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.184906), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_gm15f"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.154717), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Animation" id="Animation_rl876"]
@@ -114,6 +121,14 @@ position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_wdmk6")
 debug_color = Color(1, 0.00193534, 0.0769507, 0.42)
 
+[node name="Grazebox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grazebox"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_xaaqq")
+
 [node name="FireCooldownTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true
@@ -170,6 +185,22 @@ scale_amount_max = 14.0
 scale_amount_curve = SubResource("Curve_ile8d")
 color = Color(0, 0.802607, 0.802606, 1)
 
+[node name="FireEffect" type="CPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(0, 17)
+amount = 10
+emission_shape = 3
+emission_rect_extents = Vector2(10, 1)
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 60.0
+scale_amount_min = 5.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_gm15f")
+color = Color(0.980095, 0.56163, 1.15514e-06, 1)
+
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_5myx0")
@@ -181,6 +212,7 @@ offset_top = -63.0
 offset_bottom = -33.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_entered" from="Grazebox" to="." method="_on_grazebox_area_entered"]
 [connection signal="timeout" from="FireCooldownTimer" to="." method="_on_fire_cooldown_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]

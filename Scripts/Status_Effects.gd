@@ -50,7 +50,7 @@ func apply_generation_boost(target: Node, duration: float) -> void:
 	target.add_child(gen_boost_timer)
 	gen_boost_timer.start(duration)
 	target.gen_modifier += 1
-	target.status_effects["generation boost"] = 1
+	target.status_effects["gen_boost"] = 1
 	target.update_status_bar()
 
 
@@ -58,7 +58,7 @@ func dispel_generation_boost(target: Node) -> void:
 	print("dispeled gen_boost")
 	target.gen_modifier -= 1
 	target.get_node_or_null("gen_boost_timer").queue_free()
-	target.status_effects["generation boost"] = 0
+	target.status_effects["gen_boost"] = 0
 	target.update_status_bar()
 
 
@@ -78,14 +78,14 @@ func apply_generation_impede(target: Node, duration: float) -> void:
 	target.add_child(gen_impede_timer)
 	gen_impede_timer.start(duration)
 	target.gen_modifier -= 0.5
-	target.status_effects["generation impede"] = 1
+	target.status_effects["gen_impede"] = 1
 	target.update_status_bar()
 
 
 func dispel_generation_impede(target: Node) -> void:
 	target.gen_modifier += 0.5
 	target.get_node_or_null("gen_impede_timer").queue_free()
-	target.status_effects["generation impede"] = 0
+	target.status_effects["gen_impede"] = 0
 	target.update_status_bar()
 
 
@@ -241,11 +241,13 @@ func apply_endurance(target: Node, stack: int) -> void:
 
 func apply_self_repair(target: Node, duration: float, amount: int) -> void:
 	var heal_timer:Timer = Timer.new()
+	target.status_effects["self_repair"] = 1
 	heal_timer.wait_time = duration
 	heal_timer.timeout.connect(self_repair.bind(target, amount))
 	heal_timer.name = "heal_timer"
 	target.add_child(heal_timer)
 	heal_timer.start()
+	target.update_status_bar()
 
 
 func self_repair(target: Node, amount: int) -> void:

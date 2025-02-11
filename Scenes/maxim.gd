@@ -8,7 +8,7 @@ var charging: bool = false
 func _ready() -> void:
 	color = Color.DARK_GREEN
 	area_entered.connect(_on_area_entered)
-	hp = 40
+	hp = 80
 	scrap = 20
 	$hp.text = str(hp)
 

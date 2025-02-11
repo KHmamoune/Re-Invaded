@@ -36,6 +36,11 @@
 			"description": "fire 3 bombs that explode after 2 seconds, 10 damage.",
 			"image": "res://Images/Other/explosion_shower_card.png"
 		},
+		"nuclear_fusion": {
+			"title": "Nuclear fusion",
+			"description": "fire a row of explosives that travels forward.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
 		
 		"double_burst": {
 			"title": "Double Burst",
@@ -150,7 +155,7 @@
 		"red_capsule": {
 			"title": "Red Capsule, Shared Pain",
 			"image": "res://Images/Icons/red_capsule.png",
-			"description": "whenever you gain a debuff deal 5 damage to all enemies"
+			"description": "whenever you gain a debuff deal 2 damage to all enemies"
 		},
 		"green_capsule": {
 			"title": "Green Capsule, Second Wind",

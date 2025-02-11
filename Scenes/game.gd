@@ -9,7 +9,9 @@ extends Node2D
 @onready var health_label: Node = $PlayerUI/UI/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/HpValue
 @onready var deck_ui: Node = $PlayerUI/UI/MarginContainer/MarginContainer2/DeckUI
 @onready var modifier_ui: Node = $PlayerUI/UI/MarginContainer2/MarginContainer/VBoxContainer/Modifiers_ui
+@onready var graze_bar: Node = $PlayerUI/UI/MarginContainer2/MarginContainer/VBoxContainer/Panel/TextureProgressBar
 @onready var flash_effect: Node = $Flash/FlashEffect
+@onready var background: Node = $Background
 
 @onready var victory_screen: PackedScene = preload("res://Scenes/victory_screen.tscn")
 @onready var deck_screen: Node = preload("res://Scenes/deck_menu.tscn").instantiate()
@@ -36,49 +38,56 @@ func _ready() -> void:
 	$Time.start()
 	player = preload("res://Scenes/player.tscn").instantiate()
 	
+	var color_cards: Array
+	var color_starting_cards: Array
+	var color_modifier: Modifiers.Modifier
+	var color_special_attack: Card.AttackPattren
+	
 	match gv.player_color:
 		"blue":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_blue.png")
-			for card: Card.CardStats in gv.blue_cards:
-				gv.cards.append(card)
-			for card: Card.CardStats in gv.blue_starting_cards:
-				player.full_deck.append(card)
-			player.add_modifier(gv.blue_modifier1)
+			color_cards = gv.blue_cards
+			color_starting_cards = gv.blue_starting_cards
+			color_modifier = gv.blue_modifier1
+			color_special_attack = gv.blue_special_attack
 		"orange":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_orange.png")
-			for card: Card.CardStats in gv.orange_cards:
-				gv.cards.append(card)
-			for card: Card.CardStats in gv.orange_starting_cards:
-				player.full_deck.append(card)
-			player.add_modifier(gv.orange_modifier1)
+			color_cards = gv.orange_cards
+			color_starting_cards = gv.orange_starting_cards
+			color_modifier = gv.orange_modifier1
+			color_special_attack = gv.blue_special_attack
 		"red":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_red.png")
-			for card: Card.CardStats in gv.red_cards:
-				gv.cards.append(card)
-			for card: Card.CardStats in gv.red_starting_cards:
-				player.full_deck.append(card)
-			player.add_modifier(gv.red_modifier1)
+			color_cards =  gv.red_cards
+			color_starting_cards = gv.red_starting_cards
+			color_modifier = gv.red_modifier1
+			color_special_attack = gv.blue_special_attack
 		"green":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_green.png")
-			for card: Card.CardStats in gv.green_cards:
-				gv.cards.append(card)
-			for card: Card.CardStats in gv.green_starting_cards:
-				player.full_deck.append(card)
-			player.add_modifier(gv.green_modifier1)
+			color_cards = gv.green_cards
+			color_starting_cards = gv.green_starting_cards
+			color_modifier = gv.green_modifier1
+			color_special_attack = gv.blue_special_attack
 		"yellow":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_yellow.png")
-			for card: Card.CardStats in gv.yellow_cards:
-				gv.cards.append(card)
-			for card: Card.CardStats in gv.yellow_starting_cards:
-				player.full_deck.append(card)
-			player.add_modifier(gv.yellow_modifier1)
+			color_cards =  gv.yellow_cards
+			color_starting_cards = gv.yellow_starting_cards
+			color_modifier = gv.yellow_modifier1
+			color_special_attack = gv.blue_special_attack
 		"violet":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_violet.png")
-			for card: Card.CardStats in gv.violet_cards:
-				gv.cards.append(card)
-			for card: Card.CardStats in gv.violet_starting_cards:
-				player.full_deck.append(card)
-			player.add_modifier(gv.violet_modifier1)
+			color_cards =  gv.violet_cards
+			color_starting_cards = gv.violet_starting_cards
+			color_modifier = gv.violet_modifier1
+			color_special_attack = gv.blue_special_attack
+	
+	# asigning the appropriate starting kit to the player
+	for card: Card.CardStats in color_cards:
+		gv.cards.append(card)
+	for card: Card.CardStats in color_starting_cards:
+		player.full_deck.append(card)
+	player.add_modifier(color_modifier)
+	player.special_attack = color_special_attack
 	
 	player.add_to_group("player")
 	player.position = Vector2(575, 600)
@@ -87,7 +96,9 @@ func _ready() -> void:
 	player.unfreeze.connect(_on_player_unfreeze)
 	player.update_ui.connect(_on_player_update_ui)
 	player.show_shuffle_delay.connect(_on_player_show_shuffle_delay)
+	player.update_graze_bar.connect(_on_player_update_graze_bar)
 	add_child(player)
+	gv.player = player
 	
 	var map: Map.MapData = Map.MapData.new()
 	
@@ -153,6 +164,8 @@ func _on_player_update_ui() -> void:
 	deck_ui.update_deck()
 	modifier_ui.update(player.modifiers)
 
+func _on_player_update_graze_bar(graze_points: int) -> void:
+	graze_bar.value = graze_points
 
 func _on_player_show_shuffle_delay(delay: float) -> void:
 	deck_ui.show_delay(delay)
@@ -174,7 +187,10 @@ func _on_enemy_death(scrap: int) -> void:
 	await get_tree().create_timer(0.1).timeout
 	
 	if get_tree().get_nodes_in_group("enemy").is_empty() and not enemies_dead:
+		modulate_background(0)
 		enemies_dead = true
+		for bullet: Node in get_tree().get_nodes_in_group("bullet"):
+			bullet.fade_out()
 		add_victory_screen()
 
 
@@ -394,11 +410,13 @@ func on_room_select(room: Map.Room) -> void:
 	gv.current_room_type = room.type
 	
 	if room.type == 1:
+		modulate_background(100)
 		play_trans_end("combat")
 		en_map = gv.en_maps[floor(randf() * len(gv.en_maps))]
 		spawn_enemies()
 		
 	elif room.type == 2:
+		modulate_background(100)
 		play_trans_end("combat")
 		en_map = gv.res_maps[floor(randf() * len(gv.res_maps))]
 		spawn_enemies()
@@ -408,11 +426,13 @@ func on_room_select(room: Map.Room) -> void:
 		add_rest_screen()
 		
 	elif room.type == 4:
+		modulate_background(100)
 		play_trans_end("combat")
 		en_map = gv.mini_maps[floor(randf() * len(gv.mini_maps))]
 		spawn_enemies()
 		
 	elif room.type == 5:
+		modulate_background(100)
 		play_trans_end("combat")
 		en_map = gv.boss_maps[floor(randf() * len(gv.boss_maps))]
 		spawn_enemies()
@@ -472,8 +492,8 @@ func play_trans_start() -> void:
 	player.shuffle_deck(0.01)
 
 
-func restore_cards():
-	for c in player.exhausted_cards:
+func restore_cards() -> void:
+	for c: Card.CardStats in player.exhausted_cards:
 		player.full_deck.append(c)
 		player.exhausted_cards.erase(c)
 
@@ -500,3 +520,7 @@ func _on_cmd_add_card_to_player(card: RefCounted) -> void:
 	player.deck.append(card)
 	player.full_deck.append(card)
 	_on_player_update_ui()
+
+func modulate_background(value: float) -> void:
+	var t:Tween = create_tween()
+	t.tween_property(background.get_node("DarkEffect"), "color", Color(0, 0, 0, value/255), 0.5)

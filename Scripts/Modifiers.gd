@@ -38,7 +38,7 @@ func orange_capsule(pl: Node) -> void:
 
 func red_capsule(pl: Node) -> void:
 	for enemy: Node in  pl.get_tree().get_nodes_in_group("enemy"):
-		enemy.take_damage(5)
+		enemy.take_damage(2)
 
 
 func green_capsule(pl: Node) -> void:

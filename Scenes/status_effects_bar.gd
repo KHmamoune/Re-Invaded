@@ -14,20 +14,7 @@ func update_status_effects(se: Dictionary) -> void:
 		
 		var new_se: Node = status_ui.instantiate()
 		
-		match k:
-			"flame":
-				new_se.get_node("Icon").texture = preload("res://Images/Icons/flame.png")
-			"impede":
-				new_se.get_node("Icon").texture = preload("res://Images/Icons/impede.png")
-			"generation boost":
-				new_se.get_node("Icon").texture = preload("res://Images/Icons/gen_boost.png")
-			"heat":
-				new_se.get_node("Icon").texture = preload("res://Images/Icons/heat.png")
-			"reinforce":
-				new_se.get_node("Icon").texture = preload("res://Images/Icons/reinforced.png")
-			"endurance":
-				new_se.get_node("Icon").texture = preload("res://Images/Icons/endurance.png")
-			
+		new_se.get_node("Icon").texture = gv.status_icons[k]
 		new_se.get_node("Stack").text = str(se[k])
 		
 		add_child(new_se)

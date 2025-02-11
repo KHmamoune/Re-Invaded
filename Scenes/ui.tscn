@@ -1,15 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://diup4akafq8u0"]
+[gd_scene load_steps=9 format=3 uid="uid://diup4akafq8u0"]
 
 [ext_resource type="Texture2D" uid="uid://rjyabeodtw6b" path="res://Images/Backgrounds/ui_background1.png" id="1_gicbd"]
 [ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Images/Icons/scrap.png" id="2_166by"]
 [ext_resource type="PackedScene" uid="uid://c83xbth1v5fgm" path="res://Scenes/deck_ui.tscn" id="2_xsdwi"]
 [ext_resource type="PackedScene" uid="uid://vxlt0wbavuy" path="res://Scenes/modifiers_ui.tscn" id="3_45blw"]
+[ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Images/Other/place_holder_card.png" id="5_5wku5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2jvd"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1kkv"]
 bg_color = Color(0.227451, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up2rt"]
+bg_color = Color(0.207843, 0.694118, 0.0823529, 1)
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -137,3 +141,33 @@ text = "0"
 
 [node name="Modifiers_ui" parent="MarginContainer2/MarginContainer/VBoxContainer" instance=ExtResource("3_45blw")]
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_styles/panel = SubResource("StyleBoxFlat_up2rt")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer2/MarginContainer/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+max_value = 30.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("5_5wku5")
+texture_progress = ExtResource("5_5wku5")
+tint_under = Color(0.399428, 0.399428, 0.399428, 1)

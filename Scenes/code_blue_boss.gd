@@ -14,7 +14,7 @@ var self_repair_applied: bool = false
 func _ready() -> void:
 	$Animations.play("default")
 	passive_attack = Card.AttackPattren.new(bullet, 2, 6, [0], 0.05, 800, [Vector2(20, 0), Vector2(-20, 0)], 800, 1)
-	hp = 1000
+	hp = 201
 	scrap = 500
 	$hp.text = str(hp)
 

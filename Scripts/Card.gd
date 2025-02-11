@@ -88,6 +88,9 @@ class StatusAffliction:
 				StatusEffects.apply_fragile(pl, status_stack)
 			"endurance":
 				StatusEffects.apply_endurance(pl, status_stack)
+		
+		if pl.has_method("show_text"):
+			pl.show_text(status_effect, status_effect)
 
 
 class DeckManipulation:
@@ -115,6 +118,7 @@ class DeckManipulation:
 				else:
 					pl.deck.push_back(card)
 				pl.emit_signal("update_ui")
+				pl.show_text(null, card.card_name)
 			
 			"shuffle":
 				pl.shuffle_deck(0.01)
@@ -221,12 +225,12 @@ class AttackPattren:
 			if change_position_by.is_empty():
 				bullet.global_position = get_abs_position(j) + get_position(j)
 			else:
-				bullet.global_position = get_abs_position(j) + get_position(j) + (change_position_by[j] * i)
+				bullet.global_position = get_abs_position(j) + (change_position_by[j] * i)
 		else:
 			if change_position_by.is_empty():
 				bullet.global_position = player.global_position + get_position(j)
 			else:
-				bullet.global_position = player.global_position + get_position(j) + (change_position_by[j] * i)
+				bullet.global_position = player.global_position + (change_position_by[j] * i)
 		
 		#setting the fire angle
 		if aim != "":

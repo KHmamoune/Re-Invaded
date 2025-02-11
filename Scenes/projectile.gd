@@ -64,6 +64,9 @@ func shoot(bullet: Node, _seconds: float, i: int, j: int) -> void:
 		await get_tree().create_timer(bullet.wait_time).timeout
 	
 	Audio.play_sfx(bullet.sound_effect)
+	
+	bullet.add_to_group("bullet")
+	
 	if bullet.follow_player:
 		bullet.position = Vector2.ZERO
 		if !bullet.type == "shield":
@@ -150,3 +153,10 @@ func _on_after_image_timer_timeout() -> void:
 	after_image_instance.global_position = global_position
 	after_image_instance.get_node("Sprite2D").modulate = bullet_color
 	get_parent().add_child(after_image_instance)
+
+
+func fade_out() -> void:
+	$Hitbox.set_deferred("disabled", true)
+	var t: Tween = create_tween()
+	t.tween_property(self, "modulate:a", 0, 0.2)
+	t.tween_callback(Callable(queue_free))

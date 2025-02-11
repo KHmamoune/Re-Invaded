@@ -5,8 +5,11 @@ signal freeze
 signal unfreeze
 signal update_ui
 signal show_shuffle_delay
+signal update_graze_bar
 
 
+var status_text: PackedScene = preload("res://Scenes/status_text.tscn")
+var special_attack: Card.AttackPattren
 var default_speed: float = 400.0
 var speed: float = 400.0
 var color: Color = Color.CYAN
@@ -24,6 +27,7 @@ var afterimage: bool = false
 var gen_modifier: float = 1
 var hurt: bool = false
 var shuffle_speed: float = 1
+var graze_points: int = 0
 var exhausted_cards: Array = []
 var status_effects: Dictionary = {}
 var modifiers: Dictionary = {
@@ -110,6 +114,13 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("shuffle"):
 		shuffle_deck(shuffle_speed)
 	
+	if Input.is_action_just_pressed("special"):
+		if graze_points == 30:
+			play_animation("special_fire", 0)
+			special_attack.play(self)
+			graze_points = 0
+			update_graze_bar.emit(graze_points)
+	
 	if len(deck) == 0 and current_hand[0] == null and current_hand[1] == null:
 		shuffle_deck(shuffle_speed)
 
@@ -137,6 +148,9 @@ func shoot(bullet: Node, seconds: float, _i: int, _j: int) -> void:
 			bullet.damage = ceili(bullet.damage * 1.2)
 	
 	Audio.play_sfx(bullet.sound_effect)
+	
+	bullet.add_to_group("bullet")
+	
 	if bullet.follow_player:
 		bullet.position = Vector2.ZERO
 		if !bullet.type == "shield":
@@ -246,6 +260,13 @@ func add_modifier(modifier: Modifiers.Modifier) -> void:
 			modifiers["debuff"].append(modifier)
 
 
+func show_text(image: String, text: String) -> void:
+	var inst: Node = status_text.instantiate()
+	inst.text = text + " +"
+	inst.image = image
+	add_child(inst)
+
+
 func _on_dash_timer_timeout() -> void:
 	dashing = false
 	speed = default_speed
@@ -322,3 +343,9 @@ func _on_after_image_timer_timeout() -> void:
 	after_image_instance.rotation = rotation
 	after_image_instance.global_position = global_position
 	get_parent().add_child(after_image_instance)
+
+
+func _on_grazebox_area_entered(_area: Area2D) -> void:
+	if graze_points < 30:
+		graze_points += 1
+		update_graze_bar.emit(graze_points)
