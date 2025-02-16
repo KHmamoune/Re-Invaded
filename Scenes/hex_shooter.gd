@@ -15,8 +15,8 @@ func _ready() -> void:
 	scrap = 20
 	hp = 50
 	$body.position = position
-	$StatusEffectsBar.position = position
-	$ruby.position = position
+	$StatusEffectsBar.position = position + Vector2(-14, 80)
+	$ruby.position = position 
 	$hp.position = position + Vector2(-20, 64)
 	$hp.text = str(hp)
 

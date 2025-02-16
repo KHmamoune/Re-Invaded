@@ -71,6 +71,12 @@ class StatusAffliction:
 			if "modifiers" in pl:
 				for modifier: Modifiers.Modifier in pl.modifiers["debuff"]:
 					modifier.play(pl)
+			
+			pl.play_animation("debuff_animation", 0)
+		
+		if status_type == "buff":
+			pl.play_animation("buff_animation", 0)
+		
 		match status_effect:
 			"impede":
 				StatusEffects.apply_impede(pl, status_duration)
@@ -98,27 +104,31 @@ class DeckManipulation:
 	var card: CardStats
 	var animation_name: String = ""
 	var animation_delay: float = 0
+	var execution_times: int = 1
 	
-	func _init(mt: String, c: CardStats = null) -> void:
+	func _init(mt: String, c: CardStats = null, e: int = 1) -> void:
 		manipulation_type = mt
 		card = c
+		execution_times = e
 	
 	func play(pl: Node) -> void:
 		match manipulation_type:
 			"add":
 				for modifier: Modifiers.Modifier in pl.modifiers["create"]:
 					modifier.play(pl)
-				pl.full_deck.push_back(card)
-				
-				if len(pl.deck) == 0 and pl.current_hand[0] == null or pl.current_hand[1] == null:
-					if pl.current_hand[0] == null:
-						pl.current_hand[0] = card
+				for _i in range(execution_times):
+					pl.full_deck.push_back(card)
+					
+					if len(pl.deck) == 0 and pl.current_hand[0] == null or pl.current_hand[1] == null:
+						if pl.current_hand[0] == null:
+							pl.current_hand[0] = card
+						else:
+							pl.current_hand[1] = card
 					else:
-						pl.current_hand[1] = card
-				else:
-					pl.deck.push_back(card)
+						pl.deck.push_back(card)
+				
 				pl.emit_signal("update_ui")
-				pl.show_text(null, card.card_name)
+				pl.show_text("", card.card_name)
 			
 			"shuffle":
 				pl.shuffle_deck(0.01)
@@ -463,3 +473,10 @@ func jammed_fire(pl: Node) -> void:
 			add_jam.play(pl)
 		
 		await get_tree().create_timer(0.2).timeout
+
+
+func photosynthesis(pl: Node) -> void:
+	var effect: Card.DeckManipulation = Card.DeckManipulation.new("add", gv.yellow_sub_card1, 2)
+	
+	effect.play(pl)
+	pl.heal(1)

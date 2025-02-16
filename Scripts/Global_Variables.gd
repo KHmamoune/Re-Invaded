@@ -6,13 +6,27 @@ var current_scene: Node
 var current_map: Map.MapData
 var current_room_type: Map.Type
 var player_color: String
-var act: int = 1
+var act: String = "Outer Space"
 var player: Node 
 
 var game_data: Dictionary = gdt.read_json(gdt.game_data_path)
 var story_script: Dictionary = gdt.read_json(gdt.story_script_path)
 var card_data: Dictionary = game_data["card_data"]
 var mod_data: Dictionary = game_data["modifier_data"]
+var area_data: Dictionary = game_data["area_data"]
+
+
+#areas data
+var odd_areas: Array = [area_data["outer_space"],area_data["the_remains"],area_data["the_nest"],area_data["the_heart"]]
+var even_areas: Dictionary = {
+	1: [area_data["water_facility"],area_data["the_factory"],area_data["red_area"]],
+	2: [area_data["pipeworks"],area_data["the_halls"],area_data["the_den"]]
+}
+
+var area_backgrounds: Dictionary = {
+	"Water Facility": preload("res://Scenes/water_facility_background.tscn") 
+}
+
 
 #bullet presets
 var bullet2_preset: Dictionary = {
@@ -67,14 +81,14 @@ var status_icons: Dictionary = {
 
 #enemy maps and such
 #syntax: Battle.EnemyMap.new([{"enemy": *enemy*}], ["enemy_position"])
-var en_map1: Battle.EnemyMap = Battle.EnemyMap.new([
+var os_en_map1: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": maxim },
 	{ "enemy": maxim },
 	{ "enemy": turret },
 	{ "enemy": turret }
 	], [Vector2(275, 400),Vector2(425, 400),Vector2(250, 150),Vector2(450, 150)])
 
-var en_map2: Battle.EnemyMap = Battle.EnemyMap.new([
+var os_en_map2: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": mine },
 	{ "enemy": mine },
 	{ "enemy": mine },
@@ -85,14 +99,14 @@ var en_map2: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": hex_shooter, "fliped": true }
 	], [Vector2(125,200), Vector2(200,200), Vector2(275,200), Vector2(425,200), Vector2(500,200), Vector2(575,200), Vector2(200, 100), Vector2(500, 100)])
 
-var en_map3: Battle.EnemyMap = Battle.EnemyMap.new([
+var os_en_map3: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": hex_shooter },
 	{ "enemy": hex_shooter },
 	{ "enemy": turret, "rotate": -45 },
 	{ "enemy": turret, "rotate": 45 }
 	], [Vector2(275, 200),Vector2(425, 200),Vector2(150, 300),Vector2(550, 300)])
 
-var en_map4: Battle.EnemyMap = Battle.EnemyMap.new([
+var os_en_map4: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": turret, "rotate": -5 },
 	{ "enemy": turret, "rotate": -10 },
 	{ "enemy": turret, "rotate": 10 },
@@ -100,12 +114,17 @@ var en_map4: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": maxim }
 	], [Vector2(100, 200),Vector2(250, 200),Vector2(450, 200),Vector2(600, 200),Vector2(350, 100)])
 
-var en_maps: Array = [en_map4]
+var en_maps: Dictionary = {
+	"Outer Space": [os_en_map3]
+}
 
-var mini_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": radar }], [Vector2(350, 200)])
-var mini_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": starly }], [Vector2(350, 200)])
-var mini_map3: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": splice }, { "enemy": splice }], [Vector2(250, -150), Vector2(450, -150)])
-var mini_maps: Array = [mini_map1, mini_map2, mini_map3]
+var os_mini_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": radar }], [Vector2(350, 200)])
+var os_mini_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": starly }], [Vector2(350, 200)])
+var os_mini_map3: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": splice }, { "enemy": splice }], [Vector2(250, -150), Vector2(450, -150)])
+
+var mini_maps: Dictionary = {
+	"Outer Space": [os_mini_map1, os_mini_map2, os_mini_map3]
+}
 
 var boss_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": security_system }], [Vector2(350, 120)])
 var boss_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_blue_boss }], [Vector2(350, 50)])
@@ -114,7 +133,16 @@ var boss_map4: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_red_boss }
 var boss_map5: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_green_boss }], [Vector2(350, 50)])
 var boss_map6: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_yellow_boss }], [Vector2(350, 50)])
 var boss_map7: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_violet_boss }], [Vector2(350, 50)])
-var boss_maps: Array = [boss_map1]
+
+var boss_maps: Dictionary = {
+	"Outer Space": boss_map1,
+	"Water Facility": boss_map2,
+	"The Factory": boss_map3,
+	"Red Area": boss_map4,
+	"Pipeworks": boss_map5,
+	"The Halls": boss_map6,
+	"The Den": boss_map7,
+}
 
 var res_map1: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": scrap_pile }, 
@@ -140,10 +168,14 @@ var res_maps: Array = [res_map1, res_map2, res_map3]
 #loading animations for attacks
 var animation1: PackedScene = preload("res://Scenes/fire_shockwave.tscn")
 var animation2: PackedScene = preload("res://Scenes/special_fire_animation.tscn")
+var animation3: PackedScene = preload("res://Scenes/buff_animation.tscn")
+var animation4: PackedScene = preload("res://Scenes/debuff_animation.tscn")
 
 var attack_animations: Dictionary = {
 	"shockwave": animation1,
 	"special_fire": animation2,
+	"buff_animation": animation3,
+	"debuff_animation": animation4,
 }
 
 #loading bullets and spawnable things
@@ -222,6 +254,8 @@ var yellow_card2: Card.CardStats = Card.CardStats.new(2, card_data["laser_sweep"
 var yellow_effect1: Card.DeckManipulation = Card.DeckManipulation.new("add", yellow_sub_card1)
 var yellow_card3: Card.CardStats = Card.CardStats.new(1, card_data["blast_store"]["title"], card_data["blast_store"]["image"], card_data["card_types"]["skill"], card_data["blast_store"]["description"], Color.YELLOW, [{"effect": yellow_effect1}], 50, [yellow_sub_card1])
 
+var yellow_card4: Card.CardStats = Card.CardStats.new(1, card_data["photosynthesis"]["title"], card_data["photosynthesis"]["image"], card_data["card_types"]["skill"], card_data["photosynthesis"]["description"], Color.YELLOW, [{"effect": Card.photosynthesis}], 50, [yellow_sub_card1, "exhaust"])
+
 var violet_attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 1, [0], 0.1, 2500, [Vector2.ZERO], 1000, 15)
 var violet_card1: Card.CardStats = Card.CardStats.new(1, card_data["shooting_target"]["title"], card_data["shooting_target"]["image"], card_data["card_types"]["attack"], card_data["shooting_target"]["description"], Color.BLUE_VIOLET, [{"delay": 0.1, "effect": violet_attack1}])
 var violet_drone1: Card.AttackPattren = Card.AttackPattren.new(drone, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 0)
@@ -285,6 +319,7 @@ var cards_dictionary: Dictionary = {
 	"jammed_fire": violet_card4,
 	"withstand": green_card5,
 	"nuclear_fusion": orange_card4,
+	"photosynthesis": yellow_card4,
 	"jam": jam_card,
 }
 

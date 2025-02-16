@@ -102,14 +102,7 @@ hframes = 7
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_72fwa")
 
-[node name="hp" type="Label" parent="."]
-offset_left = -19.0
-offset_top = 23.0
-offset_right = 21.0
-offset_bottom = 46.0
-text = "hp"
-horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {

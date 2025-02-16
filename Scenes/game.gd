@@ -16,13 +16,15 @@ extends Node2D
 @onready var victory_screen: PackedScene = preload("res://Scenes/victory_screen.tscn")
 @onready var deck_screen: Node = preload("res://Scenes/deck_menu.tscn").instantiate()
 @onready var rest_screen: PackedScene = preload("res://Scenes/rest.tscn")
+@onready var act_change_screen: PackedScene = preload("res://Scenes/area_change_ui.tscn")
 @onready var enemy: PackedScene = preload("res://Scenes/turret.tscn")
-@onready var en_map: Battle.EnemyMap = gv.en_maps[floor(randf() * len(gv.en_maps))]
+@onready var en_map: Battle.EnemyMap
 var victory_canvas: CanvasLayer = CanvasLayer.new()
 var map_canvas: CanvasLayer = CanvasLayer.new()
 var rest_canvas: CanvasLayer = CanvasLayer.new()
 var deck_canvas: CanvasLayer = CanvasLayer.new()
 var dialogue_canvas: CanvasLayer = CanvasLayer.new()
+var act_change_canvas: CanvasLayer = CanvasLayer.new()
 var enemies_dead: bool = false
 var prev_state: String
 var prev_focus: Node
@@ -100,15 +102,10 @@ func _ready() -> void:
 	add_child(player)
 	gv.player = player
 	
-	var map: Map.MapData = Map.MapData.new()
-	
-	gv.current_map = map
+	# generating the map and setting the player deck
+	reload_map()
 	gv.current_scene = self
-	
-	add_map(map)
 	add_deck(player.full_deck)
-	
-	map_ui = map_canvas.get_children()[0]
 	
 	$Animations.play("start_trans")
 
@@ -132,17 +129,17 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("show_deck") and map_ui.state == "hidden":
 		change_deck_state()
-		
+	
 	if event.is_action_pressed("command"):
 		if command_state == "hidden":
-			$CanvasLayer.show()
+			$CmdLayer.show()
 			command_state = "visible"
-			$CanvasLayer/cmd.grab_focus()
+			$CmdLayer/cmd.grab_focus()
 			player.state = "CMD"
 		else:
-			$CanvasLayer.hide()
+			$CmdLayer.hide()
 			command_state = "hidden"
-			$CanvasLayer/cmd.release_focus()
+			$CmdLayer/cmd.release_focus()
 			player.state = "post_combat"
 
 
@@ -164,8 +161,10 @@ func _on_player_update_ui() -> void:
 	deck_ui.update_deck()
 	modifier_ui.update(player.modifiers)
 
+
 func _on_player_update_graze_bar(graze_points: int) -> void:
 	graze_bar.value = graze_points
+
 
 func _on_player_show_shuffle_delay(delay: float) -> void:
 	deck_ui.show_delay(delay)
@@ -216,7 +215,7 @@ func update_scrap(scrap: int, method: String) -> void:
 
 func add_victory_screen() -> void:
 	var vs: Node = victory_screen.instantiate()
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(1).timeout
 	player.state = "cutscene"
 	vs.pick_card.connect(_on_pick_card)
 	vs.pick_modifier.connect(_on_pick_modifier)
@@ -236,6 +235,48 @@ func add_rest_screen() -> void:
 	rest_canvas.add_child(rest_ui)
 	rest_canvas.layer = 0
 	add_child(rest_canvas)
+
+
+# adding the act choise screen after boss fights
+func add_act_change_screen() -> void:
+	var acs: Node = act_change_screen.instantiate()
+	await get_tree().create_timer(0.5).timeout
+	player.state = "cutscene"
+	acs.connect("act_chosen", Callable(_on_act_choose))
+	
+	# this block of code will need to be changed for future acts
+	match gv.player_color:
+		"blue", "orange", "red": 
+			acs.data = gv.even_areas[2]
+		"green", "yellow", "violet": 
+			acs.data = gv.even_areas[1]
+	
+	act_change_canvas.add_child(acs)
+	act_change_canvas.layer = 2
+	add_child(act_change_canvas)
+
+
+func _on_act_choose(act_name: String) -> void:
+	gv.act = act_name
+	var t: Tween = create_tween()
+	t.tween_property(act_change_canvas.get_child(0), "modulate:a", 0, 0.4)
+	t.tween_callback(act_change_canvas.get_child(0).queue_free)
+	
+	await play_trans_start()
+	background.remove_child(background.get_child(1))
+	background.add_child(gv.area_backgrounds[act_name].instantiate())
+	background.get_child(1).position = Vector2(226, -176)
+	await play_trans_end("post_combat")
+	reload_map()
+
+
+func reload_map() -> void:
+	map_canvas.queue_free()
+	map_canvas = CanvasLayer.new()
+	
+	var map: Map.MapData = Map.MapData.new()
+	gv.current_map = map
+	add_map(map)
 
 
 func _on_pick_card(card: Node) -> void:
@@ -315,13 +356,18 @@ func _on_healed_player(price: int) -> void:
 
 
 func _on_dialogue_end() -> void:
+	await get_tree().create_timer(0.1).timeout
 	player.state = "post_combat"
+	if gv.act == "Outer Space":
+		add_act_change_screen()
 
 
 func play_cutscene() -> void:
 	match gv.act:
-		1:
+		"Outer Space":
 			play_dialogue(gv.story_script["code_" + gv.player_color]["security_system_defeat"])
+		_:
+			player.state = "post_combat"
 
 
 func play_dialogue(script: Array) -> void:
@@ -372,6 +418,7 @@ func add_map(map: Map.MapData) -> void:
 	
 	new_map.place_cursor()
 	add_child(map_canvas)
+	map_ui = new_map
 
 
 #adding the deck menu to the scene tree
@@ -393,6 +440,7 @@ func create_line(room: Map.Room, next_room: Map.Room) -> Line2D:
 	return link
 
 
+# handles the outcome when the player picks a room on the map
 func on_room_select(room: Map.Room) -> void:
 	enemies_dead = false
 	for curr_room in get_tree().get_nodes_in_group("rooms"):
@@ -412,7 +460,7 @@ func on_room_select(room: Map.Room) -> void:
 	if room.type == 1:
 		modulate_background(100)
 		play_trans_end("combat")
-		en_map = gv.en_maps[floor(randf() * len(gv.en_maps))]
+		en_map = gv.en_maps[gv.act][floor(randf() * len(gv.en_maps[gv.act]))]
 		spawn_enemies()
 		
 	elif room.type == 2:
@@ -428,16 +476,17 @@ func on_room_select(room: Map.Room) -> void:
 	elif room.type == 4:
 		modulate_background(100)
 		play_trans_end("combat")
-		en_map = gv.mini_maps[floor(randf() * len(gv.mini_maps))]
+		en_map = gv.mini_maps[gv.act][floor(randf() * len(gv.mini_maps[gv.act]))]
 		spawn_enemies()
 		
 	elif room.type == 5:
 		modulate_background(100)
 		play_trans_end("combat")
-		en_map = gv.boss_maps[floor(randf() * len(gv.boss_maps))]
+		en_map = gv.boss_maps[gv.boss_maps[gv.act]]
 		spawn_enemies()
 
 
+# changing the map state whether it is hidden or opened
 func change_map_state() -> void:
 	if map_ui.state == "hidden":
 		create_tween().tween_property(map_ui, "position", Vector2(0,0), 0.5)
@@ -520,6 +569,7 @@ func _on_cmd_add_card_to_player(card: RefCounted) -> void:
 	player.deck.append(card)
 	player.full_deck.append(card)
 	_on_player_update_ui()
+
 
 func modulate_background(value: float) -> void:
 	var t:Tween = create_tween()

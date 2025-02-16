@@ -66,7 +66,8 @@ func explode() -> void:
 		explosion.rad = rad
 		explosion.position = position
 		explosion.damage = explosion_damage
-		explosion.set_collision_layer_value(5, true)
+		explosion.set_collision_layer_value(5, get_collision_layer_value(5))
+		explosion.set_collision_layer_value(3, get_collision_layer_value(3))
 		gv.current_scene.call_deferred("add_child", explosion)
 
 

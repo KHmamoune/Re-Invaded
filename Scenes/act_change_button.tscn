@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://dauhdbxfe2mbp"]
+
+[ext_resource type="Texture2D" uid="uid://p80w4e8ilfix" path="res://Images/UI/act_change_button.png" id="1_dstqs"]
+[ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Images/Other/place_holder_card.png" id="2_00oxe"]
+
+[node name="ActChangeButton" type="TextureButton"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(100, 100)
+texture_normal = ExtResource("1_dstqs")
+stretch_mode = 0
+
+[node name="Image" type="TextureRect" parent="."]
+z_index = -1
+custom_minimum_size = Vector2(190, 190)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -95.0
+offset_right = 95.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_00oxe")
+expand_mode = 1
+
+[node name="Text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -44.0
+offset_right = 20.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Area Name"

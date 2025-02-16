@@ -88,13 +88,8 @@ shape = SubResource("RectangleShape2D_nx8ts")
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.1
 
-[node name="hp" type="Label" parent="."]
-offset_left = -20.0
-offset_top = 55.0
-offset_right = 20.0
-offset_bottom = 78.0
-text = "hp"
-horizontal_alignment = 1
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {

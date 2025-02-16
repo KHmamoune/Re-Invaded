@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdpajujovkr1b"
-path="res://.godot/imported/ammo_bar(blue).png-34eb64944cdf5f833d5bd24f2d83f838.ctex"
+uid="uid://c6j322xini5ud"
+path="res://.godot/imported/green_square.png-2005da591dc914851b716dd154d04962.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Icons/ammo_bar(blue).png"
-dest_files=["res://.godot/imported/ammo_bar(blue).png-34eb64944cdf5f833d5bd24f2d83f838.ctex"]
+source_file="res://Images/UI/green_square.png"
+dest_files=["res://.godot/imported/green_square.png-2005da591dc914851b716dd154d04962.ctex"]
 
 [params]
 

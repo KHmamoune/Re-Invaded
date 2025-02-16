@@ -17,6 +17,7 @@ var state: String = "post_combat"
 var on_cooldown: bool = false
 var can_dash: bool = true
 var dashing: bool = false
+var shuffling: bool = false
 var max_hp: int = 5
 var hp: int = 5
 var direction: Vector2 = Vector2.ZERO
@@ -39,6 +40,7 @@ var modifiers: Dictionary = {
 	"debuff": [],
 	"create": [],
 	"flame": [],
+	"heal": [],
 }
 
 
@@ -111,7 +113,8 @@ func _process(delta: float) -> void:
 				card.play(self)
 				emit_signal("update_ui")
 	
-	if Input.is_action_just_pressed("shuffle"):
+	if Input.is_action_just_pressed("shuffle") and not shuffling:
+		shuffling = true
 		shuffle_deck(shuffle_speed)
 	
 	if Input.is_action_just_pressed("special"):
@@ -186,7 +189,6 @@ func lose_health() -> void:
 	for modifier: Modifiers.Modifier in modifiers["hurt"]:
 		modifier.play(self) 
 	
-	
 	if hp > 0:
 		if status_effects.has("endurance"):
 			if status_effects["endurance"] > 0:
@@ -238,6 +240,7 @@ func shuffle_deck(time: float) -> void:
 		modifier.play(self)
 	
 	emit_signal("update_ui")
+	shuffling = false
 
 
 func add_modifier(modifier: Modifiers.Modifier) -> void:
@@ -258,13 +261,23 @@ func add_modifier(modifier: Modifiers.Modifier) -> void:
 			modifiers["create"].append(modifier)
 		Modifiers.Types.DEBUFF:
 			modifiers["debuff"].append(modifier)
+		Modifiers.Types.HEAL:
+			modifiers["heal"].append(modifier)
 
 
 func show_text(image: String, text: String) -> void:
 	var inst: Node = status_text.instantiate()
 	inst.text = text + " +"
 	inst.image = image
+	inst.position.y = position.y - 50
 	add_child(inst)
+
+
+func heal(amount: int) -> void:
+	for modifier: Modifiers.Modifier in modifiers["heal"]:
+		modifier.play(self)
+	 
+	hp += amount
 
 
 func _on_dash_timer_timeout() -> void:
@@ -323,9 +336,9 @@ func update_status_bar() -> void:
 
 func _on_area_entered(area: Node) -> void:
 	hurt = true
-	for effect: Card.StatusAffliction in area.on_hit_effects:
-		effect.play(self)
-	
+	if "on_hit_effects" in area:
+		for effect: Card.StatusAffliction in area.on_hit_effects:
+			effect.play(self)
 	
 	lose_health()
 	

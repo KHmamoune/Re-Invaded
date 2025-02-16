@@ -104,6 +104,11 @@
 			"description": "add a blast to your deck.",
 			"image": "res://Images/Other/blast_store_card.png"
 		},
+		"photosynthesis": {
+			"title": "Photosynthesis",
+			"description": "add 2 blasts to your deck, heal 1 hp, exhaust.",
+			"image": "res://Images/Other/photosynthesis_card.png"
+		},
 		
 		"shooting_target": {
 			"title": "Shooting Target",
@@ -175,13 +180,55 @@
 		
 		"dramatic_entrance": {
 			"title": "Dramatic Entrance",
-			"image": "res://Images/Icons/place_holder.png",
+			"image": "res://Images/Icons/place_holder_card.png",
 			"description": "deal 5 damage to all enemies at the start of combat"
 		},
 		"return_fire": {
 			"title": "Return Fire",
-			"image": "res://Images/Icons/place_holder.png",
+			"image": "res://Images/Icons/place_holder_card.png",
 			"description": "fire bullets on hit"
 		},
-	} 
+	}, 
+	"area_data": {
+		"outer_space": {
+			"name": "Outer Space",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"the_remains": {
+			"name": "The Remains",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"the_nest": {
+			"name": "The Nest",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"the_heart": {
+			"name": "The Heart",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"water_facility": {
+			"name": "Water Facility",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"the_factory": {
+			"name": "The Factory",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"red_area": {
+			"name": "Red Area",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"pipeworks": {
+			"name": "Pipeworks",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"the_halls": {
+			"name": "The Halls",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"the_den": {
+			"name": "The Den",
+			"image": "res://Images/Other/place_holder_card.png"
+		}
+	}
 }

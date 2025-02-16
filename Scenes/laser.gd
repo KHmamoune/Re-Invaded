@@ -11,10 +11,10 @@ func _ready() -> void:
 	
 	var tween: Tween = create_tween()
 	var tween2: Tween = create_tween()
-	tween.tween_property($Sprite2D2, "scale", Vector2(0.5,5), 0.1)
-	tween.tween_property($CollisionShape2D, "scale", Vector2(0.7,1), 0.1)
-	tween2.tween_property($Sprite2D2, "scale", Vector2(0,5), 0.1).set_delay(duration)
-	tween2.tween_property($CollisionShape2D, "scale", Vector2(0,1), 0.1)
+	tween.tween_property($Sprite2D, "scale", Vector2(0.5,5), 0.1)
+	tween.tween_property($Hitbox, "scale", Vector2(0.7,1), 0.1)
+	tween2.tween_property($Sprite2D, "scale", Vector2(0,5), 0.1).set_delay(duration)
+	tween2.tween_property($Hitbox, "scale", Vector2(0,1), 0.1)
 	tween2.tween_callback(queue_free)
 	
 	if target != null:

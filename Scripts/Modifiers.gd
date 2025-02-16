@@ -1,7 +1,7 @@
 extends Node
 
 
-enum Types { SHUFFLE, HURT, COMBAT_START, KILL, CREATE, FLAME, DEBUFF, DEATH }
+enum Types { SHUFFLE, HURT, COMBAT_START, KILL, CREATE, FLAME, DEBUFF, DEATH, HEAL }
 
 
 class Modifier:

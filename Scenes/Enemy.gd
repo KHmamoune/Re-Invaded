@@ -10,6 +10,7 @@ var status_effects: Dictionary = {}
 var color: Color = Color.WHITE
 var type: String = "enemy"
 var hit_effect: PackedScene = preload("res://Scenes/hit_effect.tscn")
+var hp_node: Node
 
 
 func start() -> void:
@@ -18,6 +19,15 @@ func start() -> void:
 
 func rotate_by(angle: float) -> void:
 	rotation_degrees = angle
+
+
+func play_animation(anm_name: String, delay: float) -> void:
+	await get_tree().create_timer(delay).timeout
+	var instance: Node = gv.attack_animations[anm_name].instantiate()
+	instance.z_index += 1
+	instance.position = position
+	get_parent().add_child(instance)
+	instance.get_node("AnimationPlayer").play("play")
 
 
 func _on_area_entered(area: Node) -> void:
@@ -90,7 +100,7 @@ func take_damage(dmg: int) -> void:
 	Audio.play_sfx(Audio.sfx_hit)
 	hit_flash()
 	hp -= dmg
-	$hp.text = str(hp)
+	hp_node.get_child(0).text = str(hp)
 	
 	if hp <= 0 and !is_dead:
 		is_dead = true
@@ -112,3 +122,20 @@ func hit_flash() -> void:
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 1)
 	await get_tree().create_timer(0.02).timeout
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0)
+
+
+func set_up_hp(hp_amount: int, hp_position: Vector2) -> void:
+	var hp_label: Label = Label.new()
+	hp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	hp_label.position = hp_position
+	
+	hp_node = Node2D.new()
+	
+	hp_node.add_child(hp_label)
+	
+	hp = hp_amount
+	hp_label.text = str(hp_amount)
+	
+	get_parent().add_child(hp_node)
+	
+	$RemoteTransform2D.remote_path = hp_node.get_path()

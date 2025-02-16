@@ -9,8 +9,7 @@ func _ready() -> void:
 	color = Color.WEB_GRAY
 	area_entered.connect(_on_area_entered)
 	scrap = 10
-	hp = 40
-	$hp.text = str(hp)
+	set_up_hp(40, Vector2(-10, 55))
 
 
 func start() -> void:

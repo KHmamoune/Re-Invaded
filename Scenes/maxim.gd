@@ -8,9 +8,8 @@ var charging: bool = false
 func _ready() -> void:
 	color = Color.DARK_GREEN
 	area_entered.connect(_on_area_entered)
-	hp = 80
 	scrap = 20
-	$hp.text = str(hp)
+	set_up_hp(80, Vector2(-10, 40))
 
 
 func _process(_delta: float) -> void:

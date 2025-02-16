@@ -2,6 +2,8 @@ extends Control
 
 
 signal selected(room: Map.Room)
+
+
 var state: String = "hidden"
 var selected_room: Map.Room
 var current_cursor_cord: Array = []
