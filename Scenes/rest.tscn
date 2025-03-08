@@ -1,15 +1,81 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5xf71vuwecp4"]
+[gd_scene load_steps=12 format=3 uid="uid://c5xf71vuwecp4"]
 
 [ext_resource type="Script" path="res://Scenes/rest.gd" id="1_b8vgs"]
 [ext_resource type="PackedScene" uid="uid://c8baqi0uh4cma" path="res://Scenes/shop_card.tscn" id="2_4scl7"]
 [ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Images/Icons/scrap.png" id="3_35iao"]
 [ext_resource type="PackedScene" uid="uid://dfud3521ufsa0" path="res://Scenes/shop_modifier.tscn" id="3_sclgl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f7rs4"]
-bg_color = Color(0.4, 0.4, 0.4, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psk23"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.682353, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pined"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.682353, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hur4t"]
-bg_color = Color(0.4, 0.4, 0.4, 1)
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.682353, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syvvs"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.972549, 0, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhenf"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.376471, 0, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1e3qv"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.682353, 0, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dp57h"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.682353, 0, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [node name="Rest" type="Control"]
 layout_mode = 3
@@ -32,7 +98,7 @@ theme_override_constants/margin_right = 230
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
-color = Color(0, 0, 0, 0.196078)
+color = Color(0, 0, 0, 0.478431)
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -49,6 +115,7 @@ layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_psk23")
 
 [node name="Cards" type="GridContainer" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
@@ -114,7 +181,7 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../card5")
 focus_neighbor_top = NodePath("../card4")
-focus_neighbor_right = NodePath("../../../../MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2/Upgrade")
+focus_neighbor_right = NodePath("../../../../MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2/Remove")
 
 [node name="ShopCard" parent="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card6" instance=ExtResource("2_4scl7")]
 
@@ -124,18 +191,19 @@ theme_override_constants/margin_top = 20
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 30
 
 [node name="Label" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.682353, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "No Hostile Enteties detected. Maintenance mode engaged."
 autowrap_mode = 2
 
 [node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f7rs4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_pined")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2"]
 custom_minimum_size = Vector2(250, 200)
@@ -204,7 +272,15 @@ layout_mode = 2
 layout_mode = 2
 focus_neighbor_left = NodePath("../../../../../../../VBoxContainer/PanelContainer/Cards/card4")
 focus_neighbor_top = NodePath("../../../../../PanelContainer2/MarginContainer/Modifiers/Modifier1")
-focus_neighbor_bottom = NodePath("../../VBoxContainer2/Upgrade")
+focus_neighbor_bottom = NodePath("../../VBoxContainer2/Remove")
+theme_override_colors/font_disabled_color = Color(8.66354e-07, 0.375012, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.682353, 0, 1)
+theme_override_colors/font_focus_color = Color(8.66354e-06, 0.971783, 0, 1)
+theme_override_colors/font_color = Color(0, 0.682353, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_syvvs")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_bhenf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1e3qv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dp57h")
 text = "Repair (Restore 1 HP)"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer"]
@@ -220,16 +296,26 @@ expand_mode = 1
 [node name="HealCost" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.67451, 0, 1)
 text = "100"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="Upgrade" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2"]
+[node name="Remove" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../../../../../../../VBoxContainer/PanelContainer/Cards/card6")
 focus_neighbor_top = NodePath("../../VBoxContainer/Heal")
-text = "Upgrade a weapon (W.I.P)"
+focus_neighbor_bottom = NodePath("../../VBoxContainer3/Refresh")
+theme_override_colors/font_disabled_color = Color(8.66354e-07, 0.375012, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.682353, 0, 1)
+theme_override_colors/font_focus_color = Color(8.66354e-06, 0.971783, 0, 1)
+theme_override_colors/font_color = Color(0, 0.682353, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_syvvs")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_bhenf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1e3qv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dp57h")
+text = "Remove a Card (W.I.P)"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -241,9 +327,43 @@ layout_mode = 2
 texture = ExtResource("3_35iao")
 expand_mode = 1
 
-[node name="UpdradeCost" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="RemoveCost" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.67451, 0, 1)
+text = "100"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Refresh" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../../../../../VBoxContainer/PanelContainer/Cards/card6")
+focus_neighbor_top = NodePath("../../VBoxContainer2/Remove")
+theme_override_colors/font_disabled_color = Color(8.66354e-07, 0.375012, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.682353, 0, 1)
+theme_override_colors/font_focus_color = Color(8.66354e-06, 0.971783, 0, 1)
+theme_override_colors/font_color = Color(0, 0.682353, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_syvvs")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_bhenf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1e3qv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dp57h")
+text = "Refresh the shop (W.I.P)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("3_35iao")
+expand_mode = 1
+
+[node name="RefreshCost" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer3/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.67451, 0, 1)
 text = "100"
 
 [connection signal="focus_entered" from="MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Cards/card1" to="." method="_on_card_1_focus_entered"]
@@ -274,3 +394,4 @@ text = "100"
 [connection signal="focus_exited" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier3" to="." method="_on_modifier_3_focus_exited"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/MarginContainer/Modifiers/Modifier3" to="." method="_on_modifier_3_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer/Heal" to="." method="_on_heal_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer/MarginContainer2/VBoxContainer/VBoxContainer3/Refresh" to="." method="_on_refresh_pressed"]

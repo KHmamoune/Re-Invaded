@@ -9,7 +9,8 @@ func _ready() -> void:
 	color = Color.WEB_GRAY
 	area_entered.connect(_on_area_entered)
 	scrap = 10
-	set_up_hp(40, Vector2(-10, 55))
+	set_up_hp(40, Vector2(0, 55))
+	set_up_status_effects(Vector2(-15, 70))
 
 
 func start() -> void:
@@ -22,7 +23,3 @@ func _on_shoot_timer_timeout() -> void:
 	if not is_dead:
 		$Animations.play("fire")
 		attack.play(self)
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)

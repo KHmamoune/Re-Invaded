@@ -17,9 +17,9 @@ func _ready() -> void:
 	passive_attack1 = Card.AttackPattren.new(bullet, 2, 1, [-3, 3], 0.05, 750, [Vector2(10, 0), Vector2(-10, 0)], 800, 1)
 	passive_attack2 = Card.AttackPattren.new(bullet, 2, 1, [-2, 2], 0.05, 775, [Vector2(5, 0), Vector2(-5, 0)], 800, 1)
 	passive_attack3 = Card.AttackPattren.new(bullet, 2, 1, [-1, 1], 0.05, 800, [Vector2(0, 0), Vector2(0, 0)], 800, 1)
-	hp = 1000
+	set_up_hp(1000, Vector2(0, 50))
+	set_up_status_effects(Vector2(-15, 65))
 	scrap = 500
-	$hp.text = str(hp)
 
 
 func _process(_delta: float) -> void:
@@ -266,10 +266,6 @@ func boss_at5() -> void:
 	attack4.play(self)
 	
 	await get_tree().create_timer(1).timeout
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)
 
 
 func _on_passive_timer_timeout() -> void:

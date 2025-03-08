@@ -11,6 +11,7 @@ var color: Color = Color.WHITE
 var type: String = "enemy"
 var hit_effect: PackedScene = preload("res://Scenes/hit_effect.tscn")
 var hp_node: Node
+var status_node: Node
 
 
 func start() -> void:
@@ -32,7 +33,7 @@ func play_animation(anm_name: String, delay: float) -> void:
 
 func _on_area_entered(area: Node) -> void:
 	if "damage" in area:
-		for effect: Card.StatusAffliction in area.on_hit_effects:
+		for effect: Card.CardStats in area.on_hit_effects:
 			if effect.status_effect == "flame":
 				var player: Node = get_tree().get_first_node_in_group("player")
 				for modifier: Modifiers.Modifier in player.modifiers["flame"]:
@@ -40,7 +41,7 @@ func _on_area_entered(area: Node) -> void:
 			
 			effect.play(self)
 		
-		take_damage(area.damage)
+		take_damage(area.damage, area)
 		if area.type == "bomb":
 			area.explode()
 		
@@ -96,7 +97,7 @@ func shoot(bullet: Node, _seconds: float, i: int, j: int) -> void:
 		gv.current_scene.call_deferred("add_child", bullet)
 
 
-func take_damage(dmg: int) -> void:
+func take_damage(dmg: int, area: Node = null) -> void:
 	Audio.play_sfx(Audio.sfx_hit)
 	hit_flash()
 	hp -= dmg
@@ -106,7 +107,15 @@ func take_damage(dmg: int) -> void:
 		is_dead = true
 		play_death_effect()
 		$Hurtbox.set_deferred("disabled", true)
+		
+		if len(area.on_kill_effects) != 0:
+			for effect: Card.CardStats in area.on_kill_effects:
+				var player: Node = get_tree().get_first_node_in_group("player")
+				effect.play(player, self)
+		
 		dead.emit(scrap)
+		hp_node.queue_free()
+		status_node.queue_free()
 		queue_free()
 
 
@@ -126,9 +135,6 @@ func hit_flash() -> void:
 
 func set_up_hp(hp_amount: int, hp_position: Vector2) -> void:
 	var hp_label: Label = Label.new()
-	hp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hp_label.position = hp_position
-	
 	hp_node = Node2D.new()
 	
 	hp_node.add_child(hp_label)
@@ -138,4 +144,30 @@ func set_up_hp(hp_amount: int, hp_position: Vector2) -> void:
 	
 	get_parent().add_child(hp_node)
 	
-	$RemoteTransform2D.remote_path = hp_node.get_path()
+	hp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	hp_label.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	hp_label.grow_vertical = Control.GROW_DIRECTION_BOTH
+	
+	hp_label.set_anchors_preset(Control.PRESET_CENTER, false)
+	hp_label.offset_left = 0
+	hp_label.offset_right = 0
+	hp_label.offset_bottom = 0
+	hp_label.offset_top = 0
+	hp_label.position += hp_position
+	
+	$HPTransform2D.remote_path = hp_node.get_path()
+
+
+func set_up_status_effects(status_position: Vector2) -> void:
+	var status_label: Node = preload("res://Scenes/status_effects_bar.tscn").instantiate()
+	status_label.position = status_position
+	status_node = Node2D.new()
+	
+	status_node.add_child(status_label)
+	get_parent().add_child(status_node)
+	
+	$StatusTransform2D.remote_path = status_node.get_path()
+
+
+func update_status_bar() -> void:
+	status_node.get_child(0).update_status_effects(status_effects)

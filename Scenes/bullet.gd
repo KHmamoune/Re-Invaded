@@ -38,6 +38,9 @@ func _ready() -> void:
 	if len(attack) > 0:
 		get_tree().create_timer(attack[0]).connect("timeout", Callable(_on_attack_delay_timeout))
 	
+	if fade_in_delay != 0:
+		fade_in(fade_in_delay, fade_in_duration)
+	
 	if look_delay > 0:
 		await get_tree().create_timer(look_delay).timeout
 	

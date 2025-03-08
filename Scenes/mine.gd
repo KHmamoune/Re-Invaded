@@ -8,9 +8,9 @@ var attack: Card.AttackPattren
 func _ready() -> void:
 	color = Color.ORANGE
 	area_entered.connect(_on_area_entered)
-	hp = 10
+	set_up_hp(10, Vector2(0, 50))
+	set_up_status_effects(Vector2(-15, 65))
 	scrap = 10
-	$hp.text = str(hp)
 
 
 func start() -> void:
@@ -24,16 +24,24 @@ func start() -> void:
 	attack = Card.AttackPattren.new(bullet, 36, 1, arr, 0.2, 400, [Vector2.ZERO], 800, 1)
 
 
-func take_damage(dmg: int) -> void:
+func take_damage(dmg: int, area: Node = null) -> void:
 	Audio.play_sfx(Audio.sfx_hit)
 	hp -= dmg
-	$hp.text = str(hp)
+	hp_node.get_child(0).text = str(hp)
 	
 	if hp <= 0 and !is_dead:
 		attack.play(self)
 		is_dead = true
 		$Hurtbox.set_deferred("disabled", true)
+		
+		if len(area.on_kill_effects) != 0:
+			for effect: Card.CardStats in area.on_kill_effects:
+				var player: Node = get_tree().get_first_node_in_group("player")
+				effect.play(player, self)
+		
 		dead.emit(scrap)
+		hp_node.queue_free()
+		status_node.queue_free()
 		queue_free()
 
 
@@ -41,7 +49,3 @@ func shoot(bul: Node, _seconds: float, _i: int, _j: int, sfx: AudioStream = Audi
 	bul.set_collision_mask_value(5, true)
 	Audio.play_sfx(sfx)
 	get_parent().call_deferred("add_child", bul)
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)

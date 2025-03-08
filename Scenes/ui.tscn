@@ -1,19 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://diup4akafq8u0"]
+[gd_scene load_steps=12 format=3 uid="uid://diup4akafq8u0"]
 
 [ext_resource type="Texture2D" uid="uid://rjyabeodtw6b" path="res://Images/Backgrounds/ui_background1.png" id="1_gicbd"]
 [ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Images/Icons/scrap.png" id="2_166by"]
+[ext_resource type="Shader" path="res://Shaders/main_menu_scroll.gdshader" id="2_j72m0"]
 [ext_resource type="PackedScene" uid="uid://c83xbth1v5fgm" path="res://Scenes/deck_ui.tscn" id="2_xsdwi"]
+[ext_resource type="Texture2D" uid="uid://dli63nj6jvcy7" path="res://Images/Backgrounds/background_effect.png" id="3_1xcnk"]
 [ext_resource type="PackedScene" uid="uid://vxlt0wbavuy" path="res://Scenes/modifiers_ui.tscn" id="3_45blw"]
 [ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Images/Other/place_holder_card.png" id="5_5wku5"]
+[ext_resource type="Texture2D" uid="uid://d75de5l7806e" path="res://Images/Backgrounds/ui_background2.png" id="5_oxpwh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xnkx8"]
+resource_local_to_scene = true
+shader = ExtResource("2_j72m0")
+shader_parameter/speed = 0.05
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2jvd"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1kkv"]
 bg_color = Color(0.227451, 1, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up2rt"]
-bg_color = Color(0.207843, 0.694118, 0.0823529, 1)
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -30,9 +35,24 @@ anchor_right = 0.2
 anchor_bottom = 1.0
 grow_vertical = 0
 
-[node name="ColorRect" type="TextureRect" parent="MarginContainer"]
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+modulate = Color(0, 0.67451, 0, 1)
 layout_mode = 2
 texture = ExtResource("1_gicbd")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="BackgroundPatteren" type="TextureRect" parent="MarginContainer"]
+modulate = Color(0, 0.67451, 0, 0.101961)
+material = SubResource("ShaderMaterial_xnkx8")
+layout_mode = 2
+texture = ExtResource("3_1xcnk")
+expand_mode = 1
+stretch_mode = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -108,6 +128,21 @@ grow_vertical = 0
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
+[node name="BackgroundPatteren" type="TextureRect" parent="MarginContainer2"]
+modulate = Color(0, 0.67451, 0, 0.101961)
+material = SubResource("ShaderMaterial_xnkx8")
+layout_mode = 2
+texture = ExtResource("3_1xcnk")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
+modulate = Color(0, 0.67451, 0, 1)
+layout_mode = 2
+texture = ExtResource("5_oxpwh")
+expand_mode = 1
+stretch_mode = 2
+
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 18
@@ -117,6 +152,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="Time" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -143,24 +179,17 @@ text = "0"
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="MarginContainer2/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
-theme_override_styles/panel = SubResource("StyleBoxFlat_up2rt")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer2/MarginContainer/VBoxContainer/Panel"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
+custom_minimum_size = Vector2(98, 98)
+layout_mode = 2
+offset_left = 6.0
+offset_top = -106.0
+offset_right = 106.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0

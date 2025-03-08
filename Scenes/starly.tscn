@@ -1,7 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://dl8ydb1qopfix"]
+[gd_scene load_steps=16 format=3 uid="uid://dl8ydb1qopfix"]
 
 [ext_resource type="Script" path="res://Scenes/starly.gd" id="1_86h42"]
-[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="2_a0o4e"]
 [ext_resource type="Texture2D" uid="uid://iqpcuvtjaggu" path="res://Images/Enemies/starly_back.png" id="2_c1ec6"]
 [ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_p1lsa"]
 [ext_resource type="Texture2D" uid="uid://007d6ecqtxcn" path="res://Images/Enemies/starly.png" id="3_df3b1"]
@@ -146,28 +145,22 @@ wait_time = 2.0
 [node name="AfterImageTimer" type="Timer" parent="."]
 wait_time = 0.05
 
-[node name="hp" type="Label" parent="."]
-offset_left = -20.0
-offset_top = 32.0
-offset_right = 20.0
-offset_bottom = 55.0
-text = "hp"
-horizontal_alignment = 1
-
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_44v2e")
 }
-
-[node name="StatusEffectsBar" parent="." instance=ExtResource("2_a0o4e")]
-offset_top = 59.0
-offset_bottom = 89.0
 
 [node name="Indicator" type="Line2D" parent="."]
 visible = false
 points = PackedVector2Array(-1, -2, 0, -1116)
 width = 1.0
 default_color = Color(0.808267, 0, 0.151515, 1)
+
+[node name="HPTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
+
+[node name="StatusTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

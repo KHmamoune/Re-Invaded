@@ -17,9 +17,9 @@ var aim_cl: bool = false
 
 
 func _ready() -> void:
-	hp = 1000
+	set_up_hp(1000, Vector2(0, 50))
+	set_up_status_effects(Vector2(-15, 65))
 	scrap = 500
-	$hp.text = str(hp)
 
 
 func _process(_delta: float) -> void:
@@ -293,7 +293,3 @@ func hit_flash() -> void:
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.5)
 	await get_tree().create_timer(0.02).timeout
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0)
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)

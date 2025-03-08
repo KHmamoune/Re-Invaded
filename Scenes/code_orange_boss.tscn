@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1vx4jbumf2y1"]
+[gd_scene load_steps=9 format=3 uid="uid://d1vx4jbumf2y1"]
 
 [ext_resource type="Texture2D" uid="uid://bfa1h8gaia5k4" path="res://Images/Characters/code_orange.png" id="1_ofvej"]
 [ext_resource type="Script" path="res://Scenes/code_orange_boss.gd" id="1_vol2b"]
 [ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_cl5g5"]
-[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="2_vatyg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w1w20"]
 shader = ExtResource("2_cl5g5")
@@ -81,18 +80,11 @@ wait_time = 3.0
 [node name="AfterImageTimer" type="Timer" parent="."]
 wait_time = 0.02
 
-[node name="hp" type="Label" parent="."]
-offset_left = 20.0
-offset_top = -41.0
-offset_right = 60.0
-offset_bottom = -25.0
-rotation = 3.14159
-text = "hp"
-horizontal_alignment = 1
+[node name="HPTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
-[node name="StatusEffectsBar" parent="." instance=ExtResource("2_vatyg")]
-offset_top = -93.0
-offset_bottom = -63.0
+[node name="StatusTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

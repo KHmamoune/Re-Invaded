@@ -10,9 +10,9 @@ var spining: bool = false
 
 func _ready() -> void:
 	color = Color.WEB_GRAY
-	hp = 200
+	set_up_hp(200, Vector2(0, 50))
+	set_up_status_effects(Vector2(-15, 65))
 	scrap = 200
-	$hp.text = str(hp)
 	play_after_image()
 
 
@@ -130,14 +130,13 @@ func _on_move_timer_timeout() -> void:
 	t.tween_property(self, "position", rand_mov, 0.4).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)
-
 func play_after_image() -> void:
 	$AfterImageTimer.start()
 
+
 func stop_after_image() -> void:
 	$AfterImageTimer.stop()
+
 
 func _on_after_image_timer_timeout() -> void:
 	var after_image_instance: Node = preload("res://Scenes/after_image.tscn").instantiate()

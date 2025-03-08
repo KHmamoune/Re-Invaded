@@ -9,9 +9,9 @@ var i: int = 0
 
 func _ready() -> void:
 	color = Color.DARK_BLUE
-	hp = 200
+	set_up_hp(200, Vector2(0, 70))
+	set_up_status_effects(Vector2(-15, 85))
 	scrap = 200
-	$hp.text = str(hp)
 	
 
 func start() -> void:
@@ -126,7 +126,3 @@ func _on_move_timer_timeout() -> void:
 	var rand_mov: Vector2 = Vector2(randi_range(300, 850), randi_range(200, 300))
 	var t: Tween = create_tween()
 	t.tween_property(self, "position", rand_mov, 0.4).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)

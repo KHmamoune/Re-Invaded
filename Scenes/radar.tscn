@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ckxf17ocwvyeu"]
+[gd_scene load_steps=15 format=3 uid="uid://ckxf17ocwvyeu"]
 
 [ext_resource type="Script" path="res://Scenes/Radar.gd" id="1_cja4g"]
 [ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_terbp"]
@@ -7,7 +7,6 @@
 [ext_resource type="Shader" path="res://Shaders/black_white.gdshader" id="3_7wfee"]
 [ext_resource type="Texture2D" uid="uid://cii2jk8nqa3wa" path="res://Images/Enemies/radar wing.png" id="4_0cue0"]
 [ext_resource type="Texture2D" uid="uid://hvf2ulj8tj7w" path="res://Images/Enemies/emerald.png" id="4_awv83"]
-[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="7_v3i4x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x0v58"]
 resource_local_to_scene = true
@@ -338,17 +337,11 @@ wait_time = 2.0
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 0.6
 
-[node name="hp" type="Label" parent="."]
-offset_left = -18.0
-offset_top = 85.0
-offset_right = 22.0
-offset_bottom = 108.0
-text = "hp"
-horizontal_alignment = 1
+[node name="HPTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
-[node name="StatusEffectsBar" parent="." instance=ExtResource("7_v3i4x")]
-offset_top = 109.857
-offset_bottom = 139.857
+[node name="StatusTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

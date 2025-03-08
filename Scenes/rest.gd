@@ -3,10 +3,12 @@ extends Control
 
 signal bought_card(card: Node, price: int)
 signal bought_modifier(modifier: Node, price: int)
-signal healed_player(price: int)
+signal healed_player(price: int, ui: Node)
+signal refreshed(price: int, ui: Node)
 
 @onready var card_ui: PackedScene = preload("res://Scenes/shop_card.tscn")
 var heal_price:int = 80
+var refresh_price:int = 40
 var cards:Array = [[], [], []]
 var rands: Array = []
 var i: int = 0
@@ -14,16 +16,26 @@ var j: int = 0
 
 
 func _ready() -> void:
+	update_labels()
+	update_shop()
+	%card1.grab_focus()
+
+
+func update_labels() -> void:
 	%HealCost.text = str(heal_price)
+	%RefreshCost.text = str(refresh_price)
+
+
+func update_shop() -> void:
 	for elem in %Cards.get_children():
-		var rand: int = floor(randf() * len(gv.other_cards))
+		var rand: int = floor(randf() * len(gv.cards))
 		
-		while rand in rands:
-			rand = floor(randf() * len(gv.other_cards))
+		rand = floor(randf() * len(gv.cards))
 		
 		rands.append(rand)
-		elem.get_node("ShopCard/CardUI").update(gv.other_cards[rand])
-		elem.get_node("ShopCard/HBoxContainer/Cost").text = str(gv.other_cards[rand].card_price)
+		if is_instance_valid(elem.get_node("ShopCard/CardUI")):
+			elem.get_node("ShopCard/CardUI").update(gv.cards[rand])
+			elem.get_node("ShopCard/HBoxContainer/Cost").text = str(gv.cards[rand].card_price)
 	
 	rands = []
 	
@@ -34,10 +46,9 @@ func _ready() -> void:
 			rand = floor(randf() * len(gv.modifiers))
 		
 		rands.append(rand)
-		elem.get_node("ShopModifier/Modifier").update(gv.modifiers[rand])
-		elem.get_node("ShopModifier/HBoxContainer/Cost").text = str(gv.modifiers[rand].modifier_price)
-	
-	%card1.grab_focus()
+		if is_instance_valid(elem.get_node("ShopModifier/Modifier")):
+			elem.get_node("ShopModifier/Modifier").update(gv.modifiers[rand])
+			elem.get_node("ShopModifier/HBoxContainer/Cost").text = str(gv.modifiers[rand].modifier_price)
 
 
 func _on_card_1_focus_entered() -> void:
@@ -135,7 +146,13 @@ func buy_modifier(modifier: Node) -> void:
 
 
 func _on_heal_pressed() -> void:
-	healed_player.emit(heal_price)
+	healed_player.emit(heal_price, self)
+	update_labels()
+
+
+func _on_refresh_pressed() -> void:
+	refreshed.emit(refresh_price, self)
+	update_labels()
 
 
 func _on_modifier_1_pressed() -> void:

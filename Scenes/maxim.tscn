@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://djylmh0fn0nh6"]
+[gd_scene load_steps=11 format=3 uid="uid://djylmh0fn0nh6"]
 
 [ext_resource type="Texture2D" uid="uid://c0qovuv1s24l7" path="res://Images/Enemies/the_maxim.png" id="1_ni0dt"]
 [ext_resource type="Script" path="res://Scenes/maxim.gd" id="1_up2a6"]
 [ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_5pdug"]
-[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="4_4dndp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dmpk5"]
 resource_local_to_scene = true
@@ -87,7 +86,6 @@ _data = {
 }
 
 [node name="Maxim" type="Area2D"]
-z_index = 20
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_up2a6")
@@ -102,7 +100,10 @@ hframes = 7
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_72fwa")
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+[node name="HPTransform2D" type="RemoteTransform2D" parent="."]
+
+[node name="StatusTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
@@ -111,10 +112,6 @@ libraries = {
 
 [node name="ChargeTimer" type="Timer" parent="."]
 wait_time = 4.0
-
-[node name="StatusEffectsBar" parent="." instance=ExtResource("4_4dndp")]
-offset_top = 48.0
-offset_bottom = 78.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]

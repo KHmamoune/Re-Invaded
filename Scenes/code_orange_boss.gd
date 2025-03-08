@@ -25,9 +25,9 @@ func _ready() -> void:
 	passive_attack1.set_tweens([], [], [], [{"delay": 0, "value": Vector2(1.5,1.5), "dur": 0.5}])
 	passive_attack2.set_tweens([], [], [], [{"delay": 0, "value": Vector2(1.5,1.5), "dur": 0.5}])
 	
-	hp = 401
+	set_up_hp(1000, Vector2(0, 50))
+	set_up_status_effects(Vector2(-15, 65))
 	scrap = 500
-	$hp.text = str(hp)
 
 
 func _process(_delta: float) -> void:
@@ -230,10 +230,6 @@ func boss_at5() -> void:
 func boss_at6() -> void:
 	StatusEffects.apply_heat_boss(self)
 	await get_tree().create_timer(0.5).timeout
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)
 
 
 func _on_passive_timer_timeout() -> void:

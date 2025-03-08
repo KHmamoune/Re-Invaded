@@ -9,9 +9,9 @@ var look_at_player: bool = false
 
 func _ready() -> void:
 	color = Color.DARK_ORANGE
-	hp = 200
+	set_up_hp(200, Vector2(0, 50))
+	set_up_status_effects(Vector2(-15, 65))
 	scrap = 200
-	$hp.text = str(hp)
 	
 
 func start() -> void:
@@ -128,7 +128,3 @@ func hit_flash() -> void:
 	await get_tree().create_timer(0.02).timeout
 	$Sprite/Body.material.set_shader_parameter("flash_modifier", 0)
 	$Sprite/Head.material.set_shader_parameter("flash_modifier", 0)
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)

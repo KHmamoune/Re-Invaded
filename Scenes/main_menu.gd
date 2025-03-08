@@ -20,9 +20,8 @@ func _input(event: InputEvent) -> void:
 		if menu_visible == false:
 			menu_visible = true
 			var t1: Tween = create_tween()
-			%BGC.create_tween().tween_property(%BGC, "self_modulate", Color.WHITE, 1)
-			%BG1.create_tween().tween_property(%BG1, "self_modulate", Color.WHITE, 1)
-			%BG2.create_tween().tween_property(%BG2, "self_modulate", Color.WHITE, 1)
+			%BG1.create_tween().tween_property(%BG1, "self_modulate", Color.WEB_GREEN, 1)
+			%BG2.create_tween().tween_property(%BG2, "self_modulate", Color.WEB_GREEN, 1)
 			t1.tween_property(%StartText, "modulate:a", 0, 0.5)
 			t1.tween_property(%Title, "position:y", %Title.position.y - 100, 1). set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 			t1.tween_property(%MenuButtons, "modulate:a", 1, 1)

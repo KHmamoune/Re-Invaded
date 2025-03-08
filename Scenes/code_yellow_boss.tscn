@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://dxqlxf77b1obk"]
+[gd_scene load_steps=9 format=3 uid="uid://dxqlxf77b1obk"]
 
 [ext_resource type="Script" path="res://Scenes/code_yellow_boss.gd" id="1_a3cq8"]
-[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="1_sbv1b"]
 [ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_dsxpg"]
 [ext_resource type="Texture2D" uid="uid://bwnsgaactu1hj" path="res://Images/Characters/code_yellow.png" id="2_scbim"]
 
@@ -81,21 +80,11 @@ wait_time = 0.7
 [node name="AfterImageTimer" type="Timer" parent="."]
 wait_time = 0.02
 
-[node name="hp" type="Label" parent="."]
-offset_left = 19.0
-offset_top = -33.9999
-offset_right = 59.0
-offset_bottom = -17.9999
-rotation = 3.14159
-text = "hp"
-horizontal_alignment = 1
+[node name="HPTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
-[node name="StatusEffectsBar" parent="." instance=ExtResource("1_sbv1b")]
-offset_left = 14.9999
-offset_top = -49.9999
-offset_right = 44.9999
-offset_bottom = -19.9999
-rotation = 3.14159
+[node name="StatusTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

@@ -14,9 +14,9 @@ var self_repair_applied: bool = false
 func _ready() -> void:
 	$Animations.play("default")
 	passive_attack = Card.AttackPattren.new(bullet, 2, 6, [0], 0.05, 800, [Vector2(20, 0), Vector2(-20, 0)], 800, 1)
-	hp = 201
+	set_up_hp(1000, Vector2(0, 50))
+	set_up_status_effects(Vector2(-15, 65))
 	scrap = 500
-	$hp.text = str(hp)
 
 
 func _process(_delta: float) -> void:
@@ -179,10 +179,6 @@ func boss_at5() -> void:
 func boss_at6() -> void:
 	StatusEffects.apply_self_repair(self, 2, -10)
 	await get_tree().create_timer(0.5).timeout
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)
 
 
 func _on_passive_timer_timeout() -> void:

@@ -10,6 +10,7 @@ var target: Node = null
 var attack: Array
 var is_dead: bool = false
 var on_hit_effects: Array = []
+var on_kill_effects: Array = []
 var follow_player: bool
 var piercing: bool = false
 var speed: float
@@ -36,6 +37,8 @@ var sound_effect: AudioStream = null
 var shooter: Node = null
 var animation_name: String = ""
 var animation_delay: float = 0
+var fade_in_delay: float = 0
+var fade_in_duration: float = 0
 
 
 func shoot(bullet: Node, _seconds: float, i: int, j: int) -> void:
@@ -160,3 +163,10 @@ func fade_out() -> void:
 	var t: Tween = create_tween()
 	t.tween_property(self, "modulate:a", 0, 0.2)
 	t.tween_callback(Callable(queue_free))
+
+
+func fade_in(delay: float, duration: float) -> void:
+	modulate.a = 0
+	await get_tree().create_timer(delay).timeout
+	var t: Tween = create_tween()
+	t.tween_property(self, "modulate:a", 1, duration)

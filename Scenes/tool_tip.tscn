@@ -4,7 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://b4wmw4qh82rht" path="res://Images/Icons/flame.png" id="1_rlygx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_isqqu"]
-bg_color = Color(0.518503, 0.518503, 0.518503, 1)
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.67451, 0, 1)
 
 [node name="ToolTip" type="PanelContainer"]
 offset_right = 300.0
@@ -35,6 +40,7 @@ expand_mode = 1
 [node name="title" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.67451, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Title:"
 
@@ -42,5 +48,6 @@ text = "Title:"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.67451, 0, 1)
 text = "Description"
 autowrap_mode = 2

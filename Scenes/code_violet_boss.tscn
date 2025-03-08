@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhisngn2ph3h"]
+[gd_scene load_steps=9 format=3 uid="uid://bhisngn2ph3h"]
 
 [ext_resource type="Script" path="res://Scenes/code_violet_boss.gd" id="1_fyv3e"]
 [ext_resource type="Texture2D" uid="uid://y5js7g6m5buq" path="res://Images/Characters/code_violet.png" id="1_qv8r1"]
-[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="2_sue7m"]
 [ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_ymv10"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qnt8v"]
@@ -82,22 +81,11 @@ wait_time = 0.7
 [node name="AfterImageTimer" type="Timer" parent="."]
 wait_time = 0.02
 
-[node name="hp" type="Label" parent="."]
-offset_left = 19.0
-offset_top = -39.0
-offset_right = 59.0
-offset_bottom = -23.0
-rotation = 3.14159
-text = "hp
-"
-horizontal_alignment = 1
+[node name="HPTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
-[node name="StatusEffectsBar" parent="." instance=ExtResource("2_sue7m")]
-offset_left = 15.0
-offset_top = -56.0
-offset_right = 45.0
-offset_bottom = -26.0
-rotation = 3.14159
+[node name="StatusTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

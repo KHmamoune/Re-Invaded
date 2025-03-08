@@ -43,7 +43,7 @@ func _ready() -> void:
 	var color_cards: Array
 	var color_starting_cards: Array
 	var color_modifier: Modifiers.Modifier
-	var color_special_attack: Card.AttackPattren
+	var color_special_attack: Card.CardStats
 	
 	match gv.player_color:
 		"blue":
@@ -51,37 +51,37 @@ func _ready() -> void:
 			color_cards = gv.blue_cards
 			color_starting_cards = gv.blue_starting_cards
 			color_modifier = gv.blue_modifier1
-			color_special_attack = gv.blue_special_attack
+			color_special_attack = gv.blue_special_card
 		"orange":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_orange.png")
 			color_cards = gv.orange_cards
 			color_starting_cards = gv.orange_starting_cards
 			color_modifier = gv.orange_modifier1
-			color_special_attack = gv.blue_special_attack
+			color_special_attack = gv.orange_special_card
 		"red":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_red.png")
 			color_cards =  gv.red_cards
 			color_starting_cards = gv.red_starting_cards
 			color_modifier = gv.red_modifier1
-			color_special_attack = gv.blue_special_attack
+			color_special_attack = gv.red_special_card
 		"green":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_green.png")
 			color_cards = gv.green_cards
 			color_starting_cards = gv.green_starting_cards
 			color_modifier = gv.green_modifier1
-			color_special_attack = gv.blue_special_attack
+			color_special_attack = gv.green_special_card
 		"yellow":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_yellow.png")
 			color_cards =  gv.yellow_cards
 			color_starting_cards = gv.yellow_starting_cards
 			color_modifier = gv.yellow_modifier1
-			color_special_attack = gv.blue_special_attack
+			color_special_attack = gv.yellow_special_card
 		"violet":
 			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_violet.png")
 			color_cards =  gv.violet_cards
 			color_starting_cards = gv.violet_starting_cards
 			color_modifier = gv.violet_modifier1
-			color_special_attack = gv.blue_special_attack
+			color_special_attack = gv.violet_special_card
 	
 	# asigning the appropriate starting kit to the player
 	for card: Card.CardStats in color_cards:
@@ -89,11 +89,38 @@ func _ready() -> void:
 	for card: Card.CardStats in color_starting_cards:
 		player.full_deck.append(card)
 	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
+	player.add_modifier(color_modifier)
 	player.special_attack = color_special_attack
+	
+	# setting the player stats depending on the character selected
+	player.max_hp = gv.character_stats[gv.player_color]["hp"]
+	player.hp = gv.character_stats[gv.player_color]["hp"]
+	player.default_speed = gv.character_stats[gv.player_color]["speed"]
+	player.speed = gv.character_stats[gv.player_color]["speed"]
+	player.energy_max = gv.character_stats[gv.player_color]["energy"]
+	player.gen_modifier = gv.character_stats[gv.player_color]["gen_modifier"]
 	
 	player.add_to_group("player")
 	player.position = Vector2(575, 600)
 	
+	# connecting signals from the player
 	player.freeze.connect(_on_player_freeze)
 	player.unfreeze.connect(_on_player_unfreeze)
 	player.update_ui.connect(_on_player_update_ui)
@@ -101,6 +128,8 @@ func _ready() -> void:
 	player.update_graze_bar.connect(_on_player_update_graze_bar)
 	add_child(player)
 	gv.player = player
+	
+	energy_bar.max_value = player.energy_max
 	
 	# generating the map and setting the player deck
 	reload_map()
@@ -143,6 +172,7 @@ func _input(event: InputEvent) -> void:
 			player.state = "post_combat"
 
 
+# the function called by the player signal to update the hp, modifiers, deck.....
 func _on_player_update_ui() -> void:
 	health_label.text = str(player.hp) + " / " + str(player.max_hp)
 	
@@ -162,22 +192,27 @@ func _on_player_update_ui() -> void:
 	modifier_ui.update(player.modifiers)
 
 
+# updating the special attack bar depending on the player's graze
 func _on_player_update_graze_bar(graze_points: int) -> void:
 	graze_bar.value = graze_points
 
 
+# showing the cooldown bar when shuffeling the deck
 func _on_player_show_shuffle_delay(delay: float) -> void:
 	deck_ui.show_delay(delay)
 
 
+# playing the freeze effect when the player dies
 func _on_player_freeze() -> void:
 	flash_effect.visible = true
 
 
+# unfreezing the game after the player dies
 func _on_player_unfreeze() -> void:
 	flash_effect.visible = false
 
 
+# handling the death of an enemy and checking if there are any enemies alive
 func _on_enemy_death(scrap: int) -> void:
 	update_scrap(scrap, "increment")
 	for modifier: Modifiers.Modifier in player.modifiers["kill"]:
@@ -193,6 +228,7 @@ func _on_enemy_death(scrap: int) -> void:
 		add_victory_screen()
 
 
+# changing the player's scrap count
 func update_scrap(scrap: int, method: String) -> void:
 	var i: int = scrap_count
 	if method == "increment":
@@ -232,6 +268,7 @@ func add_rest_screen() -> void:
 	rest_ui.bought_card.connect(_on_bought_card)
 	rest_ui.bought_modifier.connect(_on_bought_modifier)
 	rest_ui.healed_player.connect(_on_healed_player)
+	rest_ui.refreshed.connect(_on_refreshed)
 	rest_canvas.add_child(rest_ui)
 	rest_canvas.layer = 0
 	add_child(rest_canvas)
@@ -348,11 +385,22 @@ func _on_bought_modifier(modifier: Node, price: int) -> void:
 		deck_screen.update(player.full_deck, player.modifiers)
 
 
-func _on_healed_player(price: int) -> void:
+func _on_healed_player(price: int, rest_ui: Node) -> void:
 	if price < scrap_count and player.hp < player.max_hp:
 		update_scrap(price, "decrement")
 		player.hp += 1
 		player.emit_signal("update_ui")
+		
+		rest_ui.heal_price += 20
+
+
+func _on_refreshed(price: int, rest_ui: Node) -> void:
+	if price < scrap_count:
+		update_scrap(price, "decrement")
+		rest_ui.update_shop()
+		player.emit_signal("update_ui")
+		
+		rest_ui.refresh_price *= 2
 
 
 func _on_dialogue_end() -> void:
@@ -436,7 +484,7 @@ func create_line(room: Map.Room, next_room: Map.Room) -> Line2D:
 		link.add_point(Vector2(next_room.x_position, next_room.y_position + 100))
 	else:
 		link.add_point(Vector2(next_room.x_position, next_room.y_position))
-	link.default_color = Color.AQUA
+	link.default_color = Color("00ac00")
 	return link
 
 
@@ -482,7 +530,7 @@ func on_room_select(room: Map.Room) -> void:
 	elif room.type == 5:
 		modulate_background(100)
 		play_trans_end("combat")
-		en_map = gv.boss_maps[gv.boss_maps[gv.act]]
+		en_map = gv.boss_maps[gv.act]
 		spawn_enemies()
 
 
@@ -525,8 +573,11 @@ func _on_time_timeout() -> void:
 
 func play_trans_start() -> void:
 	#remove all of the player status effects
-	player.status_effects = {}
+	for k: String in player.status_effects:
+		player.status_effects[k] = 0
+	
 	player.update_status_bar()
+	
 	#play the blast off animation
 	player.state = "cutscene"
 	Audio.play_sfx(Audio.sfx_blast_off)

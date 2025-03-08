@@ -4,6 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://chl5humsx53o1" path="res://Images/Icons/battle.png" id="2_k5a1t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1bd6"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.67451, 0, 1)
 
 [node name="Modifier" type="Control"]
 layout_mode = 3
@@ -15,18 +25,18 @@ script = ExtResource("1_r1ki7")
 
 [node name="Sprite" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 30.0
+offset_bottom = 30.0
 pivot_offset = Vector2(20, 20)
 texture = ExtResource("2_k5a1t")
 expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = -257.0
-offset_top = 47.0
-offset_right = 43.0
-offset_bottom = 87.0
+offset_left = -267.0
+offset_top = 37.0
+offset_right = 33.0
+offset_bottom = 77.0
 
 [node name="DescriptionContainer" type="PanelContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
@@ -41,6 +51,7 @@ layout_mode = 2
 [node name="Name" type="Label" parent="VBoxContainer/DescriptionContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.67451, 0, 1)
 theme_override_font_sizes/font_size = 18
 text = "Name:"
 
@@ -49,6 +60,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0.67451, 0, 1)
 text = "Description"
 autowrap_mode = 2
 

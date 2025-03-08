@@ -17,9 +17,9 @@ func _ready() -> void:
 	$Animations.play("default")
 	passive_attack = Card.AttackPattren.new(bullet, 1, 1, [0], 0.05, 1500, [Vector2(0, 0)], 800, 1)
 	passive_attack.set_marker("line", 0.2)
-	hp = 1000
+	set_up_hp(1000, Vector2(0, 50))
+	set_up_status_effects(Vector2(-15, 65))
 	scrap = 500
-	$hp.text = str(hp)
 
 
 func _process(_delta: float) -> void:
@@ -238,10 +238,6 @@ func boss_at6() -> void:
 	await get_tree().create_timer(1.5).timeout
 	drone3.play(self)
 	await get_tree().create_timer(3).timeout
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)
 
 
 func _on_passive_timer_timeout() -> void:

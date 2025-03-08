@@ -11,11 +11,15 @@ offset_right = 30.0
 offset_bottom = 30.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vqgpj")
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="Icon" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("1_u3jln")
-expand_mode = 1
+max_value = 0.0
+fill_mode = 5
+nine_patch_stretch = true
+texture_under = ExtResource("1_u3jln")
+texture_progress = ExtResource("1_u3jln")
+tint_under = Color(0.399428, 0.399428, 0.399428, 1)
 
 [node name="Stack" type="Label" parent="."]
 unique_name_in_owner = true

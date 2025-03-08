@@ -42,9 +42,9 @@ func _ready() -> void:
 		{"delay": 0.2, "value": -50, "dur": 0.2},
 		{"delay": 0.2, "value": 50, "dur": 0.2},
 	], [], [], [], true)
-	hp = 1000
+	set_up_hp(1000, Vector2(0, 50))
+	set_up_status_effects(Vector2(-15, 65))
 	scrap = 500
-	$hp.text = str(hp)
 
 
 func _process(_delta: float) -> void:
@@ -258,16 +258,12 @@ func boss_at6() -> void:
 	$ShootTimer.start()
 
 
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)
-
-
 func _on_passive_timer_timeout() -> void:
 	await dash(randf_range(250, 900), 0.2)
 	passive_attack.play(self)
 
 
-func take_damage(dmg: int) -> void:
+func take_damage(dmg: int, area: Node = null) -> void:
 	Audio.play_sfx(Audio.sfx_hit)
 	hit_flash()
 	hp -= dmg
@@ -285,5 +281,10 @@ func take_damage(dmg: int) -> void:
 		is_dead = true
 		play_death_effect()
 		$Hurtbox.set_deferred("disabled", true)
+		
+		for effect: Card.CardStats in area.on_kill_effects:
+			var player: Node = get_tree().get_first_node_in_group("player")
+			effect.play(player, self)
+		
 		dead.emit(scrap)
 		queue_free()

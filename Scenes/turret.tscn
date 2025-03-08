@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvu0lo184qhqu"]
+[gd_scene load_steps=10 format=3 uid="uid://cvu0lo184qhqu"]
 
 [ext_resource type="Script" path="res://Scenes/turret.gd" id="1_h3pot"]
 [ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_cxgkm"]
 [ext_resource type="Texture2D" uid="uid://c1scd73p4d75t" path="res://Images/Enemies/turret.png" id="2_rk1yq"]
-[ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="3_daq50"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ehcet"]
 resource_local_to_scene = true
@@ -69,7 +68,6 @@ _data = {
 }
 
 [node name="Turret" type="Area2D"]
-z_index = 20
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_h3pot")
@@ -85,10 +83,10 @@ hframes = 9
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_nx8ts")
 
-[node name="ShootTimer" type="Timer" parent="."]
-wait_time = 0.1
+[node name="HPTransform2D" type="RemoteTransform2D" parent="."]
+update_rotation = false
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+[node name="StatusTransform2D" type="RemoteTransform2D" parent="."]
 update_rotation = false
 
 [node name="Animations" type="AnimationPlayer" parent="."]
@@ -96,8 +94,7 @@ libraries = {
 "": SubResource("AnimationLibrary_4r5rn")
 }
 
-[node name="StatusEffectsBar" parent="." instance=ExtResource("3_daq50")]
-offset_top = 80.0
-offset_bottom = 110.0
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.1
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

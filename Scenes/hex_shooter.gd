@@ -13,12 +13,10 @@ func _ready() -> void:
 	color = Color.DIM_GRAY
 	area_entered.connect(_on_area_entered)
 	scrap = 20
-	hp = 50
+	set_up_hp(50, Vector2(0, 65))
+	set_up_status_effects(Vector2(-15, 80))
 	$body.position = position
-	$StatusEffectsBar.position = position + Vector2(-14, 80)
-	$ruby.position = position 
-	$hp.position = position + Vector2(-20, 64)
-	$hp.text = str(hp)
+	$ruby.position = position
 
 
 func start() -> void:
@@ -47,7 +45,3 @@ func hit_flash() -> void:
 	$body.material.set_shader_parameter("flash_modifier", 1)
 	await get_tree().create_timer(0.02).timeout
 	$body.material.set_shader_parameter("flash_modifier", 0)
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)

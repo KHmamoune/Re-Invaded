@@ -10,7 +10,7 @@ var data: Array
 
 func _ready() -> void:
 	update_buttons(data)
-	create_tween().tween_property(self, "modulate:a", 255, 0.5)
+	create_tween().tween_property(self, "modulate:a", 1, 0.5)
 	%Buttons.get_child(0).grab_focus()
 
 

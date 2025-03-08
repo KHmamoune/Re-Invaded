@@ -9,7 +9,7 @@ signal update_graze_bar
 
 
 var status_text: PackedScene = preload("res://Scenes/status_text.tscn")
-var special_attack: Card.AttackPattren
+var special_attack: Card.CardStats
 var default_speed: float = 400.0
 var speed: float = 400.0
 var color: Color = Color.CYAN
@@ -70,7 +70,7 @@ func _process(delta: float) -> void:
 		for enemy: Node in get_tree().get_nodes_in_group("enemy"):
 			enemy.take_damage(1000000)
 	
-	if energy < 5:
+	if energy < energy_max:
 		energy += (0.5 * gen_modifier) * delta
 	
 	if state == "combat" or state == "post_combat":

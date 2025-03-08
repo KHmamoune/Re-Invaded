@@ -136,7 +136,7 @@ class MapData:
 	func setup_rooms() -> void:
 		for room: Room in map_data[0]:
 			if room.next_rooms.size() > 0:
-				room.type = Type.BATTLE #change this to change starting rooms type
+				room.type = Type.REST #change this to change starting rooms type
 				
 		for room: Room in map_data[FLOOR_COUNT - 2]:
 			if room.next_rooms.size() > 0:

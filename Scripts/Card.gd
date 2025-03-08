@@ -33,7 +33,7 @@ class CardStats:
 		card_price = price
 		card_tooltips = tooltips
 	
-	func play(pl: Node) -> void:
+	func play(pl: Node, additional_arg: Node = null) -> void:
 		pl.energy -= card_cost
 		for card: Dictionary in card_effect:
 			if card.has("effect"):
@@ -49,7 +49,7 @@ class CardStats:
 					if card.has("delay"):
 						await gv.current_scene.get_tree().create_timer(card["delay"]).timeout
 					
-					card["effect"].call(pl)
+					card["effect"].call(pl, additional_arg)
 
 
 class StatusAffliction:
@@ -72,7 +72,11 @@ class StatusAffliction:
 				for modifier: Modifiers.Modifier in pl.modifiers["debuff"]:
 					modifier.play(pl)
 			
-			pl.play_animation("debuff_animation", 0)
+			if pl.status_effects.has(status_effect):
+				if pl.status_effects[status_effect] == 0:
+					pl.play_animation("debuff_animation", 0)
+			else:
+				pl.play_animation("debuff_animation", 0)
 		
 		if status_type == "buff":
 			pl.play_animation("buff_animation", 0)
@@ -155,6 +159,7 @@ class AttackPattren:
 	var additive_tweens: bool = false
 	var bounce: bool = false
 	var on_hit_effects: Array = []
+	var on_kill_effects: Array = []
 	var random_range: float = 0
 	var aim: String = ""
 	var laser_delay: float
@@ -185,6 +190,8 @@ class AttackPattren:
 	var after_image_interval: float = 0
 	var animation_name: String = ""
 	var animation_delay: float = 0
+	var fade_in_delay: float = 0
+	var fade_in_duration: float = 0
 	
 	
 	func _init(bt: PackedScene, bam: int, fam: int, fan: Array, fde: float, bsp: float, fpo: Array, bra: float, bda: int) -> void:
@@ -317,6 +324,13 @@ class AttackPattren:
 		bullet.animation_name = animation_name
 		bullet.animation_delay = animation_delay
 		
+		if fade_in_delay != 0:
+			bullet.fade_in_delay = fade_in_delay
+			bullet.fade_in_duration = fade_in_duration
+		
+		if len(on_kill_effects) != 0:
+			bullet.on_kill_effects = on_kill_effects
+		
 		return bullet
 	
 	func set_laser_stats(laser: Node) -> void:
@@ -410,6 +424,9 @@ class AttackPattren:
 	
 	func set_on_hit_effects(ohe: Array) -> void:
 		on_hit_effects = ohe
+		
+	func set_on_kill_effects(oke: Array) -> void:
+		on_kill_effects = oke
 	
 	func set_sprite_and_size(sprite: Texture, frames: int, anm_speed: float, size1: Vector2, size2: Vector2) -> void:
 		bullet_sprite = sprite
@@ -440,6 +457,10 @@ class AttackPattren:
 	
 	func set_sfx(sfx: AudioStream = Audio.sfx_shoot) -> void:
 		sound_effect = sfx
+	
+	func set_fade_in(delay: float, duration: float) -> void:
+		fade_in_delay = delay
+		fade_in_duration = duration
 	
 	func get_position(j: int) -> Vector2:
 		if len(fire_positions) > 1:

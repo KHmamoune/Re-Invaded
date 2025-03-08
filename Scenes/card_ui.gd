@@ -12,8 +12,8 @@ func show_details() -> void:
 		if typeof(tip) == typeof(Card.CardStats):
 			var mini_card: Node = card_ui.instantiate()
 			mini_card.update(tip)
+			mini_card.scale = Vector2(0.2, 0.2)
 			%ToolTips.add_child(mini_card)
-			mini_card.scale = Vector2(0.8, 0.8)
 			continue
 		
 		var new_tooltip: Node = tooltip.instantiate()

@@ -9,7 +9,8 @@ func _ready() -> void:
 	color = Color.DARK_GREEN
 	area_entered.connect(_on_area_entered)
 	scrap = 20
-	set_up_hp(80, Vector2(-10, 40))
+	set_up_hp(80, Vector2(0, 40))
+	set_up_status_effects(Vector2(-15, 55))
 
 
 func _process(_delta: float) -> void:
@@ -61,6 +62,3 @@ func set_charging(val: bool) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body.has_method("lose_health"):
 		body.lose_health()
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)

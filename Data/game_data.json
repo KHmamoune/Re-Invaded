@@ -20,6 +20,11 @@
 			"description": "Instantly shuffle the deck.",
 			"image": "res://Images/Other/place_holder_card.png"
 		},
+		"empty_magazine": {
+			"title": "Empty Magazine",
+			"description": "Fire 1 shot forward that shuffle on kill, 10 damage.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
 		
 		"flare": {
 			"title": "Flare",
@@ -180,12 +185,12 @@
 		
 		"dramatic_entrance": {
 			"title": "Dramatic Entrance",
-			"image": "res://Images/Icons/place_holder_card.png",
+			"image": "res://Images/Other/place_holder_card.png",
 			"description": "deal 5 damage to all enemies at the start of combat"
 		},
 		"return_fire": {
 			"title": "Return Fire",
-			"image": "res://Images/Icons/place_holder_card.png",
+			"image": "res://Images/Other/place_holder_card.png",
 			"description": "fire bullets on hit"
 		},
 	}, 

@@ -23,9 +23,9 @@ func _ready() -> void:
 	passive_attack3 = Card.AttackPattren.new(laser, 1, 1, [0], 0.05, 800, [Vector2(0, -100)], 0, 1)
 	passive_attack3.set_marker("line", 0.4)
 	passive_attack3.set_laser_properties(0.2)
-	hp = 1000
+	set_up_hp(1000, Vector2(0, 50))
+	set_up_status_effects(Vector2(-15, 65))
 	scrap = 500
-	$hp.text = str(hp)
 
 
 func _process(_delta: float) -> void:
@@ -234,10 +234,6 @@ func boss_at6() -> void:
 	attack2.play(self)
 	
 	await get_tree().create_timer(6).timeout
-
-
-func update_status_bar() -> void:
-	$StatusEffectsBar.update_status_effects(status_effects)
 
 
 func _on_passive_timer_timeout() -> void:
