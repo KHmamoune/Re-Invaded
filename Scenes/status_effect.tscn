@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://csflbcrqvq5p"]
+[gd_scene load_steps=4 format=3 uid="uid://csflbcrqvq5p"]
 
+[ext_resource type="Script" uid="uid://d0osapv45k462" path="res://Scenes/status_effect.gd" id="1_fi7i3"]
 [ext_resource type="Texture2D" uid="uid://b4wmw4qh82rht" path="res://Images/Icons/flame.png" id="1_u3jln"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqgpj"]
@@ -10,11 +11,13 @@ custom_minimum_size = Vector2(30, 30)
 offset_right = 30.0
 offset_bottom = 30.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vqgpj")
+script = ExtResource("1_fi7i3")
 
 [node name="Icon" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 0.0
+step = 0.01
 fill_mode = 5
 nine_patch_stretch = true
 texture_under = ExtResource("1_u3jln")
@@ -29,3 +32,6 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "0"
 horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

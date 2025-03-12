@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bp2j6msvl68rr"]
 
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="1_3lx7d"]
-[ext_resource type="Script" path="res://Scenes/code_red_boss.gd" id="1_wq4ci"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="1_3lx7d"]
+[ext_resource type="Script" uid="uid://da43eesd8x7cf" path="res://Scenes/code_red_boss.gd" id="1_wq4ci"]
 [ext_resource type="Texture2D" uid="uid://bxpns5vbwhnq3" path="res://Images/Characters/code_red.png" id="3_o62l0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u0t6p"]
@@ -53,8 +53,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qpb85"]
 _data = {
-"RESET": SubResource("Animation_u33qg"),
-"default": SubResource("Animation_vgkkp")
+&"RESET": SubResource("Animation_u33qg"),
+&"default": SubResource("Animation_vgkkp")
 }
 
 [node name="CodeRedBoss" type="Area2D"]

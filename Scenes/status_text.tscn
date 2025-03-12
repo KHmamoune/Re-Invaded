@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dksebsdokmcrj"]
 
-[ext_resource type="Script" path="res://Scenes/status_text.gd" id="1_0rwqu"]
+[ext_resource type="Script" uid="uid://bt5k5kd2fhun6" path="res://Scenes/status_text.gd" id="1_0rwqu"]
 
 [sub_resource type="Animation" id="Animation_1peiw"]
 length = 0.001
@@ -74,8 +74,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1o5dh"]
 _data = {
-"RESET": SubResource("Animation_1peiw"),
-"default": SubResource("Animation_uw4cf")
+&"RESET": SubResource("Animation_1peiw"),
+&"default": SubResource("Animation_uw4cf")
 }
 
 [node name="StatusText" type="HBoxContainer"]

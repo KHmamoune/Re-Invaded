@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5o3h6xymfaub"]
 
-[ext_resource type="Script" path="res://Scenes/fps_counter.gd" id="1_w7q6s"]
+[ext_resource type="Script" uid="uid://cjrhca4d24mso" path="res://Scenes/fps_counter.gd" id="1_w7q6s"]
 
 [node name="FPSCounter" type="Label"]
 offset_right = 40.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://c3pjhex745whr"]
 
-[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_bl1vg"]
-[ext_resource type="Shader" path="res://Shaders/main_menu_scroll.gdshader" id="2_gft25"]
+[ext_resource type="Script" uid="uid://dc625v5ll7i1p" path="res://Scenes/main_menu.gd" id="1_bl1vg"]
+[ext_resource type="Shader" uid="uid://bo671127qpq2r" path="res://Shaders/main_menu_scroll.gdshader" id="2_gft25"]
 [ext_resource type="Texture2D" uid="uid://d24cuwif7m0k8" path="res://Images/Icons/capsule.png" id="2_xfab1"]
 [ext_resource type="Texture2D" uid="uid://dli63nj6jvcy7" path="res://Images/Backgrounds/background_effect.png" id="3_22mxn"]
 [ext_resource type="PackedScene" uid="uid://cnt68hkgtjs67" path="res://Scenes/player_select.tscn" id="5_x6hta"]
@@ -58,8 +58,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eu85h"]
 _data = {
-"RESET": SubResource("Animation_ncvel"),
-"slide_trans": SubResource("Animation_cqa6x")
+&"RESET": SubResource("Animation_ncvel"),
+&"slide_trans": SubResource("Animation_cqa6x")
 }
 
 [node name="MainMenu" type="Control"]
@@ -249,7 +249,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_eu85h")
+&"": SubResource("AnimationLibrary_eu85h")
 }
 
 [connection signal="focus_entered" from="CanvasLayer/Menus/MenuButtons/Play" to="." method="_on_play_focus_entered"]

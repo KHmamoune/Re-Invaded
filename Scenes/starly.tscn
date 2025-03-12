@@ -1,10 +1,10 @@
 [gd_scene load_steps=16 format=3 uid="uid://dl8ydb1qopfix"]
 
-[ext_resource type="Script" path="res://Scenes/starly.gd" id="1_86h42"]
+[ext_resource type="Script" uid="uid://33785o61g7v" path="res://Scenes/starly.gd" id="1_86h42"]
 [ext_resource type="Texture2D" uid="uid://iqpcuvtjaggu" path="res://Images/Enemies/starly_back.png" id="2_c1ec6"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_p1lsa"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_p1lsa"]
 [ext_resource type="Texture2D" uid="uid://007d6ecqtxcn" path="res://Images/Enemies/starly.png" id="3_df3b1"]
-[ext_resource type="Shader" path="res://Shaders/black_white.gdshader" id="4_ibqt2"]
+[ext_resource type="Shader" uid="uid://upjfk00b1spl" path="res://Shaders/black_white.gdshader" id="4_ibqt2"]
 [ext_resource type="Texture2D" uid="uid://b72h6fp1iwsmc" path="res://Images/Enemies/amathyst.png" id="5_mlqfq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0st67"]
@@ -105,10 +105,10 @@ loop_mode = 1
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_44v2e"]
 _data = {
-"RESET": SubResource("Animation_7wh4v"),
-"boot_up": SubResource("Animation_3aign"),
-"idle": SubResource("Animation_hnq2f"),
-"spin": SubResource("Animation_rywhn")
+&"RESET": SubResource("Animation_7wh4v"),
+&"boot_up": SubResource("Animation_3aign"),
+&"idle": SubResource("Animation_hnq2f"),
+&"spin": SubResource("Animation_rywhn")
 }
 
 [node name="Starly" type="Area2D"]

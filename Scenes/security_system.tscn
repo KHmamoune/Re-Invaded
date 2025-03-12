@@ -1,8 +1,8 @@
 [gd_scene load_steps=29 format=3 uid="uid://cjhmaa846w0vk"]
 
-[ext_resource type="Script" path="res://Scenes/security_system.gd" id="1_2peis"]
+[ext_resource type="Script" uid="uid://ds3fs6ikb0ovg" path="res://Scenes/security_system.gd" id="1_2peis"]
 [ext_resource type="Texture2D" uid="uid://c3qy4imv6apt5" path="res://Images/Enemies/security_system.png" id="2_kcvg0"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_q371w"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_q371w"]
 [ext_resource type="Texture2D" uid="uid://ir112ujlkqt6" path="res://Images/Enemies/security_system_hatch.png" id="3_gxglq"]
 [ext_resource type="Texture2D" uid="uid://b7tqh6bb0h1ic" path="res://Images/Enemies/security_system_turret.png" id="4_q7jxu"]
 [ext_resource type="Texture2D" uid="uid://fvmhpsanexip" path="res://Images/Enemies/security_system_gun.png" id="5_ttofn"]
@@ -199,10 +199,10 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_44v2e"]
 _data = {
-"RESET": SubResource("Animation_3k5wg"),
-"open": SubResource("Animation_v16ss"),
-"show_gun_l": SubResource("Animation_oturc"),
-"show_gun_s": SubResource("Animation_crkqj")
+&"RESET": SubResource("Animation_3k5wg"),
+&"open": SubResource("Animation_v16ss"),
+&"show_gun_l": SubResource("Animation_oturc"),
+&"show_gun_s": SubResource("Animation_crkqj")
 }
 
 [sub_resource type="Animation" id="Animation_akl63"]
@@ -388,10 +388,10 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iuule"]
 _data = {
-"RESET": SubResource("Animation_akl63"),
-"open": SubResource("Animation_010ms"),
-"show_gun_l": SubResource("Animation_yb03g"),
-"show_gun_s": SubResource("Animation_jh8ps")
+&"RESET": SubResource("Animation_akl63"),
+&"open": SubResource("Animation_010ms"),
+&"show_gun_l": SubResource("Animation_yb03g"),
+&"show_gun_s": SubResource("Animation_jh8ps")
 }
 
 [sub_resource type="Animation" id="Animation_cbdg2"]
@@ -577,10 +577,10 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ilw26"]
 _data = {
-"RESET": SubResource("Animation_cbdg2"),
-"open": SubResource("Animation_iqc7j"),
-"show_gun_l": SubResource("Animation_0ps22"),
-"show_gun_s": SubResource("Animation_odbe8")
+&"RESET": SubResource("Animation_cbdg2"),
+&"open": SubResource("Animation_iqc7j"),
+&"show_gun_l": SubResource("Animation_0ps22"),
+&"show_gun_s": SubResource("Animation_odbe8")
 }
 
 [sub_resource type="Animation" id="Animation_pcm26"]
@@ -766,10 +766,10 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eggah"]
 _data = {
-"RESET": SubResource("Animation_pcm26"),
-"open": SubResource("Animation_idg1g"),
-"show_gun_l": SubResource("Animation_nem8m"),
-"show_gun_s": SubResource("Animation_kmobw")
+&"RESET": SubResource("Animation_pcm26"),
+&"open": SubResource("Animation_idg1g"),
+&"show_gun_l": SubResource("Animation_nem8m"),
+&"show_gun_s": SubResource("Animation_kmobw")
 }
 
 [node name="SecuritySystem" type="Area2D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://xox0hvvd778r"]
 
-[ext_resource type="Script" path="res://Scenes/map_room.gd" id="1_mdoe0"]
+[ext_resource type="Script" uid="uid://dmhrk2rsjqre2" path="res://Scenes/map_room.gd" id="1_mdoe0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hpcbh"]
 size = Vector2(56, 42)
@@ -39,8 +39,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_72lup"]
 _data = {
-"Pulse": SubResource("Animation_o7jvf"),
-"RESET": SubResource("Animation_ts1vx")
+&"Pulse": SubResource("Animation_o7jvf"),
+&"RESET": SubResource("Animation_ts1vx")
 }
 
 [node name="MapRoom" type="Area2D"]

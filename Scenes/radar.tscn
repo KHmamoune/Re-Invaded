@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://ckxf17ocwvyeu"]
 
-[ext_resource type="Script" path="res://Scenes/Radar.gd" id="1_cja4g"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_terbp"]
+[ext_resource type="Script" uid="uid://mrh4ggsbvgd5" path="res://Scenes/Radar.gd" id="1_cja4g"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_terbp"]
 [ext_resource type="Texture2D" uid="uid://dfgbchegkeif" path="res://Images/Enemies/radar.png" id="2_vrtf5"]
 [ext_resource type="Texture2D" uid="uid://bmasqedi0g810" path="res://Images/Enemies/radar arm.png" id="3_6ylvx"]
-[ext_resource type="Shader" path="res://Shaders/black_white.gdshader" id="3_7wfee"]
+[ext_resource type="Shader" uid="uid://upjfk00b1spl" path="res://Shaders/black_white.gdshader" id="3_7wfee"]
 [ext_resource type="Texture2D" uid="uid://cii2jk8nqa3wa" path="res://Images/Enemies/radar wing.png" id="4_0cue0"]
 [ext_resource type="Texture2D" uid="uid://hvf2ulj8tj7w" path="res://Images/Enemies/emerald.png" id="4_awv83"]
 
@@ -275,9 +275,9 @@ tracks/8/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pytrv"]
 _data = {
-"RESET": SubResource("Animation_35kg8"),
-"boot_up": SubResource("Animation_8138m"),
-"idle": SubResource("Animation_qyoy2")
+&"RESET": SubResource("Animation_35kg8"),
+&"boot_up": SubResource("Animation_8138m"),
+&"idle": SubResource("Animation_qyoy2")
 }
 
 [node name="Radar" type="Area2D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cs1dquubajmdc"]
 
-[ext_resource type="Script" path="res://Scenes/tool_tip.gd" id="1_qeyle"]
+[ext_resource type="Script" uid="uid://bk88a213yr0i2" path="res://Scenes/tool_tip.gd" id="1_qeyle"]
 [ext_resource type="Texture2D" uid="uid://b4wmw4qh82rht" path="res://Images/Icons/flame.png" id="1_rlygx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_isqqu"]

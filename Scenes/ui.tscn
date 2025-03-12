@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://rjyabeodtw6b" path="res://Images/Backgrounds/ui_background1.png" id="1_gicbd"]
 [ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Images/Icons/scrap.png" id="2_166by"]
-[ext_resource type="Shader" path="res://Shaders/main_menu_scroll.gdshader" id="2_j72m0"]
+[ext_resource type="Shader" uid="uid://bo671127qpq2r" path="res://Shaders/main_menu_scroll.gdshader" id="2_j72m0"]
 [ext_resource type="PackedScene" uid="uid://c83xbth1v5fgm" path="res://Scenes/deck_ui.tscn" id="2_xsdwi"]
 [ext_resource type="Texture2D" uid="uid://dli63nj6jvcy7" path="res://Images/Backgrounds/background_effect.png" id="3_1xcnk"]
 [ext_resource type="PackedScene" uid="uid://vxlt0wbavuy" path="res://Scenes/modifiers_ui.tscn" id="3_45blw"]
@@ -18,7 +18,7 @@ shader_parameter/speed = 0.05
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1kkv"]
-bg_color = Color(0.227451, 1, 0, 1)
+bg_color = Color(0, 0.67451, 0, 1)
 
 [node name="UI" type="Control"]
 layout_mode = 3

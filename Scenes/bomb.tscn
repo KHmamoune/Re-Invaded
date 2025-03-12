@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://c6lhw5bf2748m"]
 
-[ext_resource type="Script" path="res://Scenes/bomb.gd" id="1_ayxvy"]
+[ext_resource type="Script" uid="uid://xv8u781th7go" path="res://Scenes/bomb.gd" id="1_ayxvy"]
 [ext_resource type="Texture2D" uid="uid://ym1a67efem2b" path="res://Images/Bullets/bomb.png" id="1_t12do"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_jm6w1"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_jm6w1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jtr01"]
 resource_local_to_scene = true
@@ -51,8 +51,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pj3k1"]
 _data = {
-"RESET": SubResource("Animation_0fbtl"),
-"flash": SubResource("Animation_qef5v")
+&"RESET": SubResource("Animation_0fbtl"),
+&"flash": SubResource("Animation_qef5v")
 }
 
 [node name="Bomb" type="Area2D"]

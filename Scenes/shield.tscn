@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://1ofygfmr0sj1"]
 
-[ext_resource type="Script" path="res://Scenes/sheild.gd" id="1_grjmk"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_y50pq"]
+[ext_resource type="Script" uid="uid://cfy1x0bfbfmn3" path="res://Scenes/sheild.gd" id="1_grjmk"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_y50pq"]
 [ext_resource type="Texture2D" uid="uid://cqc3twp5tp15" path="res://Images/Bullets/sheild.png" id="3_isk0h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jtr01"]
@@ -48,8 +48,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pj3k1"]
 _data = {
-"RESET": SubResource("Animation_0fbtl"),
-"flash": SubResource("Animation_qef5v")
+&"RESET": SubResource("Animation_0fbtl"),
+&"flash": SubResource("Animation_qef5v")
 }
 
 [node name="Sheild" type="Area2D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c83xbth1v5fgm"]
 
-[ext_resource type="Script" path="res://Scenes/deck_ui.gd" id="1_61r2h"]
+[ext_resource type="Script" uid="uid://63pk5p1ileig" path="res://Scenes/deck_ui.gd" id="1_61r2h"]
 [ext_resource type="Texture2D" uid="uid://c6j322xini5ud" path="res://Images/UI/green_square.png" id="2_ys2we"]
 
 [node name="DeckUI" type="Control"]

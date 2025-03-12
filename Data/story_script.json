@@ -87,7 +87,13 @@
 			{
 				"speaker": "code orange",
 				"color": "orange",
-				"text": "losing comunication this early is still unatural though",
+				"text": "losing comunication this early is still conserning though",
+				"side": "down"
+			},
+			{
+				"speaker": "code orange",
+				"color": "orange",
+				"text": "but there is no time to think about it",
 				"side": "down"
 			},
 		]

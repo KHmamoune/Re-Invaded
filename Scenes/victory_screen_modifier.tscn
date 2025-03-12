@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c5brjlsgm86nv"]
 
-[ext_resource type="Script" path="res://Scenes/victory_screen_modifier.gd" id="1_6y0p6"]
+[ext_resource type="Script" uid="uid://cxniog6xr1ppr" path="res://Scenes/victory_screen_modifier.gd" id="1_6y0p6"]
 [ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Images/Other/place_holder_card.png" id="1_8i5hg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prnyo"]

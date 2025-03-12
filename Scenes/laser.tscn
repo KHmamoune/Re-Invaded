@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bgsc75bb7maft"]
 
-[ext_resource type="Script" path="res://Scenes/laser.gd" id="1_8pnhx"]
+[ext_resource type="Script" uid="uid://b7dedi3t8fwjd" path="res://Scenes/laser.gd" id="1_8pnhx"]
 [ext_resource type="Texture2D" uid="uid://bwn73ery6xx6j" path="res://Images/Bullets/Laser.png" id="2_hvh2t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ltev"]

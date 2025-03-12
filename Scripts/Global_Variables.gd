@@ -382,6 +382,8 @@ var cards_dictionary: Dictionary = {
 }
 
 func _ready() -> void:
+	Engine.max_fps = 60
+	
 	blue_attack1.set_aim("", 20)
 	
 	blue_attack3.set_on_kill_effects([blue_card4])

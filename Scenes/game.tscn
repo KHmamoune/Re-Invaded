@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://diup4akafq8u0" path="res://Scenes/ui.tscn" id="1_1jn15"]
 [ext_resource type="PackedScene" uid="uid://durrbr4c6h5gu" path="res://Scenes/pause_menu.tscn" id="1_c6vdv"]
-[ext_resource type="Script" path="res://Scenes/game.gd" id="1_qac41"]
+[ext_resource type="Script" uid="uid://d0g7orwvyfcrc" path="res://Scenes/game.gd" id="1_qac41"]
 [ext_resource type="AudioStream" uid="uid://drsxjfxwkyntd" path="res://SFX/Act1_ambient.wav" id="2_cuwig"]
-[ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="3_2lxi7"]
+[ext_resource type="Shader" uid="uid://dpc7eyiwmd3v5" path="res://Shaders/scroll.gdshader" id="3_2lxi7"]
 [ext_resource type="Texture2D" uid="uid://cmnp43rf0ix10" path="res://Images/Backgrounds/space_background.png" id="4_q7q0k"]
 [ext_resource type="PackedScene" uid="uid://b5o3h6xymfaub" path="res://Scenes/fps_counter.tscn" id="7_vqgec"]
-[ext_resource type="Script" path="res://Scenes/cmd.gd" id="8_hotpq"]
+[ext_resource type="Script" uid="uid://fljpxpr33q3u" path="res://Scenes/cmd.gd" id="8_hotpq"]
 
 [sub_resource type="Animation" id="Animation_bjrjs"]
 length = 0.001
@@ -57,9 +57,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pvasb"]
 _data = {
-"RESET": SubResource("Animation_bjrjs"),
-"slide_trans": SubResource("Animation_fd5ow"),
-"start_trans": SubResource("Animation_ht2f1")
+&"RESET": SubResource("Animation_bjrjs"),
+&"slide_trans": SubResource("Animation_fd5ow"),
+&"start_trans": SubResource("Animation_ht2f1")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0loc7"]

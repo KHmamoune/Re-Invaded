@@ -73,7 +73,7 @@ class StatusAffliction:
 					modifier.play(pl)
 			
 			if pl.status_effects.has(status_effect):
-				if pl.status_effects[status_effect] == 0:
+				if pl.status_effects[status_effect]["stack"] == 0:
 					pl.play_animation("debuff_animation", 0)
 			else:
 				pl.play_animation("debuff_animation", 0)

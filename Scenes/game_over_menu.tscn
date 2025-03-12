@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c3qibm7i5rtuj"]
 
-[ext_resource type="Script" path="res://Scenes/GameOverMenu.gd" id="1_s5q1q"]
+[ext_resource type="Script" uid="uid://durivyayncuhg" path="res://Scenes/GameOverMenu.gd" id="1_s5q1q"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7ugd"]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://djylmh0fn0nh6"]
 
 [ext_resource type="Texture2D" uid="uid://c0qovuv1s24l7" path="res://Images/Enemies/the_maxim.png" id="1_ni0dt"]
-[ext_resource type="Script" path="res://Scenes/maxim.gd" id="1_up2a6"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_5pdug"]
+[ext_resource type="Script" uid="uid://6xnpecn2huhd" path="res://Scenes/maxim.gd" id="1_up2a6"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_5pdug"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dmpk5"]
 resource_local_to_scene = true
@@ -79,10 +79,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xd352"]
 _data = {
-"RESET": SubResource("Animation_a72m1"),
-"bite": SubResource("Animation_c8ik4"),
-"follow": SubResource("Animation_m4n7q"),
-"wake_up": SubResource("Animation_5lsy6")
+&"RESET": SubResource("Animation_a72m1"),
+&"bite": SubResource("Animation_c8ik4"),
+&"follow": SubResource("Animation_m4n7q"),
+&"wake_up": SubResource("Animation_5lsy6")
 }
 
 [node name="Maxim" type="Area2D"]

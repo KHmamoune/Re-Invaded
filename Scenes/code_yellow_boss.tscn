@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dxqlxf77b1obk"]
 
-[ext_resource type="Script" path="res://Scenes/code_yellow_boss.gd" id="1_a3cq8"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_dsxpg"]
+[ext_resource type="Script" uid="uid://ca384agbduvb4" path="res://Scenes/code_yellow_boss.gd" id="1_a3cq8"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_dsxpg"]
 [ext_resource type="Texture2D" uid="uid://bwnsgaactu1hj" path="res://Images/Characters/code_yellow.png" id="2_scbim"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j1vj0"]
@@ -47,8 +47,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_of2wr"]
 _data = {
-"RESET": SubResource("Animation_xa7pd"),
-"default": SubResource("Animation_y2a36")
+&"RESET": SubResource("Animation_xa7pd"),
+&"default": SubResource("Animation_y2a36")
 }
 
 [node name="CodeYellowBoss" type="Area2D"]

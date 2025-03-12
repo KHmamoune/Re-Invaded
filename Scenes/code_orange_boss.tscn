@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://d1vx4jbumf2y1"]
 
 [ext_resource type="Texture2D" uid="uid://bfa1h8gaia5k4" path="res://Images/Characters/code_orange.png" id="1_ofvej"]
-[ext_resource type="Script" path="res://Scenes/code_orange_boss.gd" id="1_vol2b"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_cl5g5"]
+[ext_resource type="Script" uid="uid://wyw3cifwwkbo" path="res://Scenes/code_orange_boss.gd" id="1_vol2b"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_cl5g5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w1w20"]
 shader = ExtResource("2_cl5g5")
@@ -47,8 +47,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ge7mo"]
 _data = {
-"RESET": SubResource("Animation_v72kj"),
-"default": SubResource("Animation_n7ew8")
+&"RESET": SubResource("Animation_v72kj"),
+&"default": SubResource("Animation_n7ew8")
 }
 
 [node name="CodeOrangeBoss" type="Area2D"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://m4wh0emn602"]
 
-[ext_resource type="Script" path="res://Scenes/map.gd" id="1_abnks"]
-[ext_resource type="Shader" path="res://Shaders/crt.gdshader" id="2_5sskt"]
+[ext_resource type="Script" uid="uid://c5r4d6502knyn" path="res://Scenes/map.gd" id="1_abnks"]
+[ext_resource type="Shader" uid="uid://dtdti3jnncim4" path="res://Shaders/crt.gdshader" id="2_5sskt"]
 [ext_resource type="Texture2D" uid="uid://chl5humsx53o1" path="res://Images/Icons/battle.png" id="3_tijjf"]
 [ext_resource type="Texture2D" uid="uid://s565ygc08mxx" path="res://Images/Icons/rest.png" id="4_8yxv1"]
 [ext_resource type="Texture2D" uid="uid://dvh1hayfhnery" path="res://Images/Icons/resources.png" id="5_vqcxr"]

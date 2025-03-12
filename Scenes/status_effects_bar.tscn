@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bw4lnil0db42v"]
 
-[ext_resource type="Script" path="res://Scenes/status_effects_bar.gd" id="1_fhfvg"]
+[ext_resource type="Script" uid="uid://dtor382lhrfck" path="res://Scenes/status_effects_bar.gd" id="1_fhfvg"]
 
 [node name="StatusEffectsBar" type="HBoxContainer"]
 anchors_preset = 8

@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cnt68hkgtjs67"]
 
-[ext_resource type="Script" path="res://Scenes/player_select.gd" id="1_3tjoh"]
+[ext_resource type="Script" uid="uid://b4tetol2qlq41" path="res://Scenes/player_select.gd" id="1_3tjoh"]
 [ext_resource type="Texture2D" uid="uid://1akcojo8fnac" path="res://Images/Icons/code_blue_icon.png" id="1_w6t0w"]
 [ext_resource type="Texture2D" uid="uid://dyuuuwgysf5f7" path="res://Images/Icons/code_orange_icon.png" id="2_rqpbf"]
 [ext_resource type="Texture2D" uid="uid://cm2gedlehje5m" path="res://Images/Icons/code_red_icon.png" id="3_vxc8p"]
@@ -139,8 +139,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_td4qp"]
 _data = {
-"RESET": SubResource("Animation_eqy12"),
-"move": SubResource("Animation_yg074")
+&"RESET": SubResource("Animation_eqy12"),
+&"move": SubResource("Animation_yg074")
 }
 
 [node name="PlayerSelect" type="Control"]

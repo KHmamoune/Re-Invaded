@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://bhisngn2ph3h"]
 
-[ext_resource type="Script" path="res://Scenes/code_violet_boss.gd" id="1_fyv3e"]
+[ext_resource type="Script" uid="uid://bjiv7o7hhnplg" path="res://Scenes/code_violet_boss.gd" id="1_fyv3e"]
 [ext_resource type="Texture2D" uid="uid://y5js7g6m5buq" path="res://Images/Characters/code_violet.png" id="1_qv8r1"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_ymv10"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_ymv10"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qnt8v"]
 shader = ExtResource("2_ymv10")
@@ -47,8 +47,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i2wjj"]
 _data = {
-"RESET": SubResource("Animation_uug0m"),
-"default": SubResource("Animation_pmb31")
+&"RESET": SubResource("Animation_uug0m"),
+&"default": SubResource("Animation_pmb31")
 }
 
 [node name="CodeVioletBoss" type="Area2D"]

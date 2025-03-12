@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://740wlppn4ktf"]
 
 [ext_resource type="Texture2D" uid="uid://6pd2d5udxxgc" path="res://Images/Bullets/explosion.png" id="1_otuo1"]
-[ext_resource type="Script" path="res://Scenes/explosion.gd" id="1_tv46f"]
+[ext_resource type="Script" uid="uid://dxtafjdbx2o17" path="res://Scenes/explosion.gd" id="1_tv46f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h0w4m"]
 radius = 78.0
@@ -40,8 +40,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b76kc"]
 _data = {
-"RESET": SubResource("Animation_jx1ik"),
-"explode": SubResource("Animation_dy2ic")
+&"RESET": SubResource("Animation_jx1ik"),
+&"explode": SubResource("Animation_dy2ic")
 }
 
 [node name="Explosion" type="Area2D"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://bs6h4vg0o8ofg"]
 
 [ext_resource type="Texture2D" uid="uid://bbs88hmpwnpbp" path="res://Images/Characters/code_green.png" id="1_2thwo"]
-[ext_resource type="Script" path="res://Scenes/code_green_boss.gd" id="1_x2hyg"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_j1b4p"]
+[ext_resource type="Script" uid="uid://dkssuqibx014x" path="res://Scenes/code_green_boss.gd" id="1_x2hyg"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_j1b4p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5mgnq"]
 resource_local_to_scene = true
@@ -48,8 +48,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_et7ms"]
 _data = {
-"RESET": SubResource("Animation_wkfnp"),
-"default": SubResource("Animation_1etyd")
+&"RESET": SubResource("Animation_wkfnp"),
+&"default": SubResource("Animation_1etyd")
 }
 
 [node name="CodeGreenBoss" type="Area2D"]

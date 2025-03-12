@@ -108,8 +108,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l5qxu"]
 _data = {
-"RESET": SubResource("Animation_pqve1"),
-"play": SubResource("Animation_k0hon")
+&"RESET": SubResource("Animation_pqve1"),
+&"play": SubResource("Animation_k0hon")
 }
 
 [node name="FireShockwave" type="Node2D"]

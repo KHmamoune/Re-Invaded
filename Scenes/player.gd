@@ -144,10 +144,10 @@ func shoot(bullet: Node, seconds: float, _i: int, _j: int) -> void:
 		bullet.set_collision_layer_value(3, true)
 	
 	if status_effects.has("reinforce"):
-		bullet.damage += status_effects["reinforce"]
+		bullet.damage += status_effects["reinforce"]["stack"]
 	
 	if status_effects.has("meltdown"):
-		if status_effects["meltdown"] == 1:
+		if status_effects["meltdown"]["stack"] == 1:
 			bullet.damage = ceili(bullet.damage * 1.2)
 	
 	Audio.play_sfx(bullet.sound_effect)

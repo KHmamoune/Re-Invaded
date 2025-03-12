@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cdrae1ftwecym"]
 
-[ext_resource type="Script" path="res://Scenes/mine.gd" id="1_tvo1s"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_n6yn7"]
+[ext_resource type="Script" uid="uid://dbk5ddyhdbm1l" path="res://Scenes/mine.gd" id="1_tvo1s"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_n6yn7"]
 [ext_resource type="Texture2D" uid="uid://by1grwmpnt5bp" path="res://Images/Enemies/air_mine.png" id="2_rnfym"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_udksn"]
@@ -71,8 +71,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ratvq"]
 _data = {
-"RESET": SubResource("Animation_ms5v5"),
-"idle": SubResource("Animation_y5qh5")
+&"RESET": SubResource("Animation_ms5v5"),
+&"idle": SubResource("Animation_y5qh5")
 }
 
 [node name="Mine" type="Area2D"]

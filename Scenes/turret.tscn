@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cvu0lo184qhqu"]
 
-[ext_resource type="Script" path="res://Scenes/turret.gd" id="1_h3pot"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="2_cxgkm"]
+[ext_resource type="Script" uid="uid://bb8wxsdghy0e0" path="res://Scenes/turret.gd" id="1_h3pot"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_cxgkm"]
 [ext_resource type="Texture2D" uid="uid://c1scd73p4d75t" path="res://Images/Enemies/turret.png" id="2_rk1yq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ehcet"]
@@ -62,9 +62,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4r5rn"]
 _data = {
-"RESET": SubResource("Animation_p7yox"),
-"boot_up": SubResource("Animation_ax7mq"),
-"fire": SubResource("Animation_j16es")
+&"RESET": SubResource("Animation_p7yox"),
+&"boot_up": SubResource("Animation_ax7mq"),
+&"fire": SubResource("Animation_j16es")
 }
 
 [node name="Turret" type="Area2D"]
