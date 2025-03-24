@@ -76,6 +76,7 @@ var status_icons: Dictionary = {
 	"self_repair": preload("res://Images/Icons/self_repair.png"),
 	"bullet_speed_boost": preload("res://Images/Icons/bullet_speed_boost.png"),
 	"gen_impede": preload("res://Images/Icons/gen_impede.png"),
+	"charge": preload("res://Images/Icons/charge.png"),
 }
 
 
@@ -254,11 +255,13 @@ var blue_card5: Card.CardStats = Card.CardStats.new(1, card_data["empty_magazine
 
 var orange_attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 1, [0], 0.1, 800, [Vector2.ZERO], 800, 5)
 var orange_effect1: Card.StatusAffliction = Card.StatusAffliction.new("flame", 5, 1, "debuff")
+var flame_card1: Card.CardStats = Card.CardStats.new(1, "", "", "", "", Color.ORANGE, [{"effect": orange_effect1}])
 var orange_effect2: Card.StatusAffliction = Card.StatusAffliction.new("heat", 0, 1, "buff")
 var orange_card1: Card.CardStats = Card.CardStats.new(1, card_data["flare"]["title"], card_data["flare"]["image"], card_data["card_types"]["attack"], card_data["flare"]["description"], Color.ORANGE, [{"effect": orange_attack1}, {"effect": orange_effect2}], 40, ["flame", "heat"])
 var orange_attack2_1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [-10], 0.1, 1200, [Vector2.ZERO], 800, 1)
 var orange_attack2_2: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [10], 0.1, 1200, [Vector2.ZERO], 800, 1)
 var orange_effect3: Card.StatusAffliction = Card.StatusAffliction.new("flame", 0.6, 1, "debuff")
+var flame_card2: Card.CardStats = Card.CardStats.new(1, "", "", "", "", Color.ORANGE, [{"effect": orange_effect3}])
 var orange_card2: Card.CardStats = Card.CardStats.new(1, card_data["flame_thrower"]["title"], card_data["flame_thrower"]["image"], card_data["card_types"]["attack"], card_data["flame_thrower"]["description"], Color.ORANGE, [{"effect": orange_attack2_1}, {"delay": 0.4, "effect": orange_attack2_2}, {"delay": 0.4, "effect": orange_attack2_1}, {"delay": 0.4, "effect": orange_attack2_2}], 110, ["flame"])
 var orange_attack3: Card.AttackPattren = Card.AttackPattren.new(bomb, 1, 3, [-45], 0.1, 1200, [Vector2.ZERO], 800, 1)
 var orange_card3: Card.CardStats = Card.CardStats.new(2, card_data["explosion_shower"]["title"], card_data["explosion_shower"]["image"], card_data["card_types"]["attack"], card_data["explosion_shower"]["description"], Color.ORANGE, [{"effect": orange_attack3}])
@@ -285,8 +288,11 @@ var green_card3: Card.CardStats = Card.CardStats.new(2, card_data["force_field"]
 var green_shield2: Card.AttackPattren = Card.AttackPattren.new(shield, 1, 1, [0], 0.1, 0, [Vector2.ZERO], 800, 1)
 var green_card4: Card.CardStats = Card.CardStats.new(0, card_data["deflection"]["title"], card_data["deflection"]["image"], card_data["card_types"]["defence"], card_data["deflection"]["description"], Color.GREEN, [{"effect": green_shield2}])
 
-var green_effect1: Card.StatusAffliction = Card.StatusAffliction.new("endurance", 1, 2, "buff")
+var green_effect1: Card.StatusAffliction = Card.StatusAffliction.new("endurance", 0, 2, "buff")
 var green_card5: Card.CardStats = Card.CardStats.new(2, card_data["withstand"]["title"], card_data["withstand"]["image"], card_data["card_types"]["defence"], card_data["withstand"]["description"], Color.GREEN, [{"effect": green_effect1}], 150, ["endurance", "exhaust"])
+var green_effect2: Card.StatusAffliction = Card.StatusAffliction.new("charge", 0, 1, "buff")
+var green_card6: Card.CardStats = Card.CardStats.new(1, card_data["charge_up"]["title"], card_data["charge_up"]["image"], card_data["card_types"]["skill"], card_data["charge_up"]["description"], Color.GREEN, [{"effect": green_effect2}], 150, ["charge"])
+var green_card7: Card.CardStats = Card.CardStats.new(3, card_data["static_discharge"]["title"], card_data["static_discharge"]["image"], card_data["card_types"]["attack"], card_data["static_discharge"]["description"], Color.GREEN, [{"effect": Card.static_discharge}], 150, ["charge"])
 
 var yellow_sub_attack1: Card.AttackPattren = Card.AttackPattren.new(laser, 1, 1, [0], 0.1, 1200, [Vector2.ZERO], 800, 5)
 var yellow_sub_card1: Card.CardStats = Card.CardStats.new(1, card_data["blast"]["title"], card_data["blast"]["image"], card_data["card_types"]["attack"], card_data["blast"]["description"], Color.YELLOW, [{"effect": yellow_sub_attack1}], 0, ["exhaust"])
@@ -377,7 +383,9 @@ var cards_dictionary: Dictionary = {
 	"withstand": green_card5,
 	"nuclear_fusion": orange_card4,
 	"photosynthesis": yellow_card4,
+	"charge_up": green_card6,
 	"empty_magazine": blue_card5,
+	"static_discharge": green_card7,
 	"jam": jam_card,
 }
 
@@ -390,31 +398,35 @@ func _ready() -> void:
 	
 	yellow_sub_attack1.set_properties(false, true)
 	yellow_sub_attack1.set_laser_properties(0.5)
+	yellow_sub_attack1.set_sfx(Audio.sfx_laser)
 	
 	yellow_attack1.set_properties(false, true)
 	yellow_attack1.set_laser_properties(0.5)
+	yellow_attack1.set_sfx(Audio.sfx_laser)
 	
 	yellow_attack2.set_properties(false, true)
 	yellow_attack2.set_tweens([{"delay": 0.1, "value": 45, "dur": 0.2}], [])
 	yellow_attack2.set_tweens([{"delay": 0.1, "value": -45, "dur": 0.2}], [])
 	yellow_attack2.set_laser_properties(0.5)
+	yellow_attack2.set_sfx(Audio.sfx_laser)
 	
 	orange_special_attack1.set_sprite_preset(fire_bullet_preset, Color.WHITE)
 	orange_special_attack1.set_change_values([-5])
 	orange_special_attack2.set_sprite_preset(fire_bullet_preset, Color.WHITE)
 	orange_special_attack2.set_change_values([5])
 	
-	orange_attack1.set_on_hit_effects([orange_effect1])
+	orange_attack1.set_on_hit_effects([flame_card1])
 	orange_attack1.set_sprite_and_size(preload("res://Images/Bullets/flare.png"), 4, 1, Vector2(0.4,0.3), Vector2(0.4,0.3))
+	orange_attack1.set_bullet_effect(preload("res://Scenes/fire_bullet_effect.tscn"))
 	
 	orange_attack2_1.set_properties(false, false, true)
 	orange_attack2_1.set_change_values([5])
-	orange_attack2_1.set_on_hit_effects([orange_effect3])
+	orange_attack2_1.set_on_hit_effects([flame_card2])
 	orange_attack2_1.set_tweens([], [], [], [{"delay": 0, "value": Vector2(2,2), "dur": 0.2}])
 	orange_attack2_1.set_sprite_preset(fire_bullet_preset, Color.WHITE)
 	orange_attack2_2.set_properties(false, false, true)
 	orange_attack2_2.set_change_values([-5])
-	orange_attack2_2.set_on_hit_effects([orange_effect3])
+	orange_attack2_2.set_on_hit_effects([flame_card2])
 	orange_attack2_2.set_tweens([], [], [], [{"delay": 0, "value": Vector2(2,2), "dur": 0.2}])
 	orange_attack2_2.set_sprite_preset(fire_bullet_preset, Color.WHITE)
 	

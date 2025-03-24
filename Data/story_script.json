@@ -102,9 +102,9 @@
 	"code_red": {
 		"security_system_defeat": [
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "the security system has been eliminated, awaiting next order",
+				"speaker": "code red",
+				"color": "red",
+				"text": "enemy down, what's next?",
 				"side": "down"
 			},
 			{
@@ -114,39 +114,33 @@
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "...commander?",
+				"speaker": "code red",
+				"color": "red",
+				"text": "lost comunications, great",
 				"side": "down"
 			},
 			{
-				"speaker": "commander",
-				"color": "gray",
+				"speaker": "code red",
+				"color": "red",
+				"text": "i guess this is going to be a solo mission after all",
+				"side": "down"
+			},
+			{
+				"speaker": "code red",
+				"color": "red",
+				"text": "although...",
+				"side": "down"
+			},
+			{
+				"speaker": "code red",
+				"color": "red",
 				"text": "...",
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "this wasn't supposed to happen this early",
-				"side": "down"
-			},
-			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "...",
-				"side": "down"
-			},
-			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "i have a bad feeling about this",
-				"side": "down"
-			},
-			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "but the mission always comes first",
+				"speaker": "code red",
+				"color": "red",
+				"text": "*sigh* no time to think about it, i need to get to the capsule first",
 				"side": "down"
 			},
 		]
@@ -155,9 +149,9 @@
 	"code_green": {
 		"security_system_defeat": [
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "the security system has been eliminated, awaiting next order",
+				"speaker": "code green",
+				"color": "green",
+				"text": "security system has been defeated, orders?",
 				"side": "down"
 			},
 			{
@@ -167,39 +161,39 @@
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "...commander?",
+				"speaker": "code green",
+				"color": "green",
+				"text": "lost communications?",
 				"side": "down"
 			},
 			{
-				"speaker": "commander",
-				"color": "gray",
-				"text": "...",
+				"speaker": "code green",
+				"color": "green",
+				"text": "this doesn't line up with the report",
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "this wasn't supposed to happen this early",
+				"speaker": "code green",
+				"color": "green",
+				"text": "this isn't going to be as easy as i hoped",
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "...",
+				"speaker": "code green",
+				"color": "green",
+				"text": "but...",
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "i have a bad feeling about this",
+				"speaker": "code green",
+				"color": "green",
+				"text": "this could be our turning point",
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "but the mission always comes first",
+				"speaker": "code green",
+				"color": "green",
+				"text": "so i can't stop now",
 				"side": "down"
 			},
 		]
@@ -208,9 +202,9 @@
 	"code_yellow": {
 		"security_system_defeat": [
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "the security system has been eliminated, awaiting next order",
+				"speaker": "code yellow",
+				"color": "yellow",
+				"text": "",
 				"side": "down"
 			},
 			{
@@ -220,39 +214,33 @@
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "...commander?",
+				"speaker": "code yellow",
+				"color": "yellow",
+				"text": "why now of all times..",
 				"side": "down"
 			},
 			{
-				"speaker": "commander",
-				"color": "gray",
+				"speaker": "code yellow",
+				"color": "yellow",
+				"text": "it would have been so much simpler to just follow orders",
+				"side": "down"
+			},
+			{
+				"speaker": "code yellow",
+				"color": "yellow",
+				"text": "but i don't have much of a choice now do i?",
+				"side": "down"
+			},
+			{
+				"speaker": "code yellow",
+				"color": "yellow",
 				"text": "...",
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "this wasn't supposed to happen this early",
-				"side": "down"
-			},
-			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "...",
-				"side": "down"
-			},
-			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "i have a bad feeling about this",
-				"side": "down"
-			},
-			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "but the mission always comes first",
+				"speaker": "code yellow",
+				"color": "yellow",
+				"text": "...just focus a little, it wont be that bad...",
 				"side": "down"
 			},
 		]
@@ -261,9 +249,9 @@
 	"code_violet": {
 		"security_system_defeat": [
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "the security system has been eliminated, awaiting next order",
+				"speaker": "code violet",
+				"color": "violet",
+				"text": "target neutralized, next order",
 				"side": "down"
 			},
 			{
@@ -273,39 +261,33 @@
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "...commander?",
+				"speaker": "code violet",
+				"color": "violet",
+				"text": "then I guess I can decide what to do next",
 				"side": "down"
 			},
 			{
-				"speaker": "commander",
-				"color": "gray",
+				"speaker": "code violet",
+				"color": "violet",
+				"text": "proceeding with the capsule recovery",
+				"side": "down"
+			},
+			{
+				"speaker": "code violet",
+				"color": "violet",
 				"text": "...",
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "this wasn't supposed to happen this early",
+				"speaker": "code violet",
+				"color": "violet",
+				"text": "wait for me sis...",
 				"side": "down"
 			},
 			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "...",
-				"side": "down"
-			},
-			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "i have a bad feeling about this",
-				"side": "down"
-			},
-			{
-				"speaker": "code blue",
-				"color": "blue",
-				"text": "but the mission always comes first",
+				"speaker": "code violet",
+				"color": "violet",
+				"text": "just a little bit more",
 				"side": "down"
 			},
 		]

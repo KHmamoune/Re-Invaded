@@ -5,11 +5,11 @@ signal selected(room: Map.Room)
 
 const ICONS = {
 	Map.Type.NOT_ASSIGNED: [null, Vector2.ZERO],
-	Map.Type.BATTLE: [preload("res://Images/Icons/battle.png"), Vector2(4, 4)],
-	Map.Type.REST: [preload("res://Images/Icons/rest.png"), Vector2(4, 4)],
-	Map.Type.MINIBOSS: [preload("res://Images/Icons/miniboss.png"), Vector2(4, 4)],
-	Map.Type.RESOURCE: [preload("res://Images/Icons/resources.png"), Vector2(4, 4)],
-	Map.Type.BOSS: [preload("res://Images/Icons/security_system.png"), Vector2(6, 6)]
+	Map.Type.BATTLE: [preload("res://Images/Icons/battle.png"), Vector2(3, 3)],
+	Map.Type.REST: [preload("res://Images/Icons/rest.png"), Vector2(3, 3)],
+	Map.Type.MINIBOSS: [preload("res://Images/Icons/miniboss.png"), Vector2(3, 3)],
+	Map.Type.RESOURCE: [preload("res://Images/Icons/resources.png"), Vector2(3, 3)],
+	Map.Type.BOSS: [preload("res://Images/Icons/security_system.png"), Vector2(4, 4)]
 }
 
 var availiable: bool = false

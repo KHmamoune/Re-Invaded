@@ -39,6 +39,7 @@ var animation_name: String = ""
 var animation_delay: float = 0
 var fade_in_delay: float = 0
 var fade_in_duration: float = 0
+var vfx_effect: Node = null
 
 
 func shoot(bullet: Node, _seconds: float, i: int, j: int) -> void:
@@ -160,6 +161,11 @@ func _on_after_image_timer_timeout() -> void:
 
 func fade_out() -> void:
 	$Hitbox.set_deferred("disabled", true)
+	
+	if vfx_effect != null:
+		print("something")
+		vfx_effect.set_deferred("emitting", false)
+	
 	var t: Tween = create_tween()
 	t.tween_property(self, "modulate:a", 0, 0.2)
 	t.tween_callback(Callable(queue_free))

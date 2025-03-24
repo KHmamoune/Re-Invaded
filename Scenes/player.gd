@@ -61,15 +61,6 @@ func _process(delta: float) -> void:
 	if is_dead:
 		return
 	
-	if Input.is_action_pressed("speed_up"):
-		Engine.time_scale = 2
-	else:
-		Engine.time_scale = 1
-	
-	if Input.is_action_just_pressed("shuffle"):
-		for enemy: Node in get_tree().get_nodes_in_group("enemy"):
-			enemy.take_damage(1000000)
-	
 	if energy < energy_max:
 		energy += (0.5 * gen_modifier) * delta
 	
@@ -86,12 +77,29 @@ func _process(delta: float) -> void:
 	%DashCooldownBar.value = 0.5 - %DashCooldownTimer.time_left
 	position.x = clamp(position.x, 235, 920)
 	
-	if Input.is_action_just_pressed("dash") and can_dash:
+	if len(deck) == 0 and current_hand[0] == null and current_hand[1] == null:
+		shuffle_deck(shuffle_speed)
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("speed_up"):
+		Engine.time_scale = 2
+	else:
+		Engine.time_scale = 1
+	
+	if event.is_action_pressed("shuffle"):
+		for enemy: Node in get_tree().get_nodes_in_group("enemy"):
+			enemy.take_damage(1000000)
+	
+	if state != "combat" and state != "post_combat":
+		return
+	
+	if event.is_action_pressed("dash") and can_dash:
 		if direction != Vector2(0, 0):
 			Audio.play_sfx(Audio.sfx_dash)
 			dash()
 		
-	if Input.is_action_just_pressed("shoot1"):
+	if event.is_action_pressed("shoot1"):
 		if !on_cooldown and current_hand[0] != null:
 			if energy > current_hand[0].card_cost:
 				var card: Card.CardStats = current_hand[0]
@@ -102,7 +110,7 @@ func _process(delta: float) -> void:
 				card.play(self)
 				emit_signal("update_ui")
 	
-	if Input.is_action_just_pressed("shoot2"):
+	if event.is_action_pressed("shoot2"):
 		if !on_cooldown and current_hand[1] != null:
 			if energy > current_hand[1].card_cost:
 				var card: Card.CardStats = current_hand[1]
@@ -113,19 +121,16 @@ func _process(delta: float) -> void:
 				card.play(self)
 				emit_signal("update_ui")
 	
-	if Input.is_action_just_pressed("shuffle") and not shuffling:
+	if event.is_action_pressed("shuffle") and not shuffling:
 		shuffling = true
 		shuffle_deck(shuffle_speed)
 	
-	if Input.is_action_just_pressed("special"):
+	if event.is_action_pressed("special"):
 		if graze_points == 30:
 			play_animation("special_fire", 0)
 			special_attack.play(self)
 			graze_points = 0
 			update_graze_bar.emit(graze_points)
-	
-	if len(deck) == 0 and current_hand[0] == null and current_hand[1] == null:
-		shuffle_deck(shuffle_speed)
 
 
 func shoot(bullet: Node, seconds: float, _i: int, _j: int) -> void:
@@ -139,8 +144,7 @@ func shoot(bullet: Node, seconds: float, _i: int, _j: int) -> void:
 		bullet.set_collision_layer_value(4, true)
 		bullet.set_collision_mask_value(5, true)
 	else:
-		if bullet.type == "laser":
-			bullet.z_index = z_index - 1
+		bullet.z_index = z_index - 1
 		bullet.set_collision_layer_value(3, true)
 	
 	if status_effects.has("reinforce"):

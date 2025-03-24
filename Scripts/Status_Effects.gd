@@ -1,19 +1,25 @@
 extends Node
 
 
-func check_and_add(target: Node, name: String, stack: int, time: float = 0.0):
-	if name in target.status_effects:
-		target.status_effects[name]["stack"] = stack
-		target.status_effects[name]["time"] = time
+# checking wether the target has the status effect or not and assign the appropriate stack and time to it
+func check_and_add(target: Node, status_name: String, stack: int, time: float = 0.0, type: String = "static") -> void:
+	if status_name in target.status_effects:
+		if type == "static":
+			target.status_effects[status_name]["stack"] = stack
+		elif type == "additive":
+			target.status_effects[status_name]["stack"] += stack
+		
+		target.status_effects[status_name]["time"] = time
 	else:
-		target.status_effects[name] = {"stack": stack, "time": time}
+		target.status_effects[status_name] = {"stack": stack, "time": time}
 
 
-func set_up_timer(target: Node, name: String, callback: Callable) -> Timer:
+# setting up the status timer and all its properties
+func set_up_timer(target: Node, timer_name: String, callback: Callable, one_shot: bool = true) -> Timer:
 	var timer: Timer = Timer.new()
-	timer.one_shot = true
+	timer.one_shot = one_shot
 	timer.timeout.connect(callback)
-	timer.name = name
+	timer.name = timer_name
 	target.add_child(timer)
 	return timer
 
@@ -27,12 +33,10 @@ func apply_impede(target: Node, duration: float) -> void:
 	else:
 		impede_timer = target.get_node("impede_timer")
 	
-	print("applied impede")
 	if impede_timer.time_left > 0:
 		check_and_add(target, "impede", 1, impede_timer.time_left + duration)
 		impede_timer.wait_time = impede_timer.time_left + duration
 		impede_timer.start(impede_timer.time_left + duration)
-		print(impede_timer.time_left + duration)
 		target.update_status_bar()
 		return
 	
@@ -44,7 +48,6 @@ func apply_impede(target: Node, duration: float) -> void:
 
 
 func dispel_impede(target: Node, og_speed: float) -> void:
-	print("dispeled impede")
 	target.speed = og_speed
 	target.default_speed = og_speed
 	check_and_add(target, "impede", 0, 0.0)
@@ -53,7 +56,6 @@ func dispel_impede(target: Node, og_speed: float) -> void:
 
 func apply_generation_boost(target: Node, duration: float) -> void:
 	var gen_boost_timer: Timer
-	print("applied gen_boost")
 	if !is_instance_valid(target.get_node_or_null("gen_boost_timer")):
 		gen_boost_timer = set_up_timer(target, "gen_boost_timer", dispel_generation_boost.bind(target))
 	else:
@@ -72,7 +74,6 @@ func apply_generation_boost(target: Node, duration: float) -> void:
 
 
 func dispel_generation_boost(target: Node) -> void:
-	print("dispeled gen_boost")
 	target.gen_modifier -= 1
 	check_and_add(target, "gen_boost", 0, 0.0)
 	target.update_status_bar()
@@ -81,71 +82,62 @@ func dispel_generation_boost(target: Node) -> void:
 func apply_generation_impede(target: Node, duration: float) -> void:
 	var gen_impede_timer: Timer
 	if !is_instance_valid(target.get_node_or_null("gen_impede_timer")):
-		gen_impede_timer = Timer.new()
-		gen_impede_timer.one_shot = true
+		gen_impede_timer = set_up_timer(target, "gen_impede_timer", dispel_generation_boost.bind(target))
 	else:
 		gen_impede_timer = target.get_node_or_null("gen_impede_timer")
 	
 	if gen_impede_timer.time_left > 0:
+		check_and_add(target, "gen_impede", 1, gen_impede_timer.time_left + duration)
 		gen_impede_timer.start(gen_impede_timer.time_left + duration)
+		target.update_status_bar()
 		return
 	
-	gen_impede_timer.timeout.connect(dispel_generation_impede.bind(target))
-	gen_impede_timer.name = "gen_impede_timer"
-	target.add_child(gen_impede_timer)
-	gen_impede_timer.start(duration)
 	target.gen_modifier -= 0.5
-	target.status_effects["gen_impede"] = 1
+	gen_impede_timer.start(duration)
+	check_and_add(target, "gen_impede", 1, duration)
 	target.update_status_bar()
 
 
 func dispel_generation_impede(target: Node) -> void:
 	target.gen_modifier += 0.5
-	target.get_node_or_null("gen_impede_timer").queue_free()
-	target.status_effects["gen_impede"] = 0
+	check_and_add(target, "gen_impede", 0, 0.0)
 	target.update_status_bar()
 
 
 func apply_flame(target: Node, duration: float) -> void:
 	var flame_timer: Timer
-	print("applied flame")
+	var damage_timer:Timer
+	
 	if !is_instance_valid(target.get_node_or_null("flame_timer")):
-		flame_timer = Timer.new()
-		flame_timer.one_shot = true
+		damage_timer = set_up_timer(target, "damage_timer", damage_flame.bind(target), false)
+		flame_timer = set_up_timer(target, "flame_timer", dispel_flame.bind(target, damage_timer))
 	else:
 		flame_timer = target.get_node_or_null("flame_timer")
+		damage_timer = target.get_node_or_null("damage_timer")
 	
 	if flame_timer.time_left > 0:
+		check_and_add(target, "flame", 1, flame_timer.time_left + duration)
 		flame_timer.start(flame_timer.time_left + duration)
+		target.update_status_bar()
 		return
 	
-	var damage_timer:Timer = Timer.new()
-	flame_timer.name = "flame_timer"
-	target.add_child(flame_timer)
 	flame_timer.start(duration)
-	flame_timer.timeout.connect(dispel_flame.bind(target, damage_timer, flame_timer))
-	target.status_effects["flame"] = 1
+	check_and_add(target, "flame", 1, duration)
 	target.update_status_bar()
 	
 	damage_timer.wait_time = 0.5
-	damage_timer.timeout.connect(damage_flame.bind(target))
-	damage_timer.name = "damage_timer"
-	target.add_child(damage_timer)
 	damage_timer.start()
 
 
-func dispel_flame(target: Node, damage_timer: Timer, flame_timer: Timer) -> void:
-	print("dispeled flame")
+func dispel_flame(target: Node, damage_timer: Timer) -> void:
 	if is_instance_valid(damage_timer):
 		damage_timer.stop()
-		damage_timer.queue_free()
-	flame_timer.queue_free()
-	target.status_effects["flame"] = 0
+	
+	check_and_add(target, "flame", 0, 0.0)
 	target.update_status_bar()
 
 
 func damage_flame(target: Node) -> void:
-	print("damage flame")
 	if target.has_method("take_damage"):
 		target.take_damage(2)
 
@@ -209,67 +201,68 @@ func dispel_meltdown(target: Node) -> void:
 
 
 func apply_reinforce(target: Node, stack: int) -> void:
-	if "reinforce" in target.status_effects:
-		target.status_effects["reinforce"] += stack
-	else:
-		target.status_effects["reinforce"] = stack
+	check_and_add(target, "reinforce", stack, 0.0, "additive")
 	target.update_status_bar()
 
 
 func dispel_reinforce(target: Node) -> void:
-	target.status_effects["reinforce"] = 0
+	check_and_add(target, "reinforce", 0)
 	target.update_status_bar()
 
 
 func apply_fragile(target: Node, stack: int) -> void:
-	if "fragile" in target.status_effects:
-		target.status_effects["fragile"] += stack
-	else:
-		target.status_effects["fragile"] = stack
+	check_and_add(target, "fragile", stack, 0.0, "additive")
 	target.update_status_bar()
 
 
 func dispel_fragile(target: Node) -> void:
-	target.status_effects["fragile"] = 0
+	check_and_add(target, "fragile", 0)
 	target.update_status_bar()
 
 
 func apply_bullet_speed_boost(target: Node) -> void:
-	target.status_effects["bullet_speed_boost"] = 1
-	target.update_status_bar()
-
-
-func apply_heat_boss(target: Node) -> void:
-	target.status_effects["heat_boss"] = 1
+	check_and_add(target, "bullet_speed_boost", 1)
 	target.update_status_bar()
 
 
 func dispel_bullet_speed_boost(target: Node) -> void:
-	target.status_effects["bullet_speed_boost"] = 0
+	check_and_add(target, "bullet_speed_boost", 0)
+	target.update_status_bar()
+
+
+func apply_heat_boss(target: Node) -> void:
+	check_and_add(target, "heat_boss", 1)
 	target.update_status_bar()
 
 
 func apply_endurance(target: Node, stack: int) -> void:
-	if target.status_effects.has("endurance"):
-		target.status_effects["endurance"] += stack
-	else:
-		target.status_effects["endurance"] = stack
-	
+	check_and_add(target, "endurance", stack, 0.0, "additive")
+	target.update_status_bar()
+
+
+func dispel_endurance(target: Node, stack: int) -> void:
+	check_and_add(target, "endurace", stack)
 	target.update_status_bar()
 
 
 func apply_self_repair(target: Node, duration: float, amount: int) -> void:
-	var heal_timer:Timer = Timer.new()
-	target.status_effects["self_repair"] = 1
+	var heal_timer:Timer = set_up_timer(target, "heal_timer", self_repair.bind(target, amount))
+	check_and_add(target, "self_repair", 1)
 	heal_timer.wait_time = duration
-	heal_timer.timeout.connect(self_repair.bind(target, amount))
-	heal_timer.name = "heal_timer"
-	target.add_child(heal_timer)
 	heal_timer.start()
 	target.update_status_bar()
 
 
 func self_repair(target: Node, amount: int) -> void:
-	print("healed")
 	if target.has_method("take_damage"):
 		target.take_damage(amount)
+
+
+func apply_charge(target: Node, stack: int) -> void:
+	check_and_add(target, "charge", stack, 0.0, "additive")
+	target.update_status_bar()
+
+
+func dispel_charge(target: Node) -> void:
+	check_and_add(target, "charge", 0)
+	target.update_status_bar()

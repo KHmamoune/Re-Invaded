@@ -10,13 +10,14 @@ func _ready() -> void:
 	update()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	%Icon.value = $Timer.time_left
 
 
 func update() -> void:
-	$Timer.wait_time = time
-	$Timer.start(time)
+	if time != 0.0:
+		$Timer.wait_time = time
+		$Timer.start(time)
 	
 	%Stack.text = str(stack)
 	%Icon.max_value = time

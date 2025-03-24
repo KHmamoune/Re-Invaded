@@ -11,6 +11,8 @@ var sfx_select: AudioStream = preload("res://SFX/select.wav")
 var sfx_switch: AudioStream = preload("res://SFX/switch.wav")
 var sfx_blast_off: AudioStream = preload("res://SFX/blast_off.wav")
 var sfx_alert: AudioStream = preload("res://SFX/alert.wav")
+var sfx_enemy_death_explosion: AudioStream = preload("res://SFX/enemy_death_explosion.wav")
+var sfx_laser: AudioStream = preload("res://SFX/laser.wav")
 
 
 func play_sfx(sfx: AudioStream) -> void:

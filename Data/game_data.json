@@ -17,12 +17,57 @@
 		},
 		"reload": {
 			"title": "Reload",
-			"description": "Instantly shuffle the deck.",
+			"description": "instantly shuffle the deck.",
 			"image": "res://Images/Other/place_holder_card.png"
 		},
 		"empty_magazine": {
 			"title": "Empty Magazine",
-			"description": "Fire 1 shot forward that shuffle on kill, 10 damage.",
+			"description": "fire 1 shot forward that shuffle on kill, 10 damage.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"ricochet_fire": {
+			"title": "Ricochet Fire",
+			"description": "fire 2 lanes of bullets that bounce off walls, 3 damage.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"double_tap": {
+			"title": "Double Tap",
+			"description": "fire 2 shots in quick succession, 5 damage.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"underflow": {
+			"title": "Underflow",
+			"description": "when played, if this is the last card in your deck, instantly shuffle the deck.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"blanket_fire": {
+			"title": "Blanket Fire",
+			"description": "shoot 3 lanes of 20 bullets from behind you, 1 damage.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"perfected_fire": {
+			"title": "Perfected Fire",
+			"description": "fire 2 bullets, fire an extra 2 bullets for each card with \"fire\" in the name in the deck, 1 damage.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"accurize": {
+			"title": "Accurize",
+			"description": "gain 2 percission.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"ejection": {
+			"title": "Ejection",
+			"description": "gain bullet speed boost.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"black_powder": {
+			"title": "Black Powder",
+			"description": "gain 1 black powder.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"relentless_assault": {
+			"title": "Black Powder",
+			"description": "gain 1 black powder.",
 			"image": "res://Images/Other/place_holder_card.png"
 		},
 		
@@ -86,6 +131,16 @@
 		"withstand": {
 			"title": "Withstand",
 			"description": "Gain 2 endurance, exhaust.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"charge_up": {
+			"title": "Charge up",
+			"description": "Gain 2 charge.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"static_discharge": {
+			"title": "Static Discharge",
+			"description": "Lose all charge on self, deal damage equal to 2 * (charge lost) to all enemies.",
 			"image": "res://Images/Other/place_holder_card.png"
 		},
 		

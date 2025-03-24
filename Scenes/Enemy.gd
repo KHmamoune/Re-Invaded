@@ -33,13 +33,14 @@ func play_animation(anm_name: String, delay: float) -> void:
 
 func _on_area_entered(area: Node) -> void:
 	if "damage" in area:
-		for effect: Card.CardStats in area.on_hit_effects:
-			if effect.status_effect == "flame":
-				var player: Node = get_tree().get_first_node_in_group("player")
-				for modifier: Modifiers.Modifier in player.modifiers["flame"]:
-					modifier.play(self)
-			
-			effect.play(self)
+		for c: Card.CardStats in area.on_hit_effects:
+			for eff: Dictionary in c.card_effect:
+				if eff["effect"].status_effect == "flame":
+					var player: Node = get_tree().get_first_node_in_group("player")
+					for modifier: Modifiers.Modifier in player.modifiers["flame"]:
+						modifier.play(self)
+				
+				eff["effect"].play(self)
 		
 		take_damage(area.damage, area)
 		if area.type == "bomb":
@@ -51,7 +52,7 @@ func _on_area_entered(area: Node) -> void:
 			inst.position = area.position
 			get_parent().add_child(inst)
 			inst.emitting = true
-			area.queue_free()
+			area.fade_out()
 
 
 func shoot(bullet: Node, _seconds: float, i: int, j: int) -> void:
@@ -60,8 +61,7 @@ func shoot(bullet: Node, _seconds: float, i: int, j: int) -> void:
 		bullet.set_collision_layer_value(6, true)
 		bullet.set_collision_mask_value(3, true)
 	else:
-		if bullet.type == "laser":
-			bullet.z_index = z_index - 1
+		bullet.z_index = z_index - 1
 		bullet.set_collision_layer_value(5, true)
 	
 	#if there is an indicator before the attack we set its values
@@ -108,14 +108,16 @@ func take_damage(dmg: int, area: Node = null) -> void:
 		play_death_effect()
 		$Hurtbox.set_deferred("disabled", true)
 		
-		if len(area.on_kill_effects) != 0:
-			for effect: Card.CardStats in area.on_kill_effects:
-				var player: Node = get_tree().get_first_node_in_group("player")
-				effect.play(player, self)
+		if area != null:
+			if len(area.on_kill_effects) != 0:
+				for effect: Card.CardStats in area.on_kill_effects:
+					var player: Node = get_tree().get_first_node_in_group("player")
+					effect.play(player, self)
 		
 		dead.emit(scrap)
 		hp_node.queue_free()
 		status_node.queue_free()
+		Audio.play_sfx(Audio.sfx_enemy_death_explosion)
 		queue_free()
 
 

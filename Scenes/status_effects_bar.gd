@@ -7,8 +7,8 @@ var active_statuses: Array = []
 
 func update_status_effects(se: Dictionary) -> void:
 	active_statuses = []
-	print(prev_se)
-	print(se)
+	#print(prev_se)
+	#print(se)
 	for child in get_children():
 		active_statuses.append(child.status)
 		if child.status in prev_se.keys():
@@ -17,7 +17,7 @@ func update_status_effects(se: Dictionary) -> void:
 			var new_stack: int = se[child.status]["stack"]
 			var new_time: float = se[child.status]["time"]
 			if current_stack != new_stack or current_time != new_time:
-				if new_time == 0.0 or new_stack == 0:
+				if (new_time == 0.0 and current_time != 0.0) or new_stack == 0:
 					remove_child(child)
 				else:
 					child.stack = new_stack

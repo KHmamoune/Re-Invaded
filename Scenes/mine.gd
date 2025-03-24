@@ -11,10 +11,6 @@ func _ready() -> void:
 	set_up_hp(10, Vector2(0, 50))
 	set_up_status_effects(Vector2(-15, 65))
 	scrap = 10
-
-
-func start() -> void:
-	$Animations.play("idle")
 	
 	var start_angle: int = randi_range(0, 9)
 	var arr: Array = [start_angle]
@@ -22,6 +18,10 @@ func start() -> void:
 		arr.append(start_angle + (i * 10))
 	
 	attack = Card.AttackPattren.new(bullet, 36, 1, arr, 0.2, 400, [Vector2.ZERO], 800, 1)
+
+
+func start() -> void:
+	$Animations.play("idle")
 
 
 func take_damage(dmg: int, area: Node = null) -> void:
@@ -34,14 +34,16 @@ func take_damage(dmg: int, area: Node = null) -> void:
 		is_dead = true
 		$Hurtbox.set_deferred("disabled", true)
 		
-		if len(area.on_kill_effects) != 0:
-			for effect: Card.CardStats in area.on_kill_effects:
-				var player: Node = get_tree().get_first_node_in_group("player")
-				effect.play(player, self)
+		if area != null:
+			if len(area.on_kill_effects) != 0:
+				for effect: Card.CardStats in area.on_kill_effects:
+					var player: Node = get_tree().get_first_node_in_group("player")
+					effect.play(player, self)
 		
 		dead.emit(scrap)
 		hp_node.queue_free()
 		status_node.queue_free()
+		Audio.play_sfx(Audio.sfx_enemy_death_explosion)
 		queue_free()
 
 

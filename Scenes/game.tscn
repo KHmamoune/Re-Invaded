@@ -76,7 +76,7 @@ autoplay = true
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_pvasb")
+&"": SubResource("AnimationLibrary_pvasb")
 }
 
 [node name="Time" type="Timer" parent="."]

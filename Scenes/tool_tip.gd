@@ -48,3 +48,7 @@ func update(tip: String) -> void:
 			%icon.texture = preload("res://Images/Icons/gen_impede.png")
 			%title.text = "Generation impede:"
 			%description.text = "reduce energy generation by 0.5."
+		"charge":
+			%icon.texture = preload("res://Images/Icons/charge.png")
+			%title.text = "Charge:"
+			%description.text = "used for certain card effects."

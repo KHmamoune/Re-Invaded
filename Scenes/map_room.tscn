@@ -19,7 +19,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(4, 4), Vector2(5.5, 5.5), Vector2(4, 4)]
+"values": [Vector2(3, 3), Vector2(4, 4), Vector2(3, 3)]
 }
 
 [sub_resource type="Animation" id="Animation_ts1vx"]
@@ -34,7 +34,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.5, 0.5)]
+"values": [Vector2(3, 3)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_72lup"]
@@ -49,12 +49,12 @@ collision_mask = 0
 script = ExtResource("1_mdoe0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(3, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hpcbh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_72lup")
+&"": SubResource("AnimationLibrary_72lup")
 }

@@ -49,7 +49,7 @@ class CardStats:
 					if card.has("delay"):
 						await gv.current_scene.get_tree().create_timer(card["delay"]).timeout
 					
-					card["effect"].call(pl, additional_arg)
+					card["effect"].call(pl)
 
 
 class StatusAffliction:
@@ -98,6 +98,8 @@ class StatusAffliction:
 				StatusEffects.apply_fragile(pl, status_stack)
 			"endurance":
 				StatusEffects.apply_endurance(pl, status_stack)
+			"charge":
+				StatusEffects.apply_charge(pl, status_stack)
 		
 		if pl.has_method("show_text"):
 			pl.show_text(status_effect, status_effect)
@@ -192,6 +194,7 @@ class AttackPattren:
 	var animation_delay: float = 0
 	var fade_in_delay: float = 0
 	var fade_in_duration: float = 0
+	var bullet_effect: PackedScene = null
 	
 	
 	func _init(bt: PackedScene, bam: int, fam: int, fan: Array, fde: float, bsp: float, fpo: Array, bra: float, bda: int) -> void:
@@ -265,7 +268,7 @@ class AttackPattren:
 			bullet.speed = bullet_speed
 		else:
 			bullet.speed = bullet_speed + (change_speed_by[j] * i)
-			
+		
 		bullet.move_range = bullet_range
 		bullet.damage = bullet_damage
 		
@@ -280,7 +283,7 @@ class AttackPattren:
 			bullet.piercing = true
 		
 		if len(on_hit_effects) > 0:
-			for effect: Card.StatusAffliction in on_hit_effects:
+			for effect: Card.CardStats in on_hit_effects:
 				bullet.on_hit_effects.append(effect)
 		
 		#setting tween values
@@ -330,6 +333,12 @@ class AttackPattren:
 		
 		if len(on_kill_effects) != 0:
 			bullet.on_kill_effects = on_kill_effects
+		
+		if bullet_effect != null:
+			var inst: Node = bullet_effect.instantiate()
+			gv.current_scene.add_child(inst)
+			bullet.get_node("EffectTransform").remote_path = inst.get_path()
+			bullet.vfx_effect = inst
 		
 		return bullet
 	
@@ -462,6 +471,9 @@ class AttackPattren:
 		fade_in_delay = delay
 		fade_in_duration = duration
 	
+	func set_bullet_effect(effect: PackedScene) -> void:
+		bullet_effect = effect
+	
 	func get_position(j: int) -> Vector2:
 		if len(fire_positions) > 1:
 			return fire_positions[j]
@@ -501,3 +513,11 @@ func photosynthesis(pl: Node) -> void:
 	
 	effect.play(pl)
 	pl.heal(1)
+
+
+func static_discharge(pl: Node) -> void:
+	for enemy: Node in gv.current_scene.get_tree().get_nodes_in_group("enemy"):
+		if "charge" in pl.status_effects:
+			enemy.take_damage(pl.status_effects["charge"]["stack"] * 2)
+	
+	StatusEffects.dispel_charge(pl)

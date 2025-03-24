@@ -163,6 +163,7 @@ func _input(event: InputEvent) -> void:
 		if command_state == "hidden":
 			$CmdLayer.show()
 			command_state = "visible"
+			await get_tree().create_timer(0.01).timeout
 			$CmdLayer/cmd.grab_focus()
 			player.state = "CMD"
 		else:
@@ -574,7 +575,7 @@ func _on_time_timeout() -> void:
 func play_trans_start() -> void:
 	#remove all of the player status effects
 	for k: String in player.status_effects:
-		player.status_effects[k] = 0
+		player.status_effects[k] = {"stack": 0, "time": 0.0}
 	
 	player.update_status_bar()
 	
