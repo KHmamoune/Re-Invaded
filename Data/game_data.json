@@ -66,8 +66,8 @@
 			"image": "res://Images/Other/place_holder_card.png"
 		},
 		"relentless_assault": {
-			"title": "Black Powder",
-			"description": "gain 1 black powder.",
+			"title": "Relentless assault",
+			"description": "lose all reinforce, fire (reinforce lost) x 2 random shots forward.",
 			"image": "res://Images/Other/place_holder_card.png"
 		},
 		
@@ -87,8 +87,33 @@
 			"image": "res://Images/Other/explosion_shower_card.png"
 		},
 		"nuclear_fusion": {
-			"title": "Nuclear fusion",
+			"title": "Nuclear Fusion",
+			"description": "fire an expanding circle of explosions.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"carpet_bombing": {
+			"title": "Carpet Bombing",
 			"description": "fire a row of explosives that travels forward.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"overclock": {
+			"title": "Overclock",
+			"description": "gain 3 heat, add a backfire to the deck.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"flame_burst": {
+			"title": "Flame Burst",
+			"description": "fire a short range flame wave.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"unload_heat": {
+			"title": "Unload Heat",
+			"description": "spend 2 heat, apply flame for 2 seconds to all enemies.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"inner_ardor": {
+			"title": "Inner Ardor",
+			"description": "gain 1 heat.",
 			"image": "res://Images/Other/place_holder_card.png"
 		},
 		
@@ -106,6 +131,26 @@
 			"title": "Fan Shot",
 			"description": "fire 20 bullets in a fan shape, 2 damage.",
 			"image": "res://Images/Other/fan_shot_card.png"
+		},
+		"point_blank": {
+			"title": "Point Blank",
+			"description": "fire a powerful short range burst.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"bouncy_shells": {
+			"title": "Bouncy Shells",
+			"description": "fire 2 bursts diagonally that bounce off walls.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"reckless_fire": {
+			"title": "Reckless Fire",
+			"description": "fire a long range burst, 20% chance to add backfire to the deck.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"last_stand": {
+			"title": "Last Stand",
+			"description": "gain infinite energy for 10 seconds, die in 10 seconds if the combat is not won.",
+			"image": "res://Images/Other/place_holder_card.png"
 		},
 		
 		"take_aim": {
@@ -140,7 +185,32 @@
 		},
 		"static_discharge": {
 			"title": "Static Discharge",
-			"description": "Lose all charge on self, deal damage equal to 2 * (charge lost) to all enemies.",
+			"description": "Lose all charge on self, deal damage equal to 2*(charge lost) to all enemies.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"homing_missiles": {
+			"title": "Homing Missiles",
+			"description": "fire 5 homing bombs.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"stasis": {
+			"title": "Stasis",
+			"description": "gain a shield for 8 seconds, can't move for 8 seconds.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"shield_throw": {
+			"title": "Shield Throw",
+			"description": "lose all endurance, fire a shot that deals Y*(stacks lost) damage.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"absorb": {
+			"title": "Absorb",
+			"description": "gain 1 conversion.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"field_strip": {
+			"title": "Field Strip",
+			"description": "remove 2 random junk cards from the deck.",
 			"image": "res://Images/Other/place_holder_card.png"
 		},
 		
@@ -164,10 +234,30 @@
 			"description": "add a blast to your deck.",
 			"image": "res://Images/Other/blast_store_card.png"
 		},
+		"random_access_memory": {
+			"title": "Random Access Memory",
+			"description": "add a random card seen this run to the deck.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
 		"photosynthesis": {
 			"title": "Photosynthesis",
 			"description": "add 2 blasts to your deck, heal 1 hp, exhaust.",
 			"image": "res://Images/Other/photosynthesis_card.png"
+		},
+		"evation": {
+			"title": "Evasion",
+			"description": "gain 1 dodge.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"barrel_roll": {
+			"title": "Barrel Roll",
+			"description": "makes the evade chance of dodge 100% for 2 seconds.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"reused_assets": {
+			"title": "Reused Assets",
+			"description": "add a random card played this combat to the deck.",
+			"image": "res://Images/Other/place_holder_card.png"
 		},
 		
 		"shooting_target": {
@@ -185,15 +275,45 @@
 			"description": "summon 5 turrets that charge forward.",
 			"image": "res://Images/Other/charging_force_card.png"
 		},
+		"helper_turret": {
+			"title": "Helper Turret",
+			"description": "summon 2 helper turrets next to you.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
 		"jammed_fire": {
 			"title": "Jammed Fire",
 			"description": "Fire 5 shots, 50% chance to add a jam to the deck instead of firing, 20 damage.",
 			"image": "res://Images/Other/place_holder_card.png"
 		},
+		"seeker_drones": {
+			"title": "Seeker Drones",
+			"description": "summon 3 seeker drones.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"weakpoint_spotted": {
+			"title": "Weakpoint Spotted",
+			"description": "apply 2 fragile to all enemies.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
 		
 		"jam": {
 			"title": "Jam",
-			"description": "Junk card, exhaust.",
+			"description": "junk card, exhaust.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"blank_round": {
+			"title": "Blank Round",
+			"description": "fire a short range shot, exhaust.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"backfire": {
+			"title": "Backfire",
+			"description": "50% chance to take 1 damage (can't be lethal), exhaust.",
+			"image": "res://Images/Other/place_holder_card.png"
+		},
+		"paralysed": {
+			"title": "Paralized",
+			"description": "gain paralyze for 2 seconds, exhaust.",
 			"image": "res://Images/Other/place_holder_card.png"
 		},
 		
@@ -249,6 +369,11 @@
 			"description": "fire bullets on hit"
 		},
 	}, 
+	
+	"status_effects_data": {
+		
+	},
+	
 	"area_data": {
 		"outer_space": {
 			"name": "Outer Space",

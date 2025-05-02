@@ -1,7 +1,8 @@
 extends Node
 
-
 class CardStats:
+	var game_data: Dictionary = gdt.read_json(gdt.game_data_path)
+	var card_data: Dictionary = game_data["card_data"]
 	var card_cost: int
 	var card_name: String
 	var card_image: String
@@ -12,22 +13,13 @@ class CardStats:
 	var card_price: int
 	var card_tooltips: Array
 	
-	func _init(
-		cost: int,
-		name: String,
-		image: String,
-		type: String,
-		description: String,
-		color: Color,
-		effect: Array,
-		price: int = 100,
-		tooltips: Array = []
-		) -> void:
+	func _init(cost: int, name: String, type: String, color: Color, effect: Array, price: int = 100, tooltips: Array = []) -> void:
+		if name != "":
+			card_name = card_data[name]["title"]
+			card_image = card_data[name]["image"]
+			card_description = card_data[name]["description"]
 		card_cost = cost
-		card_name = name
-		card_image = image
 		card_type = type
-		card_description = description
 		card_color = color
 		card_effect = effect
 		card_price = price
