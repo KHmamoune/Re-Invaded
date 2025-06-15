@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://1t6tuptqwns"]
 
-[ext_resource type="Texture2D" uid="uid://ddnbvd7wxacb2" path="res://Images/Icons/debuff_arrow.png" id="1_jp071"]
+[ext_resource type="Texture2D" uid="uid://ddnbvd7wxacb2" path="res://Assets/Icons/debuff_arrow.png" id="1_jp071"]
 
 [sub_resource type="Animation" id="Animation_lt68e"]
 length = 0.001

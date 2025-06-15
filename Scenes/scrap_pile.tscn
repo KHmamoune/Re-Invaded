@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://nh2v3xypwqv"]
 
-[ext_resource type="Texture2D" uid="uid://uvy0vttd14gx" path="res://Images/Enemies/scrap_pile.png" id="1_ghkun"]
+[ext_resource type="Texture2D" uid="uid://uvy0vttd14gx" path="res://Assets/Enemies/scrap_pile.png" id="1_ghkun"]
 [ext_resource type="Script" uid="uid://qqn31nfpu41y" path="res://Scenes/scrap_pile.gd" id="1_i81ub"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_0m8lc"]
 

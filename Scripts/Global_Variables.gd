@@ -30,7 +30,7 @@ var area_backgrounds: Dictionary = {
 
 #bullet presets
 var bullet2_preset: Dictionary = {
-	"sprite": preload("res://Images/Bullets/bullet2.png"),
+	"sprite": preload("res://Assets/Bullets/bullet2.png"),
 	"scale": Vector2(0.3, 0.3),
 	"hitbox_scale": Vector2(0.2, 0.25),
 	"anm_speed": 0,
@@ -38,7 +38,7 @@ var bullet2_preset: Dictionary = {
 }
 
 var fire_bullet_preset: Dictionary = {
-	"sprite": preload("res://Images/Bullets/fire_bullet.png"),
+	"sprite": preload("res://Assets/Bullets/fire_bullet.png"),
 	"scale": Vector2(0.5, 0.5),
 	"hitbox_scale": Vector2(1.4, 0.5),
 	"anm_speed": 0.2,
@@ -66,17 +66,17 @@ var code_violet_boss: PackedScene = preload("res://Scenes/code_violet_boss.tscn"
 
 #loading status effects icons
 var status_icons: Dictionary = {
-	"flame": preload("res://Images/Icons/flame.png"),
-	"impede": preload("res://Images/Icons/impede.png"),
-	"gen_boost": preload("res://Images/Icons/gen_boost.png"),
-	"heat": preload("res://Images/Icons/heat.png"),
-	"reinforce": preload("res://Images/Icons/reinforced.png"),
-	"endurance": preload("res://Images/Icons/endurance.png"),
-	"fragile": preload("res://Images/Icons/fragile.png"),
-	"self_repair": preload("res://Images/Icons/self_repair.png"),
-	"bullet_speed_boost": preload("res://Images/Icons/bullet_speed_boost.png"),
-	"gen_impede": preload("res://Images/Icons/gen_impede.png"),
-	"charge": preload("res://Images/Icons/charge.png"),
+	"flame": preload("res://Assets/Icons/flame.png"),
+	"impede": preload("res://Assets/Icons/impede.png"),
+	"gen_boost": preload("res://Assets/Icons/gen_boost.png"),
+	"heat": preload("res://Assets/Icons/heat.png"),
+	"reinforce": preload("res://Assets/Icons/reinforced.png"),
+	"endurance": preload("res://Assets/Icons/endurance.png"),
+	"fragile": preload("res://Assets/Icons/fragile.png"),
+	"self_repair": preload("res://Assets/Icons/self_repair.png"),
+	"bullet_speed_boost": preload("res://Assets/Icons/bullet_speed_boost.png"),
+	"gen_impede": preload("res://Assets/Icons/gen_impede.png"),
+	"charge": preload("res://Assets/Icons/charge.png"),
 }
 
 
@@ -324,17 +324,17 @@ var yellow_cards: Array = [yellow_card1, yellow_card2, yellow_card3, yellow_card
 var violet_cards: Array = [violet_card1, violet_card2, violet_card3, violet_card4]
 
 var blue_starting_cards: Array = [blue_card1, blue_card2, blue_card3] #do what you did to the card data here -_-
-var blue_modifier1: Modifiers.Modifier = Modifiers.Modifier.new(mod_data["blue_capsule"]["title"], mod_data["blue_capsule"]["image"], Modifiers.Types.KILL, 0, Callable(Modifiers.blue_capsule), mod_data["blue_capsule"]["description"], ["reinforce"])
+var blue_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("blue_capsule", Modifiers.Types.KILL, 0, Callable(Modifiers.blue_capsule), ["reinforce"])
 var orange_starting_cards: Array = [orange_card1, orange_card2, orange_card3]
-var orange_modifier1: Modifiers.Modifier = Modifiers.Modifier.new(mod_data["orange_capsule"]["title"], mod_data["orange_capsule"]["image"], Modifiers.Types.FLAME, 0, Callable(Modifiers.orange_capsule), mod_data["orange_capsule"]["description"], ["flame", "fragile"])
+var orange_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("orange_capsule", Modifiers.Types.FLAME, 0, Callable(Modifiers.orange_capsule), ["flame", "fragile"])
 var red_starting_cards: Array = [red_card1, red_card2, red_card3]
-var red_modifier1: Modifiers.Modifier = Modifiers.Modifier.new(mod_data["red_capsule"]["title"], mod_data["red_capsule"]["image"], Modifiers.Types.DEBUFF, 0, Callable(Modifiers.red_capsule), mod_data["red_capsule"]["description"])
+var red_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("red_capsule", Modifiers.Types.DEBUFF, 0, Callable(Modifiers.red_capsule))
 var green_starting_cards: Array = [green_card1, green_card2, green_card3, green_card4]
-var green_modifier1: Modifiers.Modifier = Modifiers.Modifier.new(mod_data["green_capsule"]["title"], mod_data["green_capsule"]["image"], Modifiers.Types.DEATH, 0, Callable(Modifiers.green_capsule), mod_data["green_capsule"]["description"])
+var green_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("green_capsule", Modifiers.Types.DEATH, 0, Callable(Modifiers.green_capsule))
 var yellow_starting_cards: Array = [yellow_card1, yellow_card2, yellow_card3]
-var yellow_modifier1: Modifiers.Modifier = Modifiers.Modifier.new(mod_data["yellow_capsule"]["title"], mod_data["yellow_capsule"]["image"], Modifiers.Types.CREATE, 0, Callable(Modifiers.yellow_capsule), mod_data["yellow_capsule"]["description"])
+var yellow_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("yellow_capsule", Modifiers.Types.CREATE, 0, Callable(Modifiers.yellow_capsule))
 var violet_starting_cards: Array = [violet_card1, violet_card2, violet_card3]
-var violet_modifier1: Modifiers.Modifier = Modifiers.Modifier.new(mod_data["violet_capsule"]["title"], mod_data["violet_capsule"]["image"], Modifiers.Types.COMBAT_START, 0, Callable(Modifiers.violet_capsule), mod_data["violet_capsule"]["description"])
+var violet_modifier1: Modifiers.Modifier = Modifiers.Modifier.new("violet_capsule", Modifiers.Types.COMBAT_START, 0, Callable(Modifiers.violet_capsule))
 var other_cards: Array = [orange_card1, red_card2, violet_card3, blue_card1, green_card2, yellow_card3]
 
 var blue_special_attack: Card.AttackPattren = Card.AttackPattren.new(bullet, 3, 10, [-10, 0, 10], 0.1, 800, [Vector2(40, 0),Vector2(0, 0),Vector2(-40, 0)], 1000, 2)
@@ -353,8 +353,8 @@ var violet_special_attack: Card.AttackPattren = Card.AttackPattren.new(drone, 3,
 var violet_special_sub_attack: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 15, [0], 0.1, 800, [Vector2(0, 0)], 1000, 2)
 var violet_special_card: Card.CardStats = Card.CardStats.new(0, "", "", Color.BLUE_VIOLET, [{"effect": violet_special_attack}])
 
-var modifier1: Modifiers.Modifier = Modifiers.Modifier.new(mod_data["dramatic_entrance"]["title"], mod_data["dramatic_entrance"]["image"], Modifiers.Types.COMBAT_START, 30, Callable(Modifiers.dramatic_entrence), mod_data["dramatic_entrance"]["description"])
-var modifier2: Modifiers.Modifier = Modifiers.Modifier.new(mod_data["return_fire"]["title"], mod_data["return_fire"]["image"], Modifiers.Types.COMBAT_START, 30, Callable(Modifiers.return_fire), mod_data["return_fire"]["description"])
+var modifier1: Modifiers.Modifier = Modifiers.Modifier.new("dramatic_entrance", Modifiers.Types.COMBAT_START, 30, Callable(Modifiers.dramatic_entrence))
+var modifier2: Modifiers.Modifier = Modifiers.Modifier.new("return_fire",  Modifiers.Types.COMBAT_START, 30, Callable(Modifiers.return_fire))
 var modifiers: Array = [modifier1, modifier2, blue_modifier1]
 
 var cards_dictionary: Dictionary = {
@@ -416,7 +416,7 @@ func _ready() -> void:
 	orange_special_attack2.set_change_values([5])
 	
 	orange_attack1.set_on_hit_effects([flame_card1])
-	orange_attack1.set_sprite_and_size(preload("res://Images/Bullets/flare.png"), 4, 1, Vector2(0.4,0.3), Vector2(0.4,0.3))
+	orange_attack1.set_sprite_and_size(preload("res://Assets/Bullets/flare.png"), 4, 1, Vector2(0.4,0.3), Vector2(0.4,0.3))
 	orange_attack1.set_bullet_effect(preload("res://Scenes/fire_bullet_effect.tscn"))
 	
 	orange_attack2_1.set_properties(false, false, true)
@@ -471,7 +471,7 @@ func _ready() -> void:
 	violet_drone1.set_tweens([], [], [{"delay": 0, "value": Vector2(0, -100), "dur": 0.4}])
 	violet_drone1.set_attack(2, violet_drone_sub_attack1)
 	violet_drone1.set_look("enemy")
-	violet_drone1.set_sprite_and_size(preload("res://Images/Characters/violet_detector.png"), 1, 0, Vector2(0.4,0.4), Vector2(1,1))
+	violet_drone1.set_sprite_and_size(preload("res://Assets/Characters/violet_detector.png"), 1, 0, Vector2(0.4,0.4), Vector2(1,1))
 	
 	violet_drone2.set_drone_properties(10)
 	violet_drone2.set_tweens([], [{"delay": 0, "value": 1000, "dur": 1}], [])
@@ -479,4 +479,4 @@ func _ready() -> void:
 	violet_drone2.set_tweens([], [{"delay": 0, "value": 1000, "dur": 1}], [])
 	violet_drone2.set_tweens([], [{"delay": 0, "value": 1000, "dur": 1}], [])
 	violet_drone2.set_tweens([], [{"delay": 0, "value": 1000, "dur": 1}], [])
-	violet_drone2.set_sprite_and_size(preload("res://Images/Characters/charger.png"), 2, 0.5, Vector2(0.4,0.4), Vector2(1.5,2))
+	violet_drone2.set_sprite_and_size(preload("res://Assets/Characters/charger.png"), 2, 0.5, Vector2(0.4,0.4), Vector2(1.5,2))

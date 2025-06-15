@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ca384agbduvb4" path="res://Scenes/code_yellow_boss.gd" id="1_a3cq8"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_dsxpg"]
-[ext_resource type="Texture2D" uid="uid://bwnsgaactu1hj" path="res://Images/Characters/code_yellow.png" id="2_scbim"]
+[ext_resource type="Texture2D" uid="uid://bwnsgaactu1hj" path="res://Assets/Characters/code_yellow.png" id="2_scbim"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j1vj0"]
 shader = ExtResource("2_dsxpg")

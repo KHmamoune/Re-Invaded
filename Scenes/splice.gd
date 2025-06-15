@@ -50,7 +50,7 @@ func boss_at1() -> void:
 		var attack: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 1, [$Sprite/Head.rotation_degrees + 180], 0.2, 500, [Vector2.ZERO], 800, 1)
 		attack.set_abs_position([$Sprite/Head.global_position])
 		attack.set_marker("line", 0.1)
-		attack.set_sprite_and_size(preload("res://Images/Bullets/splice_stinger.png"), 1, 0, Vector2(0.5, 0.5), Vector2(0.5, 0.4))
+		attack.set_sprite_and_size(preload("res://Assets/Bullets/splice_stinger.png"), 1, 0, Vector2(0.5, 0.5), Vector2(0.5, 0.4))
 		attack.play(self)
 		await  get_tree().create_timer(0.5).timeout
 		j += 1
@@ -68,7 +68,7 @@ func boss_at2() -> void:
 		await get_tree().create_timer(0.09).timeout
 		var attack: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 1, [$Sprite/Head.rotation_degrees + 180], 0.2, 500, [Vector2.ZERO], 1500, 1)
 		attack.set_properties(true)
-		attack.set_sprite_and_size(preload("res://Images/Bullets/splice_stinger.png"), 1, 0, Vector2(0.5, 0.5), Vector2(0.5, 0.4))
+		attack.set_sprite_and_size(preload("res://Assets/Bullets/splice_stinger.png"), 1, 0, Vector2(0.5, 0.5), Vector2(0.5, 0.4))
 		attack.set_abs_position([$Sprite/Head.global_position])
 		attack.play(self)
 		j += 1
@@ -82,7 +82,7 @@ func boss_at2() -> void:
 		await get_tree().create_timer(0.09).timeout
 		var attack: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 1, [$Sprite/Head.rotation_degrees + 180], 0.2, 500, [Vector2.ZERO], 1500, 1)
 		attack.set_properties(true)
-		attack.set_sprite_and_size(preload("res://Images/Bullets/splice_stinger.png"), 1, 0, Vector2(0.5, 0.5), Vector2(0.5, 0.4))
+		attack.set_sprite_and_size(preload("res://Assets/Bullets/splice_stinger.png"), 1, 0, Vector2(0.5, 0.5), Vector2(0.5, 0.4))
 		attack.set_abs_position([$Sprite/Head.global_position])
 		attack.play(self)
 		j += 1
@@ -101,7 +101,7 @@ func boss_at3() -> void:
 		var attack: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 1, [$Sprite/Head.rotation_degrees + 180], 0.2, 600, [Vector2.ZERO], 800, 1)
 		attack.set_abs_position([$Sprite/Head.global_position])
 		attack.set_aim("", 40)
-		attack.set_sprite_and_size(preload("res://Images/Bullets/splice_stinger.png"), 1, 0, Vector2(0.5, 0.5), Vector2(0.5, 0.4))
+		attack.set_sprite_and_size(preload("res://Assets/Bullets/splice_stinger.png"), 1, 0, Vector2(0.5, 0.5), Vector2(0.5, 0.4))
 		attack.play(self)
 		await  get_tree().create_timer(0.2).timeout
 		j += 1

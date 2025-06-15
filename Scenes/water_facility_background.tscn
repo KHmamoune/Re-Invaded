@@ -2,8 +2,8 @@
 
 [ext_resource type="Shader" uid="uid://dpc7eyiwmd3v5" path="res://Shaders/scroll.gdshader" id="1_7ykw3"]
 [ext_resource type="Shader" uid="uid://do80kags61le" path="res://Shaders/tile_scroll.gdshader" id="2_elp6w"]
-[ext_resource type="Texture2D" uid="uid://dgm5jr8mvwjk5" path="res://Images/Backgrounds/water_tile.png" id="2_iotw3"]
-[ext_resource type="Texture2D" uid="uid://bh7vxj25vsqwt" path="res://Images/Backgrounds/water_facility_background.png" id="3_cl7n0"]
+[ext_resource type="Texture2D" uid="uid://dgm5jr8mvwjk5" path="res://Assets/Backgrounds/water_tile.png" id="2_iotw3"]
+[ext_resource type="Texture2D" uid="uid://bh7vxj25vsqwt" path="res://Assets/Backgrounds/water_facility_background.png" id="3_cl7n0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0etny"]
 shader = ExtResource("1_7ykw3")

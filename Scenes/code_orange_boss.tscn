@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d1vx4jbumf2y1"]
 
-[ext_resource type="Texture2D" uid="uid://bfa1h8gaia5k4" path="res://Images/Characters/code_orange.png" id="1_ofvej"]
+[ext_resource type="Texture2D" uid="uid://bfa1h8gaia5k4" path="res://Assets/Characters/code_orange.png" id="1_ofvej"]
 [ext_resource type="Script" uid="uid://wyw3cifwwkbo" path="res://Scenes/code_orange_boss.gd" id="1_vol2b"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_cl5g5"]
 

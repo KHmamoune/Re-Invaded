@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://7urrvq2pcfdb" path="res://Scenes/drone.gd" id="1_jaktq"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="1_qlwn4"]
-[ext_resource type="Texture2D" uid="uid://hdpnli5kyn8u" path="res://Images/Characters/drone.png" id="2_8a8os"]
+[ext_resource type="Texture2D" uid="uid://hdpnli5kyn8u" path="res://Assets/Characters/drone.png" id="2_8a8os"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jtr01"]
 resource_local_to_scene = true

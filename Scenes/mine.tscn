@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbk5ddyhdbm1l" path="res://Scenes/mine.gd" id="1_tvo1s"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_n6yn7"]
-[ext_resource type="Texture2D" uid="uid://by1grwmpnt5bp" path="res://Images/Enemies/air_mine.png" id="2_rnfym"]
+[ext_resource type="Texture2D" uid="uid://by1grwmpnt5bp" path="res://Assets/Enemies/air_mine.png" id="2_rnfym"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_udksn"]
 resource_local_to_scene = true

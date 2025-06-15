@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ctmee381u4t1f"]
 
 [ext_resource type="Script" uid="uid://c0gfti8jhn0q5" path="res://Scenes/indicator.gd" id="1_6acvu"]
-[ext_resource type="Texture2D" uid="uid://djag38xtn6qsc" path="res://Images/Bullets/marker.png" id="1_7rxa7"]
+[ext_resource type="Texture2D" uid="uid://djag38xtn6qsc" path="res://Assets/Bullets/marker.png" id="1_7rxa7"]
 
 [sub_resource type="Animation" id="Animation_4ssjq"]
 length = 0.001

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cfy1x0bfbfmn3" path="res://Scenes/sheild.gd" id="1_grjmk"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_y50pq"]
-[ext_resource type="Texture2D" uid="uid://cqc3twp5tp15" path="res://Images/Bullets/sheild.png" id="3_isk0h"]
+[ext_resource type="Texture2D" uid="uid://cqc3twp5tp15" path="res://Assets/Bullets/sheild.png" id="3_isk0h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jtr01"]
 resource_local_to_scene = true

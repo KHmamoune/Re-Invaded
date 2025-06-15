@@ -1,13 +1,13 @@
 [gd_scene load_steps=14 format=3 uid="uid://cnt68hkgtjs67"]
 
 [ext_resource type="Script" uid="uid://b4tetol2qlq41" path="res://Scenes/player_select.gd" id="1_3tjoh"]
-[ext_resource type="Texture2D" uid="uid://1akcojo8fnac" path="res://Images/Icons/code_blue_icon.png" id="1_w6t0w"]
-[ext_resource type="Texture2D" uid="uid://dyuuuwgysf5f7" path="res://Images/Icons/code_orange_icon.png" id="2_rqpbf"]
-[ext_resource type="Texture2D" uid="uid://cm2gedlehje5m" path="res://Images/Icons/code_red_icon.png" id="3_vxc8p"]
-[ext_resource type="Texture2D" uid="uid://bwusb5xjaflc6" path="res://Images/Icons/code_green_icon.png" id="4_3qgu8"]
-[ext_resource type="Texture2D" uid="uid://w7seerbm50rq" path="res://Images/Icons/code_yellow_icon.png" id="5_dagih"]
-[ext_resource type="Texture2D" uid="uid://dijq332gra7et" path="res://Images/Icons/code_violet_icon.png" id="6_acomj"]
-[ext_resource type="Texture2D" uid="uid://26jony7vd64n" path="res://Images/Icons/select_border.png" id="8_lrbws"]
+[ext_resource type="Texture2D" uid="uid://1akcojo8fnac" path="res://Assets/Icons/code_blue_icon.png" id="1_w6t0w"]
+[ext_resource type="Texture2D" uid="uid://dyuuuwgysf5f7" path="res://Assets/Icons/code_orange_icon.png" id="2_rqpbf"]
+[ext_resource type="Texture2D" uid="uid://cm2gedlehje5m" path="res://Assets/Icons/code_red_icon.png" id="3_vxc8p"]
+[ext_resource type="Texture2D" uid="uid://bwusb5xjaflc6" path="res://Assets/Icons/code_green_icon.png" id="4_3qgu8"]
+[ext_resource type="Texture2D" uid="uid://w7seerbm50rq" path="res://Assets/Icons/code_yellow_icon.png" id="5_dagih"]
+[ext_resource type="Texture2D" uid="uid://dijq332gra7et" path="res://Assets/Icons/code_violet_icon.png" id="6_acomj"]
+[ext_resource type="Texture2D" uid="uid://26jony7vd64n" path="res://Assets/Icons/select_border.png" id="8_lrbws"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6nql"]
 bg_color = Color(0, 0, 0, 0.784314)

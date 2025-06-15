@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="1_3lx7d"]
 [ext_resource type="Script" uid="uid://da43eesd8x7cf" path="res://Scenes/code_red_boss.gd" id="1_wq4ci"]
-[ext_resource type="Texture2D" uid="uid://bxpns5vbwhnq3" path="res://Images/Characters/code_red.png" id="3_o62l0"]
+[ext_resource type="Texture2D" uid="uid://bxpns5vbwhnq3" path="res://Assets/Characters/code_red.png" id="3_o62l0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u0t6p"]
 resource_local_to_scene = true

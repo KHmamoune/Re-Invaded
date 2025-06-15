@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwd68aqkxftjh"]
 
-[ext_resource type="Texture2D" uid="uid://dnjjheawsum7n" path="res://Images/Icons/buff_arrow.png" id="1_ai4rg"]
+[ext_resource type="Texture2D" uid="uid://dnjjheawsum7n" path="res://Assets/Icons/buff_arrow.png" id="1_ai4rg"]
 
 [sub_resource type="Animation" id="Animation_rbjjg"]
 length = 0.001

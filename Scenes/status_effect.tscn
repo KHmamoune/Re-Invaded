@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://csflbcrqvq5p"]
 
 [ext_resource type="Script" uid="uid://d0osapv45k462" path="res://Scenes/status_effect.gd" id="1_fi7i3"]
-[ext_resource type="Texture2D" uid="uid://b4wmw4qh82rht" path="res://Images/Icons/flame.png" id="1_u3jln"]
+[ext_resource type="Texture2D" uid="uid://b4wmw4qh82rht" path="res://Assets/Icons/flame.png" id="1_u3jln"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqgpj"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

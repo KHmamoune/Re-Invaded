@@ -47,37 +47,37 @@ func _ready() -> void:
 	
 	match gv.player_color:
 		"blue":
-			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_blue.png")
+			player.get_node("Sprite2D").texture = preload("res://Assets/Characters/code_blue.png")
 			color_cards = gv.blue_cards
 			color_starting_cards = gv.blue_starting_cards
 			color_modifier = gv.blue_modifier1
 			color_special_attack = gv.blue_special_card
 		"orange":
-			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_orange.png")
+			player.get_node("Sprite2D").texture = preload("res://Assets/Characters/code_orange.png")
 			color_cards = gv.orange_cards
 			color_starting_cards = gv.orange_starting_cards
 			color_modifier = gv.orange_modifier1
 			color_special_attack = gv.orange_special_card
 		"red":
-			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_red.png")
+			player.get_node("Sprite2D").texture = preload("res://Assets/Characters/code_red.png")
 			color_cards =  gv.red_cards
 			color_starting_cards = gv.red_starting_cards
 			color_modifier = gv.red_modifier1
 			color_special_attack = gv.red_special_card
 		"green":
-			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_green.png")
+			player.get_node("Sprite2D").texture = preload("res://Assets/Characters/code_green.png")
 			color_cards = gv.green_cards
 			color_starting_cards = gv.green_starting_cards
 			color_modifier = gv.green_modifier1
 			color_special_attack = gv.green_special_card
 		"yellow":
-			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_yellow.png")
+			player.get_node("Sprite2D").texture = preload("res://Assets/Characters/code_yellow.png")
 			color_cards =  gv.yellow_cards
 			color_starting_cards = gv.yellow_starting_cards
 			color_modifier = gv.yellow_modifier1
 			color_special_attack = gv.yellow_special_card
 		"violet":
-			player.get_node("Sprite2D").texture = preload("res://Images/Characters/code_violet.png")
+			player.get_node("Sprite2D").texture = preload("res://Assets/Characters/code_violet.png")
 			color_cards =  gv.violet_cards
 			color_starting_cards = gv.violet_starting_cards
 			color_modifier = gv.violet_modifier1
@@ -88,24 +88,6 @@ func _ready() -> void:
 		gv.cards.append(card)
 	for card: Card.CardStats in color_starting_cards:
 		player.full_deck.append(card)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
-	player.add_modifier(color_modifier)
 	player.add_modifier(color_modifier)
 	player.special_attack = color_special_attack
 	

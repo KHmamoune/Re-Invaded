@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://4kb6tc2ghygu" path="res://Scenes/code_blue_boss.gd" id="1_fjwpi"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_ii216"]
-[ext_resource type="Texture2D" uid="uid://681us65p416x" path="res://Images/Characters/code_blue.png" id="3_3bphu"]
+[ext_resource type="Texture2D" uid="uid://681us65p416x" path="res://Assets/Characters/code_blue.png" id="3_3bphu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3jyqd"]
 resource_local_to_scene = true

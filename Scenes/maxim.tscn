@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://djylmh0fn0nh6"]
 
-[ext_resource type="Texture2D" uid="uid://c0qovuv1s24l7" path="res://Images/Enemies/the_maxim.png" id="1_ni0dt"]
+[ext_resource type="Texture2D" uid="uid://c0qovuv1s24l7" path="res://Assets/Enemies/the_maxim.png" id="1_ni0dt"]
 [ext_resource type="Script" uid="uid://6xnpecn2huhd" path="res://Scenes/maxim.gd" id="1_up2a6"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_5pdug"]
 

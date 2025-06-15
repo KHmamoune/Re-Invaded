@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=3 uid="uid://diup4akafq8u0"]
 
-[ext_resource type="Texture2D" uid="uid://rjyabeodtw6b" path="res://Images/Backgrounds/ui_background1.png" id="1_gicbd"]
-[ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Images/Icons/scrap.png" id="2_166by"]
+[ext_resource type="Texture2D" uid="uid://rjyabeodtw6b" path="res://Assets/Backgrounds/ui_background1.png" id="1_gicbd"]
+[ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Assets/Icons/scrap.png" id="2_166by"]
 [ext_resource type="Shader" uid="uid://bo671127qpq2r" path="res://Shaders/main_menu_scroll.gdshader" id="2_j72m0"]
 [ext_resource type="PackedScene" uid="uid://c83xbth1v5fgm" path="res://Scenes/deck_ui.tscn" id="2_xsdwi"]
-[ext_resource type="Texture2D" uid="uid://dli63nj6jvcy7" path="res://Images/Backgrounds/background_effect.png" id="3_1xcnk"]
+[ext_resource type="Texture2D" uid="uid://dli63nj6jvcy7" path="res://Assets/Backgrounds/background_effect.png" id="3_1xcnk"]
 [ext_resource type="PackedScene" uid="uid://vxlt0wbavuy" path="res://Scenes/modifiers_ui.tscn" id="3_45blw"]
-[ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Images/Other/place_holder_card.png" id="5_5wku5"]
-[ext_resource type="Texture2D" uid="uid://d75de5l7806e" path="res://Images/Backgrounds/ui_background2.png" id="5_oxpwh"]
+[ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Assets/Other/place_holder_card.png" id="5_5wku5"]
+[ext_resource type="Texture2D" uid="uid://d75de5l7806e" path="res://Assets/Backgrounds/ui_background2.png" id="5_oxpwh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xnkx8"]
 resource_local_to_scene = true

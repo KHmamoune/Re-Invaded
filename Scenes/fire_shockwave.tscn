@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bmllllcixyh26"]
 
-[ext_resource type="Texture2D" uid="uid://csqi5mte3kxee" path="res://Images/Other/circle.png" id="1_d2seb"]
+[ext_resource type="Texture2D" uid="uid://csqi5mte3kxee" path="res://Assets/Other/circle.png" id="1_d2seb"]
 
 [sub_resource type="Animation" id="Animation_pqve1"]
 length = 0.001

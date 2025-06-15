@@ -60,7 +60,7 @@ func _on_shoot_timer_timeout() -> void:
 func boss_at1() -> void:
 	var drone1: Card.AttackPattren = Card.AttackPattren.new(drone, 2, 3, [0], 1, 20, [Vector2.ZERO], 1200, 0)
 	var attack: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 20, [180], 0.05, 200, [Vector2.ZERO], 1200, 1)
-	drone1.set_sprite_and_size(preload("res://Images/Enemies/security_system_drone.png"), 2, 0.2, Vector2(0.4, 0.4), Vector2(1, 1))
+	drone1.set_sprite_and_size(preload("res://Assets/Enemies/security_system_drone.png"), 2, 0.2, Vector2(0.4, 0.4), Vector2(1, 1))
 	drone1.set_drone_properties(2)
 	drone1.set_attack(0, attack)
 	var attack3: Card.AttackPattren = Card.AttackPattren.new(bullet, 5, 2, [150, 165, 180, 195, 210], 0.2, 400, [Vector2.ZERO], 1200, 1)
@@ -153,7 +153,7 @@ func boss_at3() -> void:
 	var attack: Card.AttackPattren = Card.AttackPattren.new(bullet, 3, 5, [170, 180, 190], 1.5, 500, [Vector2.ZERO], 1200, 1)
 	drone1.set_abs_position([Vector2(975,100),Vector2(175,150),Vector2(975,200),Vector2(175,250)])
 	drone1.set_attack(0.5, attack)
-	drone1.set_sprite_and_size(preload("res://Images/Enemies/security_system_drone.png"), 2, 0.2, Vector2(0.4, 0.4), Vector2(1, 1))
+	drone1.set_sprite_and_size(preload("res://Assets/Enemies/security_system_drone.png"), 2, 0.2, Vector2(0.4, 0.4), Vector2(1, 1))
 	drone1.set_look("player")
 	drone1.set_drone_properties(10)
 	drone1.set_tweens([],[],[

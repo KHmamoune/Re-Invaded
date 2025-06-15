@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bhisngn2ph3h"]
 
 [ext_resource type="Script" uid="uid://bjiv7o7hhnplg" path="res://Scenes/code_violet_boss.gd" id="1_fyv3e"]
-[ext_resource type="Texture2D" uid="uid://y5js7g6m5buq" path="res://Images/Characters/code_violet.png" id="1_qv8r1"]
+[ext_resource type="Texture2D" uid="uid://y5js7g6m5buq" path="res://Assets/Characters/code_violet.png" id="1_qv8r1"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_ymv10"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qnt8v"]

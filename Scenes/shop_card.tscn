@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8baqi0uh4cma"]
 
 [ext_resource type="PackedScene" uid="uid://t214yeldpfre" path="res://Scenes/card_ui.tscn" id="1_rwfrj"]
-[ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Images/Icons/scrap.png" id="2_e1t01"]
+[ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Assets/Icons/scrap.png" id="2_e1t01"]
 
 [node name="ShopCard" type="Control"]
 layout_mode = 3

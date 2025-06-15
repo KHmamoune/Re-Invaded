@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dfud3521ufsa0"]
 
 [ext_resource type="PackedScene" uid="uid://dsolvcsh3ycok" path="res://Scenes/modifier.tscn" id="1_ejl4u"]
-[ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Images/Icons/scrap.png" id="2_axb0p"]
+[ext_resource type="Texture2D" uid="uid://dabodycr0op3p" path="res://Assets/Icons/scrap.png" id="2_axb0p"]
 
 [node name="ShopModifier" type="Control"]
 layout_mode = 3

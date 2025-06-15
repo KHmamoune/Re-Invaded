@@ -5,6 +5,8 @@ enum Types { SHUFFLE, HURT, COMBAT_START, KILL, CREATE, FLAME, DEBUFF, DEATH, HE
 
 
 class Modifier:
+	var game_data: Dictionary = gdt.read_json(gdt.game_data_path)
+	var mod_data: Dictionary = game_data["modifier_data"]
 	var modifier_name: String
 	var modifier_sprite: String
 	var modifier_type: Types
@@ -13,13 +15,13 @@ class Modifier:
 	var modifier_description: String
 	var modifier_tooltips: Array
 	
-	func _init(mn: String, ms: String, mt: Types, mp: int, me: Callable, md: String, mtt: Array = []) -> void:
-		modifier_name = mn
-		modifier_sprite = ms
+	func _init(mn: String, mt: Types, mp: int, me: Callable, mtt: Array = []) -> void:
+		modifier_name = mod_data[mn]["title"]
+		modifier_sprite = mod_data[mn]["image"]
 		modifier_type = mt
 		modifier_price = mp
 		modifier_effect = me
-		modifier_description = md
+		modifier_description = mod_data[mn]["description"]
 		modifier_tooltips = mtt
 	
 	func play(pl: Node) -> void:

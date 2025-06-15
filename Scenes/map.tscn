@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://c5r4d6502knyn" path="res://Scenes/map.gd" id="1_abnks"]
 [ext_resource type="Shader" uid="uid://dtdti3jnncim4" path="res://Shaders/crt.gdshader" id="2_5sskt"]
-[ext_resource type="Texture2D" uid="uid://chl5humsx53o1" path="res://Images/Icons/battle.png" id="3_tijjf"]
-[ext_resource type="Texture2D" uid="uid://s565ygc08mxx" path="res://Images/Icons/rest.png" id="4_8yxv1"]
-[ext_resource type="Texture2D" uid="uid://dvh1hayfhnery" path="res://Images/Icons/resources.png" id="5_vqcxr"]
-[ext_resource type="Texture2D" uid="uid://bhbxoe3to2xcf" path="res://Images/Icons/miniboss.png" id="6_e2rhw"]
-[ext_resource type="Texture2D" uid="uid://bslx80oij5r77" path="res://Images/Icons/security_system.png" id="7_4etmb"]
+[ext_resource type="Texture2D" uid="uid://chl5humsx53o1" path="res://Assets/Icons/battle.png" id="3_tijjf"]
+[ext_resource type="Texture2D" uid="uid://s565ygc08mxx" path="res://Assets/Icons/rest.png" id="4_8yxv1"]
+[ext_resource type="Texture2D" uid="uid://dvh1hayfhnery" path="res://Assets/Icons/resources.png" id="5_vqcxr"]
+[ext_resource type="Texture2D" uid="uid://bhbxoe3to2xcf" path="res://Assets/Icons/miniboss.png" id="6_e2rhw"]
+[ext_resource type="Texture2D" uid="uid://bslx80oij5r77" path="res://Assets/Icons/security_system.png" id="7_4etmb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y26dp"]
 resource_local_to_scene = true

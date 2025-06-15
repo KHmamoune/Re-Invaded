@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://c6lhw5bf2748m"]
 
 [ext_resource type="Script" uid="uid://xv8u781th7go" path="res://Scenes/bomb.gd" id="1_ayxvy"]
-[ext_resource type="Texture2D" uid="uid://ym1a67efem2b" path="res://Images/Bullets/bomb.png" id="1_t12do"]
+[ext_resource type="Texture2D" uid="uid://ym1a67efem2b" path="res://Assets/Bullets/bomb.png" id="1_t12do"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_jm6w1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jtr01"]

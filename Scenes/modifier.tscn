@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dsolvcsh3ycok"]
 
 [ext_resource type="Script" uid="uid://bvnea8neqerrr" path="res://Scenes/Modifier.gd" id="1_r1ki7"]
-[ext_resource type="Texture2D" uid="uid://chl5humsx53o1" path="res://Images/Icons/battle.png" id="2_k5a1t"]
+[ext_resource type="Texture2D" uid="uid://chl5humsx53o1" path="res://Assets/Icons/battle.png" id="2_k5a1t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1bd6"]
 content_margin_left = 10.0

@@ -145,7 +145,7 @@ func damage_flame(target: Node) -> void:
 func apply_heat(target: Node, stack: int) -> void:
 	var heat_timer: Timer
 	if !is_instance_valid(target.get_node_or_null("heat_timer")):
-		heat_timer = set_up_timer(target, "impede_timer", dispel_heat.bind(target))
+		heat_timer = set_up_timer(target, "heat_timer", dispel_heat.bind(target))
 	else:
 		heat_timer = target.get_node_or_null("heat_timer")
 	
@@ -153,8 +153,7 @@ func apply_heat(target: Node, stack: int) -> void:
 		heat_timer.start(5)
 		target.gen_modifier -= 0.1 * target.status_effects["heat"]["stack"]
 		target.speed -= 40 * target.status_effects["heat"]["stack"]
-		target.status_effects["heat"]["stack"] += stack
-		target.status_effects["heat"]["time"] = 5
+		check_and_add(target, "heat", stack, 5.0, "additive")
 		if target.status_effects["heat"]["stack"] > 10:
 			target.status_effects["heat"]["stack"] = 10
 			apply_meltdown(target)
@@ -166,14 +165,12 @@ func apply_heat(target: Node, stack: int) -> void:
 	if "heat" in target.status_effects:
 		target.gen_modifier -= 0.1 * target.status_effects["heat"]["stack"]
 		target.speed -= 40 * target.status_effects["heat"]["stack"]
-		target.status_effects["heat"]["stack"] += stack
-		target.status_effects["heat"]["time"] = 5
+		check_and_add(target, "heat", stack, 5.0, "additive")
 		target.gen_modifier += 0.1 * target.status_effects["heat"]["stack"]
 		target.speed += 40 * target.status_effects["heat"]["stack"]
 	else:
 		target.status_effects["heat"] = {"stack": 0, "time": 0.0}
-		target.status_effects["heat"]["stack"] = stack
-		target.status_effects["heat"]["time"] = 5
+		check_and_add(target, "heat", stack, 5.0)
 		target.gen_modifier += 0.1 * stack
 		target.speed += 40 * target.status_effects["heat"]["stack"]
 	target.update_status_bar()

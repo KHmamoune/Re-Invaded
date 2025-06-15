@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ehbe7cigucym"]
 
-[ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Images/Other/place_holder_card.png" id="1_gu4wr"]
+[ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Assets/Other/place_holder_card.png" id="1_gu4wr"]
 [ext_resource type="Script" uid="uid://ca24tib0tk32y" path="res://Scenes/dialogue_ui.gd" id="1_yf8wm"]
 
 [node name="DialogueUI" type="Control"]

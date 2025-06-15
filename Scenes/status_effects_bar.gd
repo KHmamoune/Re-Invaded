@@ -7,8 +7,8 @@ var active_statuses: Array = []
 
 func update_status_effects(se: Dictionary) -> void:
 	active_statuses = []
-	#print(prev_se)
-	#print(se)
+	print(prev_se)
+	print(se)
 	for child in get_children():
 		active_statuses.append(child.status)
 		if child.status in prev_se.keys():

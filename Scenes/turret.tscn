@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bb8wxsdghy0e0" path="res://Scenes/turret.gd" id="1_h3pot"]
 [ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_cxgkm"]
-[ext_resource type="Texture2D" uid="uid://c1scd73p4d75t" path="res://Images/Enemies/turret.png" id="2_rk1yq"]
+[ext_resource type="Texture2D" uid="uid://c1scd73p4d75t" path="res://Assets/Enemies/turret.png" id="2_rk1yq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ehcet"]
 resource_local_to_scene = true
