@@ -5,7 +5,7 @@ var rad: Vector2 = Vector2(1, 1)
 
 
 func _ready() -> void:
-	$Sprite2D.scale = rad
+	$Sprite2D.scale = rad + Vector2(4, 4)
 	$HitBox.scale = rad
 	$Animations.play("explode")
 	Audio.play_sfx(Audio.sfx_explosion)

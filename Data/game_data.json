@@ -3,318 +3,318 @@
 		"reinforced_rounds": {
 			"title": "Reinforced Rounds",
 			"description": "gain 1 reinforced, exhaust.",
-			"image": "res://Assets/Other/reinforced_rounds_card.png"
+			"image": "res://Assets/Cards/reinforced_rounds_card.png"
 		},
 		"spray_and_pray": {
 			"title": "Spray and Pray",
 			"description": "fire 20 randomly aimed bullets, 1 damage.",
-			"image": "res://Assets/Other/spray_and_pray_card.png"
+			"image": "res://Assets/Cards/spray_and_pray_card.png"
 		},
 		"dual_fire": {
 			"title": "Dual Fire",
 			"description": "fire 12 bullets ahead, 1 damage.",
-			"image": "res://Assets/Other/dual_fire_card.png"
+			"image": "res://Assets/Cards/dual_fire_card.png"
 		},
 		"reload": {
 			"title": "Reload",
 			"description": "instantly shuffle the deck.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"empty_magazine": {
 			"title": "Empty Magazine",
 			"description": "fire 1 shot forward that shuffle on kill, 10 damage.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"ricochet_fire": {
 			"title": "Ricochet Fire",
 			"description": "fire 2 lanes of bullets that bounce off walls, 3 damage.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"double_tap": {
 			"title": "Double Tap",
 			"description": "fire 2 shots in quick succession, 5 damage.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"underflow": {
 			"title": "Underflow",
 			"description": "when played, if this is the last card in your deck, instantly shuffle the deck.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"blanket_fire": {
 			"title": "Blanket Fire",
 			"description": "shoot 3 lanes of 20 bullets from behind you, 1 damage.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"perfected_fire": {
 			"title": "Perfected Fire",
 			"description": "fire 2 bullets, fire an extra 2 bullets for each card with \"fire\" in the name in the deck, 1 damage.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"accurize": {
 			"title": "Accurize",
 			"description": "gain 2 percission.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"ejection": {
 			"title": "Ejection",
 			"description": "gain bullet speed boost.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"black_powder": {
 			"title": "Black Powder",
 			"description": "gain 1 black powder.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"relentless_assault": {
 			"title": "Relentless assault",
 			"description": "lose all reinforce, fire (reinforce lost) x 2 random shots forward.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		
 		"flare": {
 			"title": "Flare",
 			"description": "fire 1 shot that aplies flame on hit, gain 1 heat, 5 damage.",
-			"image": "res://Assets/Other/flare_card.png"
+			"image": "res://Assets/Cards/flare_card.png"
 		},
 		"flame_thrower": {
 			"title": "Flame Thrower",
 			"description": "shoot a spray of flames that apply flame on hit, 1 damage.",
-			"image": "res://Assets/Other/flame_thrower_card.png"
+			"image": "res://Assets/Cards/flame_thrower_card.png"
 		},
 		"explosion_shower": {
 			"title": "Explosion Shower",
 			"description": "fire 3 bombs that explode after 2 seconds, 10 damage.",
-			"image": "res://Assets/Other/explosion_shower_card.png"
+			"image": "res://Assets/Cards/explosion_shower_card.png"
 		},
 		"nuclear_fusion": {
 			"title": "Nuclear Fusion",
 			"description": "fire an expanding circle of explosions.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"carpet_bombing": {
 			"title": "Carpet Bombing",
 			"description": "fire a row of explosives that travels forward.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"overclock": {
 			"title": "Overclock",
 			"description": "gain 3 heat, add a backfire to the deck.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"flame_burst": {
 			"title": "Flame Burst",
 			"description": "fire a short range flame wave.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"unload_heat": {
 			"title": "Unload Heat",
 			"description": "spend 2 heat, apply flame for 2 seconds to all enemies.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"inner_ardor": {
 			"title": "Inner Ardor",
 			"description": "gain 1 heat.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		
 		"double_burst": {
 			"title": "Double Burst",
 			"description": "fire 2 waves of bullets, 5 damage.",
-			"image": "res://Assets/Other/double_burst_card.png"
+			"image": "res://Assets/Cards/double_burst_card.png"
 		},
 		"rewire": {
 			"title": "Rewire",
 			"description": "gain 1 impede, gain generation boost for 2 seconds.",
-			"image": "res://Assets/Other/rewire_card.png"
+			"image": "res://Assets/Cards/rewire_card.png"
 		},
 		"fan_shot": {
 			"title": "Fan Shot",
 			"description": "fire 20 bullets in a fan shape, 2 damage.",
-			"image": "res://Assets/Other/fan_shot_card.png"
+			"image": "res://Assets/Cards/fan_shot_card.png"
 		},
 		"point_blank": {
 			"title": "Point Blank",
 			"description": "fire a powerful short range burst.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"bouncy_shells": {
 			"title": "Bouncy Shells",
 			"description": "fire 2 bursts diagonally that bounce off walls.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"reckless_fire": {
 			"title": "Reckless Fire",
 			"description": "fire a long range burst, 20% chance to add backfire to the deck.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"last_stand": {
 			"title": "Last Stand",
 			"description": "gain infinite energy for 10 seconds, die in 10 seconds if the combat is not won.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		
 		"take_aim": {
 			"title": "Take Aim",
 			"description": "fire 8 shots aimed at the closest enemy, 2 damage.",
-			"image": "res://Assets/Other/take_aim_card.png"
+			"image": "res://Assets/Cards/take_aim_card.png"
 		},
 		"cover_fire": {
 			"title": "Cover Fire",
 			"description": "fire 10 randomly aimed shielded bullets, damage 4.",
-			"image": "res://Assets/Other/cover_fire_card.png"
+			"image": "res://Assets/Cards/cover_fire_card.png"
 		},
 		"force_field": {
 			"title": "Force Field",
 			"description": "make a shield that lasts 2 seconds.",
-			"image": "res://Assets/Other/force_field_card.png"
+			"image": "res://Assets/Cards/force_field_card.png"
 		},
 		"deflection": {
 			"title": "Deflection",
 			"description": "deflect nearby bullets.",
-			"image": "res://Assets/Other/deflection_card.png"
+			"image": "res://Assets/Cards/deflection_card.png"
 		},
 		"withstand": {
 			"title": "Withstand",
 			"description": "Gain 2 endurance, exhaust.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"charge_up": {
 			"title": "Charge up",
 			"description": "Gain 2 charge.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"static_discharge": {
 			"title": "Static Discharge",
 			"description": "Lose all charge on self, deal damage equal to 2*(charge lost) to all enemies.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"homing_missiles": {
 			"title": "Homing Missiles",
 			"description": "fire 5 homing bombs.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"stasis": {
 			"title": "Stasis",
 			"description": "gain a shield for 8 seconds, can't move for 8 seconds.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"shield_throw": {
 			"title": "Shield Throw",
 			"description": "lose all endurance, fire a shot that deals Y*(stacks lost) damage.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"absorb": {
 			"title": "Absorb",
 			"description": "gain 1 conversion.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"field_strip": {
 			"title": "Field Strip",
 			"description": "remove 2 random junk cards from the deck.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		
 		"blast": {
 			"title": "Blast",
 			"description": "fire a laser forward, 5 damage.",
-			"image": "res://Assets/Other/blast_card.png"
+			"image": "res://Assets/Cards/blast_card.png"
 		},
 		"shine": {
 			"title": "Shine",
 			"description": "fire 3 lasers forward, 5 damage.",
-			"image": "res://Assets/Other/shine_card.png"
+			"image": "res://Assets/Cards/shine_card.png"
 		},
 		"laser_sweep": {
 			"title": "Laser Sweep",
 			"description": "fire 2 lasers that sweep over a large area, 5 damage.",
-			"image": "res://Assets/Other/laser_sweep_card.png"
+			"image": "res://Assets/Cards/laser_sweep_card.png"
 		},
 		"blast_store": {
 			"title": "Blast Store",
 			"description": "add a blast to your deck.",
-			"image": "res://Assets/Other/blast_store_card.png"
+			"image": "res://Assets/Cards/blast_store_card.png"
 		},
 		"random_access_memory": {
 			"title": "Random Access Memory",
 			"description": "add a random card seen this run to the deck.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"photosynthesis": {
 			"title": "Photosynthesis",
 			"description": "add 2 blasts to your deck, heal 1 hp, exhaust.",
-			"image": "res://Assets/Other/photosynthesis_card.png"
+			"image": "res://Assets/Cards/photosynthesis_card.png"
 		},
 		"evation": {
 			"title": "Evasion",
 			"description": "gain 1 dodge.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"barrel_roll": {
 			"title": "Barrel Roll",
 			"description": "makes the evade chance of dodge 100% for 2 seconds.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"reused_assets": {
 			"title": "Reused Assets",
 			"description": "add a random card played this combat to the deck.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		
 		"shooting_target": {
 			"title": "Shooting Target",
 			"description": "fire a bullet forward, 15 damage.",
-			"image": "res://Assets/Other/shooting_target_card.png"
+			"image": "res://Assets/Cards/shooting_target_card.png"
 		},
 		"violet_detector": {
 			"title": "Violet Detector",
 			"description": "summon a turret that fire at closest target.",
-			"image": "res://Assets/Other/violet_detector_card.png"
+			"image": "res://Assets/Cards/violet_detector_card.png"
 		},
 		"charging_force": {
 			"title": "Charging Force",
 			"description": "summon 5 turrets that charge forward.",
-			"image": "res://Assets/Other/charging_force_card.png"
+			"image": "res://Assets/Cards/charging_force_card.png"
 		},
 		"helper_turret": {
 			"title": "Helper Turret",
 			"description": "summon 2 helper turrets next to you.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"jammed_fire": {
 			"title": "Jammed Fire",
 			"description": "Fire 5 shots, 50% chance to add a jam to the deck instead of firing, 20 damage.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"seeker_drones": {
 			"title": "Seeker Drones",
 			"description": "summon 3 seeker drones.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"weakpoint_spotted": {
 			"title": "Weakpoint Spotted",
 			"description": "apply 2 fragile to all enemies.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		
 		"jam": {
 			"title": "Jam",
 			"description": "junk card, exhaust.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"blank_round": {
 			"title": "Blank Round",
 			"description": "fire a short range shot, exhaust.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"backfire": {
 			"title": "Backfire",
 			"description": "50% chance to take 1 damage (can't be lethal), exhaust.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"paralysed": {
 			"title": "Paralized",
 			"description": "gain paralyze for 2 seconds, exhaust.",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		
 		"card_types": {
@@ -360,12 +360,12 @@
 		
 		"dramatic_entrance": {
 			"title": "Dramatic Entrance",
-			"image": "res://Assets/Other/place_holder_card.png",
+			"image": "res://Assets/Cards/place_holder_card.png",
 			"description": "deal 5 damage to all enemies at the start of combat"
 		},
 		"return_fire": {
 			"title": "Return Fire",
-			"image": "res://Assets/Other/place_holder_card.png",
+			"image": "res://Assets/Cards/place_holder_card.png",
 			"description": "fire bullets on hit"
 		},
 	}, 
@@ -377,43 +377,43 @@
 	"area_data": {
 		"outer_space": {
 			"name": "Outer Space",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"the_remains": {
 			"name": "The Remains",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"the_nest": {
 			"name": "The Nest",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"the_heart": {
 			"name": "The Heart",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"water_facility": {
 			"name": "Water Facility",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"the_factory": {
 			"name": "The Factory",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"red_area": {
 			"name": "Red Area",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"pipeworks": {
 			"name": "Pipeworks",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"the_halls": {
 			"name": "The Halls",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"the_den": {
 			"name": "The Den",
-			"image": "res://Assets/Other/place_holder_card.png"
+			"image": "res://Assets/Cards/place_holder_card.png"
 		}
 	}
 }

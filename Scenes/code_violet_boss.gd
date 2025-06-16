@@ -149,7 +149,7 @@ func boss_at3() -> void:
 func boss_at4() -> void:
 	var drone1: Card.AttackPattren = Card.AttackPattren.new(drone, 1, 1, [0], 0.05, 1000, [Vector2.ZERO], 1200, 1)
 	var attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 1, [0], 0.2, 900, [Vector2.ZERO], 1200, 1)
-	drone1.set_sprite_and_size(preload("res://Assets/Characters/charger.png"), 2, 0.5, Vector2(0.4,0.4), Vector2(1.5,2))
+	drone1.set_sprite_and_size(preload("res://Assets/Characters/charger.png"), 2, 0.5, Vector2(2,2), Vector2(1.5,2))
 	drone1.set_drone_properties(5)
 	drone1.set_after_image(0, 0.02)
 	attack1.set_marker("line", 0.2)

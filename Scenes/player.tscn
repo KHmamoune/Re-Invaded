@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://b2kbgqqa53i6p"]
+[gd_scene load_steps=15 format=3 uid="uid://b2kbgqqa53i6p"]
 
 [ext_resource type="Script" uid="uid://dg4ewx0ykqdp7" path="res://Scenes/player.gd" id="1_7qrio"]
 [ext_resource type="Texture2D" uid="uid://681us65p416x" path="res://Assets/Characters/code_blue.png" id="2_4dwqm"]
 [ext_resource type="PackedScene" uid="uid://bw4lnil0db42v" path="res://Scenes/status_effects_bar.tscn" id="4_b1vtg"]
+[ext_resource type="AudioStream" uid="uid://bbnn4bakb731i" path="res://SFX/engine.wav" id="4_vgqql"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wdmk6"]
 radius = 5.0
@@ -203,13 +204,18 @@ color = Color(0.980095, 0.56163, 1.15514e-06, 1)
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_5myx0")
+&"": SubResource("AnimationLibrary_5myx0")
 }
 
 [node name="StatusEffectsBar" parent="." instance=ExtResource("4_b1vtg")]
 modulate = Color(1, 1, 1, 0.470588)
 offset_top = -63.0
 offset_bottom = -33.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_vgqql")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_entered" from="Grazebox" to="." method="_on_grazebox_area_entered"]

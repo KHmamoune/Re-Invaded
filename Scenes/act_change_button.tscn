@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dauhdbxfe2mbp"]
 
 [ext_resource type="Texture2D" uid="uid://p80w4e8ilfix" path="res://Assets/UI/act_change_button.png" id="1_dstqs"]
-[ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Assets/Other/place_holder_card.png" id="2_00oxe"]
+[ext_resource type="Texture2D" uid="uid://cm2vtxgpvkd1w" path="res://Assets/Cards/place_holder_card.png" id="2_00oxe"]
 
 [node name="ActChangeButton" type="TextureButton"]
 custom_minimum_size = Vector2(200, 200)

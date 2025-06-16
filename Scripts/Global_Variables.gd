@@ -24,14 +24,23 @@ var even_areas: Dictionary = {
 }
 
 var area_backgrounds: Dictionary = {
+	"Security System": preload("res://Scenes/security_system_background.tscn"),
 	"Water Facility": preload("res://Scenes/water_facility_background.tscn") 
 }
 
 
 #bullet presets
+var bullet1_preset: Dictionary = {
+	"sprite": preload("res://Assets/Bullets/bullet1.png"),
+	"scale": Vector2(2, 2),
+	"hitbox_scale": Vector2(0.4, 0.4),
+	"anm_speed": 0,
+	"frames": 1
+}
+
 var bullet2_preset: Dictionary = {
 	"sprite": preload("res://Assets/Bullets/bullet2.png"),
-	"scale": Vector2(0.3, 0.3),
+	"scale": Vector2(2, 2),
 	"hitbox_scale": Vector2(0.2, 0.25),
 	"anm_speed": 0,
 	"frames": 1
@@ -39,7 +48,7 @@ var bullet2_preset: Dictionary = {
 
 var fire_bullet_preset: Dictionary = {
 	"sprite": preload("res://Assets/Bullets/fire_bullet.png"),
-	"scale": Vector2(0.5, 0.5),
+	"scale": Vector2(2, 2),
 	"hitbox_scale": Vector2(1.4, 0.5),
 	"anm_speed": 0.2,
 	"frames": 5
@@ -127,7 +136,7 @@ var mini_maps: Dictionary = {
 	"Outer Space": [os_mini_map1, os_mini_map2, os_mini_map3]
 }
 
-var boss_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": security_system }], [Vector2(350, 120)])
+var boss_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": security_system }], [Vector2(350, 180)])
 var boss_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_blue_boss }], [Vector2(350, 50)])
 var boss_map3: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_orange_boss }], [Vector2(350, 50)])
 var boss_map4: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_red_boss }], [Vector2(350, 50)])
@@ -136,7 +145,7 @@ var boss_map6: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_yellow_bos
 var boss_map7: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": code_violet_boss }], [Vector2(350, 50)])
 
 var boss_maps: Dictionary = {
-	"Outer Space": boss_map2,
+	"Outer Space": boss_map1,
 	"Water Facility": boss_map2,
 	"The Factory": boss_map3,
 	"Red Area": boss_map4,
@@ -171,12 +180,14 @@ var animation1: PackedScene = preload("res://Scenes/fire_shockwave.tscn")
 var animation2: PackedScene = preload("res://Scenes/special_fire_animation.tscn")
 var animation3: PackedScene = preload("res://Scenes/buff_animation.tscn")
 var animation4: PackedScene = preload("res://Scenes/debuff_animation.tscn")
+var animation5: PackedScene = preload("res://Scenes/stuck_animation.tscn")
 
 var attack_animations: Dictionary = {
 	"shockwave": animation1,
 	"special_fire": animation2,
 	"buff_animation": animation3,
 	"debuff_animation": animation4,
+	"stuck_animation": animation5,
 }
 
 #character stats
@@ -258,8 +269,8 @@ var orange_effect1: Card.StatusAffliction = Card.StatusAffliction.new("flame", 5
 var flame_card1: Card.CardStats = Card.CardStats.new(1, "", "", Color.ORANGE, [{"effect": orange_effect1}])
 var orange_effect2: Card.StatusAffliction = Card.StatusAffliction.new("heat", 0, 1, "buff")
 var orange_card1: Card.CardStats = Card.CardStats.new(1, "flare", card_data["card_types"]["attack"], Color.ORANGE, [{"effect": orange_attack1}, {"effect": orange_effect2}], 40, ["flame", "heat"])
-var orange_attack2_1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [-10], 0.1, 1200, [Vector2.ZERO], 800, 1)
-var orange_attack2_2: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [10], 0.1, 1200, [Vector2.ZERO], 800, 1)
+var orange_attack2_1: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [-10], 0.1, 900, [Vector2.ZERO], 800, 1)
+var orange_attack2_2: Card.AttackPattren = Card.AttackPattren.new(bullet, 1, 5, [10], 0.1, 900, [Vector2.ZERO], 800, 1)
 var orange_effect3: Card.StatusAffliction = Card.StatusAffliction.new("flame", 0.6, 1, "debuff")
 var flame_card2: Card.CardStats = Card.CardStats.new(1, "", "", Color.ORANGE, [{"effect": orange_effect3}])
 var orange_card2: Card.CardStats = Card.CardStats.new(1, "flame_thrower", card_data["card_types"]["attack"], Color.ORANGE, [{"effect": orange_attack2_1}, {"delay": 0.4, "effect": orange_attack2_2}, {"delay": 0.4, "effect": orange_attack2_1}, {"delay": 0.4, "effect": orange_attack2_2}], 110, ["flame"])
@@ -416,7 +427,7 @@ func _ready() -> void:
 	orange_special_attack2.set_change_values([5])
 	
 	orange_attack1.set_on_hit_effects([flame_card1])
-	orange_attack1.set_sprite_and_size(preload("res://Assets/Bullets/flare.png"), 4, 1, Vector2(0.4,0.3), Vector2(0.4,0.3))
+	orange_attack1.set_sprite_and_size(preload("res://Assets/Bullets/flare.png"), 4, 1, Vector2(1.4,1.4), Vector2(0.4,0.3))
 	orange_attack1.set_bullet_effect(preload("res://Scenes/fire_bullet_effect.tscn"))
 	
 	orange_attack2_1.set_properties(false, false, true)
@@ -471,7 +482,7 @@ func _ready() -> void:
 	violet_drone1.set_tweens([], [], [{"delay": 0, "value": Vector2(0, -100), "dur": 0.4}])
 	violet_drone1.set_attack(2, violet_drone_sub_attack1)
 	violet_drone1.set_look("enemy")
-	violet_drone1.set_sprite_and_size(preload("res://Assets/Characters/violet_detector.png"), 1, 0, Vector2(0.4,0.4), Vector2(1,1))
+	violet_drone1.set_sprite_and_size(preload("res://Assets/Characters/violet_detector.png"), 1, 0, Vector2(2,2), Vector2(1,1))
 	
 	violet_drone2.set_drone_properties(10)
 	violet_drone2.set_tweens([], [{"delay": 0, "value": 1000, "dur": 1}], [])
@@ -479,4 +490,4 @@ func _ready() -> void:
 	violet_drone2.set_tweens([], [{"delay": 0, "value": 1000, "dur": 1}], [])
 	violet_drone2.set_tweens([], [{"delay": 0, "value": 1000, "dur": 1}], [])
 	violet_drone2.set_tweens([], [{"delay": 0, "value": 1000, "dur": 1}], [])
-	violet_drone2.set_sprite_and_size(preload("res://Assets/Characters/charger.png"), 2, 0.5, Vector2(0.4,0.4), Vector2(1.5,2))
+	violet_drone2.set_sprite_and_size(preload("res://Assets/Characters/charger.png"), 2, 0.5, Vector2(2,2), Vector2(1.5,2))

@@ -511,8 +511,10 @@ func on_room_select(room: Map.Room) -> void:
 		spawn_enemies()
 		
 	elif room.type == 5:
-		modulate_background(100)
 		play_trans_end("combat")
+		if gv.act == "Outer Space":
+			await get_tree().create_timer(5).timeout
+		
 		en_map = gv.boss_maps[gv.act]
 		spawn_enemies()
 
@@ -583,28 +585,81 @@ func restore_cards() -> void:
 
 func play_trans_end(state: String) -> void:
 	player.position = Vector2(575, 800)
+	
+	if gv.act == "Outer Space":
+		speed_up_scroll()
+	
 	$Animations.play("start_trans")
 	await $Animations.animation_finished
-	
 	var tween: Tween = create_tween()
-	tween.tween_property(player, "position:y", 450, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	
+	if gv.act == "Outer Space":
+		await play_security_system_animation(tween)
+		
+	else:
+		tween.tween_property(player, "position:y", 450, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		await tween.finished
+	
+	tween = create_tween()
 	tween.tween_property(player, "position", Vector2(575, 600), 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 	for en in get_tree().get_nodes_in_group("enemy"):
 		en.start()
 	player.state = state
+	player.play_animation("stuck_animation", 0)
 	
 	if state == "combat":
 		for modifier: Modifiers.Modifier in player.modifiers["combat_start"]:
 			modifier.play(player) 
 
 
+# intro animation for the act 1 boss
+func play_security_system_animation(tween: Tween) -> void:
+	#putting the player into the usual spot
+	tween.tween_property(player, "position:y", 450, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	await tween.finished
+	
+	# spawning the gate that the player flies through
+	var gate: Node = preload("res://Scenes/gate_background.tscn").instantiate()
+	gate.position = Vector2(576, -500)
+	add_child(gate)
+	gate.create_tween().tween_property(gate, "position:y", 700, 4)
+	create_tween().tween_property($BackgroundAudio, "volume_db", -80, 4)
+	
+	# after a while make the background completely black
+	await get_tree().create_timer(2).timeout
+	modulate_background(255)
+	await get_tree().create_timer(2).timeout
+	
+	# start the boot up animation for the security system
+	for en in get_tree().get_nodes_in_group("enemy"):
+		en.start()
+	await get_tree().create_timer(2).timeout
+	gate.queue_free()
+	
+	# change the background and modulate it back to normal
+	background.remove_child(background.get_child(1))
+	background.add_child(gv.area_backgrounds["Security System"].instantiate())
+	background.get_child(1).position = Vector2(226, -176)
+	modulate_background(100)
+
+
+# the code for adding a card to the player deck through tha comand line
 func _on_cmd_add_card_to_player(card: RefCounted) -> void:
 	player.deck.append(card)
 	player.full_deck.append(card)
 	_on_player_update_ui()
 
 
+# changing the background visibility to a given value
 func modulate_background(value: float) -> void:
 	var t:Tween = create_tween()
 	t.tween_property(background.get_node("DarkEffect"), "color", Color(0, 0, 0, value/255), 0.5)
+
+
+func speed_up_scroll() -> void:
+	background.get_child(1).material.set_shader_parameter("speed", 0.15)
+
+
+func slow_down_scroll() -> void:
+	background.get_child(1).material.set_shader_parameter("speed", 0.03)

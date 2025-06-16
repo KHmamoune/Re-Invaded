@@ -1,5 +1,8 @@
-[gd_scene format=3 uid="uid://bufi1nafblfdp"]
+[gd_scene load_steps=2 format=3 uid="uid://bufi1nafblfdp"]
+
+[ext_resource type="Script" uid="uid://7hi8yshm31lu" path="res://Scenes/fire_trail.gd" id="1_r3g4w"]
 
 [node name="FireTrail" type="Node2D"]
+script = ExtResource("1_r3g4w")
 
 [node name="Line2D" type="Line2D" parent="."]

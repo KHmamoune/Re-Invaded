@@ -179,5 +179,5 @@ texture = ExtResource("1_ai4rg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_ljolv")
+&"": SubResource("AnimationLibrary_ljolv")
 }

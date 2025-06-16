@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bm6nrjsr3us33"]
+
+[ext_resource type="Texture2D" uid="uid://bqs1kn5typxpw" path="res://Assets/Backgrounds/gate.png" id="1_0lbph"]
+[ext_resource type="Texture2D" uid="uid://dh8v11p401fkd" path="res://Assets/Backgrounds/gate_upper.png" id="2_blskv"]
+
+[node name="GateBackground" type="Node2D"]
+
+[node name="Gate" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("1_0lbph")
+
+[node name="GateUpper" type="Sprite2D" parent="."]
+z_index = 15
+position = Vector2(0, 304)
+texture = ExtResource("2_blskv")

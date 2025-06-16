@@ -50,6 +50,7 @@ collision_mask = 0
 script = ExtResource("1_tv46f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(5, 5)
 texture = ExtResource("1_otuo1")
 hframes = 12
 
@@ -58,7 +59,7 @@ shape = SubResource("CircleShape2D_h0w4m")
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_b76kc")
+&"": SubResource("AnimationLibrary_b76kc")
 }
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

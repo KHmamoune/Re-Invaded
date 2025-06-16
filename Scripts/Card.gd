@@ -175,7 +175,7 @@ class AttackPattren:
 	var bullet_sprite: Texture = preload("res://Assets/Bullets/Bullet.png")
 	var animation_frames: int = 1
 	var animation_speed: float = 0
-	var bullet_sprite_size: Vector2 = Vector2(0.3, 0.175)
+	var bullet_sprite_size: Vector2 = Vector2(3, 2)
 	var bullet_hitbox_size: Vector2 = Vector2(0.3, 0.175)
 	var bullet_color: Color = Color.WHITE
 	var marker_type: String = ""
