@@ -1,6 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cx4ynr03ddmv8"]
+[gd_scene load_steps=10 format=3 uid="uid://cx4ynr03ddmv8"]
 
 [ext_resource type="Texture2D" uid="uid://cbswxj6mvfct4" path="res://Assets/Enemies/security_system_pillar.png" id="1_fujqk"]
+[ext_resource type="Script" uid="uid://d0pajxdf4vmt6" path="res://Scenes/security_system_pillar.gd" id="1_ii6kc"]
+[ext_resource type="Shader" uid="uid://dqlgtuowbyn8v" path="res://Shaders/flash.gdshader" id="2_436kl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kqghi"]
+shader = ExtResource("2_436kl")
+shader_parameter/flash_color = Vector4(1, 0, 0, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ii6kc"]
 radius = 16.0
@@ -20,6 +27,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_fujqk"]
 resource_name = "fly"
@@ -38,15 +57,53 @@ tracks/0/keys = {
 "values": [1, 2]
 }
 
+[sub_resource type="Animation" id="Animation_436kl"]
+resource_name = "flash"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1.0, 0.0, 1.0, 0.0, 1.0, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"explode"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_436kl"]
 _data = {
 &"RESET": SubResource("Animation_ii6kc"),
+&"flash": SubResource("Animation_436kl"),
 &"fly": SubResource("Animation_fujqk")
 }
 
 [node name="SecuritySystemPillar" type="Area2D"]
+script = ExtResource("1_ii6kc")
+
+[node name="Indicator" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 0, -1135)
+default_color = Color(1, 0, 0.0117647, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_kqghi")
 scale = Vector2(3, 3)
 texture = ExtResource("1_fujqk")
 hframes = 3
@@ -55,7 +112,10 @@ hframes = 3
 visible = false
 shape = SubResource("CapsuleShape2D_ii6kc")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_436kl")
 }
+
+[node name="AfterImageTimer" type="Timer" parent="."]
+wait_time = 0.05

@@ -144,7 +144,7 @@ func shoot(bullet: Node, seconds: float, _i: int, _j: int) -> void:
 		bullet.set_collision_layer_value(4, true)
 		bullet.set_collision_mask_value(5, true)
 	else:
-		bullet.z_index = z_index - 1
+		bullet.z_index = z_index - 2
 		bullet.set_collision_layer_value(3, true)
 	
 	if status_effects.has("reinforce"):
@@ -332,6 +332,7 @@ func _on_invincibility_timer_timeout() -> void:
 	if !is_dead:
 		$Hurtbox.set_deferred("disabled", false)
 		$Animations.play("default")
+		hurt = false
 
 
 func update_status_bar() -> void:
@@ -339,17 +340,18 @@ func update_status_bar() -> void:
 
 
 func _on_area_entered(area: Node) -> void:
-	hurt = true
-	if "on_hit_effects" in area:
-		for effect: Card.StatusAffliction in area.on_hit_effects:
-			effect.play(self)
-	
-	lose_health()
-	
-	#if the attacker is not an enemy free it
-	if area.type != "enemy" and area.type != "drone" and area.type != "laser" and area.type != "explosion":
-		if !area.piercing:
-			area.queue_free()
+	if !hurt:
+		hurt = true
+		if "on_hit_effects" in area:
+			for effect: Card.StatusAffliction in area.on_hit_effects:
+				effect.play(self)
+		
+		lose_health()
+		
+		#if the attacker is not an enemy free it
+		if area.type != "enemy" and area.type != "drone" and area.type != "laser" and area.type != "explosion":
+			if !area.piercing:
+				area.queue_free()
 
 #every time the after image timer timesout we add a new after image
 func _on_after_image_timer_timeout() -> void:

@@ -9,6 +9,9 @@ func _ready() -> void:
 	if len(angle_tweens) > 0:
 		execute_angle_tweens()
 	
+	if len(position_tweens) > 0:
+		execute_position_tweens()
+	
 	var tween: Tween = create_tween()
 	var tween2: Tween = create_tween()
 	tween.tween_property($Sprite2D, "scale", Vector2(0.5,5), 0.1)

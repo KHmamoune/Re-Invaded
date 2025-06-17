@@ -4,23 +4,21 @@ extends Enemy
 @onready var bullet: PackedScene = preload("res://Scenes/bullet.tscn")
 @onready var explosion: PackedScene = preload("res://Scenes/explosion.tscn")
 @onready var drone: PackedScene = preload("res://Scenes/drone.tscn")
+@onready var laser: PackedScene = preload("res://Scenes/laser.tscn")
 var awake: bool = false
-var attacks: Array = [boss_at3]
+var attacks: Array = [boss_at1,boss_at2,boss_at3,boss_at4,boss_at5,boss_at6]
 var i: int = 0
 var started: bool = false
+var used_at7: bool = false
 
 @onready var player: Node = get_tree().get_nodes_in_group("player")[0]
 
 
 func _ready() -> void:
-	set_up_hp(1000, Vector2(0, 50))
+	set_up_hp(500, Vector2(0, 50))
 	hp_node.visible = false
 	set_up_status_effects(Vector2(-15, 65))
-	scrap = 500
-
-
-func _process(_delta: float) -> void:
-	pass
+	scrap = 1000
 
 
 func start() -> void:
@@ -39,11 +37,11 @@ func start() -> void:
 func _on_shoot_timer_timeout() -> void:
 	$ShootTimer.stop()
 	
-	await attacks[i].call()
-	
-	i += 1
-	if i >= len(attacks):
-		i = 0
+	if hp <= 200 and !used_at7:
+		used_at7 = true
+		await boss_at7()
+	else:
+		await attacks[randi_range(0, len(attacks)-1)].call()
 	
 	$ShootTimer.start()
 
@@ -58,7 +56,7 @@ func boss_at1() -> void:
 	attack1.set_change_values([], [300, 300], [Vector2(-50, 0), Vector2(50, 0)])
 	attack1.set_sprite_preset(gv.bullet1_preset, Color.BLUE)
 	
-	for i in range(0, 10):
+	for j in range(0, 10):
 		attack1.set_abs_position([Vector2(randi_range(300, 800), -50)])
 		attack1.play(self)
 		await get_tree().create_timer(0.5).timeout
@@ -75,7 +73,7 @@ func boss_at2() -> void:
 	attack1.set_marker("marker", 1.5)
 	attack2.set_marker("marker", 1.7)
 	
-	for i in range(0, 3):
+	for j in range(0, 3):
 		attack1.set_abs_position([get_tree().get_first_node_in_group("player").position])
 		attack2.set_abs_position([get_tree().get_first_node_in_group("player").position])
 		attack1.play(self)
@@ -116,6 +114,20 @@ func boss_at4() -> void:
 	$Animations.play("change_color")
 	await $Animations.animation_finished
 	$Animations.play("idle")
+	
+	var attack1: Card.AttackPattren = Card.AttackPattren.new(bullet, 2, 10, [0], 0.1, 700, [Vector2.ZERO], 1200, 1)
+	attack1.set_change_values([], [], [Vector2(50, 0),Vector2(-50, 0)])
+	attack1.set_sprite_preset(gv.wire_bullet_preset, Color.WHITE)
+	attack1.set_aim("player")
+	
+	for j in range(0, 4):
+		if j % 2 == 0:
+			attack1.set_abs_position([Vector2(0, -500)])
+		else:
+			attack1.set_abs_position([Vector2(900, -500)])
+		
+		attack1.play(self)
+		await get_tree().create_timer(2).timeout
 
 
 func boss_at5() -> void:
@@ -123,6 +135,20 @@ func boss_at5() -> void:
 	$Animations.play("change_color")
 	await $Animations.animation_finished
 	$Animations.play("idle")
+	
+	var attack1: Card.AttackPattren = Card.AttackPattren.new(laser, 2, 2, [180], 2, 0, [Vector2.ZERO], 1200, 1)
+	attack1.set_laser_properties(3)
+	attack1.set_abs_position([Vector2(225, 0), Vector2(925, 0)])
+	attack1.set_sfx(Audio.sfx_laser)
+	attack1.set_tweens([], [], [
+		{"delay": 0.4, "value": Vector2(700, 0), "dur": 4},
+	])
+	attack1.set_tweens([], [], [
+		{"delay": 0.4, "value": Vector2(-700, 0), "dur": 4},
+	])
+	
+	attack1.play(self)
+	await get_tree().create_timer(2).timeout
 
 
 func boss_at6() -> void:
@@ -172,6 +198,18 @@ func boss_at6() -> void:
 	drone1.play(self)
 	
 	await get_tree().create_timer(10).timeout
+
+
+func boss_at7() -> void:
+	$Body/Star.modulate = Color.DIM_GRAY
+	$Animations.play("change_color")
+	await $Animations.animation_finished
+	$Animations.play("idle")
+	
+	$SecuritySystemPillar.at1()
+	$SecuritySystemPillar2.at2()
+	
+	await get_tree().create_timer(20).timeout
 
 
 func hit_flash() -> void:

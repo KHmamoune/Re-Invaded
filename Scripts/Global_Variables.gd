@@ -54,6 +54,14 @@ var fire_bullet_preset: Dictionary = {
 	"frames": 5
 }
 
+var wire_bullet_preset: Dictionary = {
+	"sprite": preload("res://Assets/Bullets/wire.png"),
+	"scale": Vector2(4, 6),
+	"hitbox_scale": Vector2(0.3, 5.5),
+	"anm_speed": 0,
+	"frames": 1
+}
+
 
 #loading enemies scenes
 var scrap_pile: PackedScene = preload("res://Scenes/scrap_pile.tscn")
