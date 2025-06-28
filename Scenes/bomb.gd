@@ -69,6 +69,7 @@ func explode() -> void:
 		explosion.set_collision_layer_value(5, get_collision_layer_value(5))
 		explosion.set_collision_layer_value(3, get_collision_layer_value(3))
 		gv.current_scene.call_deferred("add_child", explosion)
+		queue_free()
 
 
 func _on_timer_timeout() -> void:

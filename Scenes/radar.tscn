@@ -328,7 +328,7 @@ flip_h = true
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_pytrv")
+&"": SubResource("AnimationLibrary_pytrv")
 }
 
 [node name="ShootTimer" type="Timer" parent="."]

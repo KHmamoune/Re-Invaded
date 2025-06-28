@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=4 uid="uid://bmivt12j2gur6"]
+
+[ext_resource type="Shader" uid="uid://do80kags61le" path="res://Shaders/tile_scroll.gdshader" id="1_x1m1x"]
+[ext_resource type="Texture2D" uid="uid://d3wb5nv2of0ch" path="res://Assets/Backgrounds/vent_background.png" id="2_on6rs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwkte"]
+shader = ExtResource("1_x1m1x")
+shader_parameter/scroll_speed_y = 0.1
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a3cpu"]
+texture = ExtResource("2_on6rs")
+texture_region_size = Vector2i(700, 100)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_qgl76"]
+tile_size = Vector2i(700, 100)
+sources/0 = SubResource("TileSetAtlasSource_a3cpu")
+
+[node name="VentsBackground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_mwkte")
+tile_map_data = PackedByteArray("AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_qgl76")

@@ -5,11 +5,12 @@ var type: String = "bullet"
 
 
 func _ready() -> void:
-	$Sprite2D.scale = sprite_size
-	$Hitbox.scale = hitbox_size
-	$Sprite2D.hframes = frames
-	$Sprite2D.texture = sprite
-	$Sprite2D.modulate = bullet_color
+	if changed_sprite:
+		$Sprite2D.scale = sprite_size
+		$Hitbox.scale = hitbox_size
+		$Sprite2D.hframes = frames
+		$Sprite2D.texture = sprite
+		$Sprite2D.modulate = bullet_color
 	
 	if after_image_interval > 0:
 		play_after_image()
@@ -71,8 +72,7 @@ func _process(delta: float) -> void:
 		
 	if traveled > move_range:
 		var t: Tween = create_tween()
-		t.tween_property(self, "modulate:a", 0, 0.2)
-		t.tween_callback(Callable(queue_free))
+		fade_out()
 
 
 func _on_attack_delay_timeout() -> void:

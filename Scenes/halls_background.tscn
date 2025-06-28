@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://fsme1t47egb8"]
+
+[ext_resource type="Shader" uid="uid://dpc7eyiwmd3v5" path="res://Shaders/scroll.gdshader" id="1_u4yym"]
+[ext_resource type="Texture2D" uid="uid://cv8rkhqd2pjk0" path="res://Assets/Backgrounds/halls_background.png" id="2_c2w5b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4vgw"]
+shader = ExtResource("1_u4yym")
+shader_parameter/speed = 0.03
+
+[node name="HallsBackground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_u4vgw")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_c2w5b")

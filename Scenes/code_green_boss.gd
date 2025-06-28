@@ -267,7 +267,7 @@ func take_damage(dmg: int, area: Node = null) -> void:
 	Audio.play_sfx(Audio.sfx_hit)
 	hit_flash()
 	hp -= dmg
-	$hp.text = str(hp)
+	hp_node.get_child(0).text = str(hp)
 	
 	if hp <= 0 and !is_dead:
 		if !killed:

@@ -70,16 +70,6 @@ func move(distenation: float, time: float) -> void:
 	await t.finished
 
 
-func _on_after_image_timer_timeout() -> void:
-	var after_image_instance: Node = preload("res://Scenes/after_image.tscn").instantiate()
-	after_image_instance.get_node("Sprite2D").texture = $Sprite2D.texture
-	after_image_instance.get_node("Sprite2D").hframes = $Sprite2D.hframes
-	after_image_instance.scale = $Sprite2D.scale
-	after_image_instance.rotation = rotation
-	after_image_instance.global_position = global_position
-	get_parent().add_child(after_image_instance)
-
-
 func boss_at0() -> void:
 	$PassiveTimer.start()
 	follow = true

@@ -13,12 +13,10 @@ var j: int = -1
 
 
 func _ready() -> void:
-	%reward_cards.position.x = -1000
 	%Title.position.x = 1000
 	%Text.position.x = 1000
 	create_tween().parallel().tween_property(%Title, "position:x", 0, 1)
 	create_tween().parallel().tween_property(%Text, "position:x", 0, 1)
-	create_tween().parallel().tween_property(%reward_cards, "position:x", 0, 1)
 	create_tween().parallel().tween_property(self, "modulate:a", 1, 0.5)
 	create_tween().parallel().tween_property(%Button, "modulate:a", 1, 1)
 	
@@ -27,7 +25,6 @@ func _ready() -> void:
 		return
 	
 	generate_cards()
-
 
 
 func generate_modifier() -> void:
@@ -55,9 +52,14 @@ func generate_cards() -> void:
 		card_button.pressed.connect(Callable(choose_card).bind(new_card))
 		card_button.add_child(new_card)
 		%reward_cards.add_child(card_button)
-		
-		if i == 0:
-			card_button.grab_focus()
+		new_card.position.x -= 3000
+	
+	for card in %reward_cards.get_children():
+		create_tween().tween_property(card.get_child(0), "position:x", 0, 1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		await get_tree().create_timer(0.2).timeout
+		Audio.play_sfx(Audio.sfx_card_move)
+	
+	%reward_cards.get_child(0).grab_focus()
 
 
 func focus(card: Node) -> void:

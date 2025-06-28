@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cu2wi4wqleb31"]
 
 [ext_resource type="Script" uid="uid://v6u7hwyailr4" path="res://Scenes/bullet.gd" id="1_uiaae"]
-[ext_resource type="Texture2D" uid="uid://bluhdhob8b0tx" path="res://Assets/Bullets/wire.png" id="2_oduel"]
+[ext_resource type="Texture2D" uid="uid://dsi860kbwtjv" path="res://Assets/Bullets/Bullet.png" id="2_oduel"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_85s17"]
 radius = 20.0
@@ -14,11 +14,11 @@ monitoring = false
 script = ExtResource("1_uiaae")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(4, 6)
+scale = Vector2(3, 2)
 texture = ExtResource("2_oduel")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-scale = Vector2(0.3, 5.5)
+scale = Vector2(0.3, 0.175)
 shape = SubResource("CapsuleShape2D_85s17")
 
 [node name="AfterImageTimer" type="Timer" parent="."]

@@ -23,6 +23,7 @@ var hitbox_size: Vector2
 var anm_speed: float
 var frames: int
 var bullet_color: Color
+var changed_sprite: bool
 var look: String
 var look_delay: float = 0
 var look_duration: float = 0

@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://cy8q38ku25rin"]
+
+[ext_resource type="Shader" uid="uid://dpc7eyiwmd3v5" path="res://Shaders/scroll.gdshader" id="1_hpwaw"]
+[ext_resource type="Texture2D" uid="uid://cudutklr5emyw" path="res://Assets/Backgrounds/factory_background.png" id="2_rr6pb"]
+[ext_resource type="Texture2D" uid="uid://rc0qjh6ke71t" path="res://Assets/Backgrounds/factory_conveyor_belt.png" id="3_nqexc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jc0nl"]
+resource_local_to_scene = true
+shader = ExtResource("1_hpwaw")
+shader_parameter/speed = 0.03
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rtoqx"]
+shader = ExtResource("1_hpwaw")
+shader_parameter/speed = 0.01
+
+[node name="FactoryBackground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_jc0nl")
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 1056.0
+texture = ExtResource("2_rr6pb")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_rtoqx")
+layout_mode = 0
+offset_left = 40.0
+offset_right = 198.0
+offset_bottom = 1026.0
+texture = ExtResource("3_nqexc")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_rtoqx")
+layout_mode = 0
+offset_left = 271.0
+offset_right = 429.0
+offset_bottom = 1026.0
+texture = ExtResource("3_nqexc")
+flip_v = true
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_rtoqx")
+layout_mode = 0
+offset_left = 502.0
+offset_right = 660.0
+offset_bottom = 1026.0
+texture = ExtResource("3_nqexc")

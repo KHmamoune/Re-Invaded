@@ -25,7 +25,7 @@ class CardStats:
 		card_price = price
 		card_tooltips = tooltips
 	
-	func play(pl: Node, additional_arg: Node = null) -> void:
+	func play(pl: Node, _additional_arg: Node = null) -> void:
 		pl.energy -= card_cost
 		for card: Dictionary in card_effect:
 			if card.has("effect"):
@@ -133,33 +133,32 @@ class DeckManipulation:
 
 
 class AttackPattren:
-	var bullet_amount: int
-	var fire_amount: int
-	var fire_angles: Array
-	var fire_delay: float
-	var bullet_speed: float
-	var fire_positions: Array
-	var bullet_range: float
-	var bullet_damage: int
-	var bullet_type: PackedScene
-	var sound_effect: AudioStream = Audio.sfx_shoot
-	var change_angle_by: Array = []
+	var bullet_amount: int # amount of bullets shot each wave
+	var fire_amount: int # number of waves shot
+	var fire_angles: Array # the firing angle of the bullets
+	var fire_delay: float # the delay between bullet waves
+	var bullet_speed: float # the speed of the bullets
+	var fire_positions: Array # the fire position offset
+	var bullet_range: float # the distance the bullet travels before it is deleted
+	var bullet_damage: int # the damage of the bullet
+	var bullet_type: PackedScene # the type of the bullet (bullet, shield, laser...)
+	var sound_effect: AudioStream = Audio.sfx_shoot # the sfx played when the bullet is shot
+	var change_angle_by: Array = [] # the different offsets between waves
 	var change_speed_by: Array = []
 	var change_position_by: Array = []
-	var move_angle_to: Array = []
+	var move_angle_to: Array = [] # the different tweens
 	var move_speed_to: Array = []
 	var move_position_to: Array = []
 	var move_size_to: Array = []
 	var additive_tweens: bool = false
-	var bounce: bool = false
-	var on_hit_effects: Array = []
+	var bounce: bool = false # wether the bullet is bounces off walls or not
+	var on_hit_effects: Array = [] # status effects applied by the bullet
 	var on_kill_effects: Array = []
-	var random_range: float = 0
-	var aim: String = ""
-	var laser_delay: float
-	var laser_duration: float
-	var bullet_attack: Array
-	var abs_position: Array = []
+	var random_range: float = 0 # randomness added to the fire angle
+	var aim: String = "" # a target for the bullet to ain at
+	var laser_duration: float # time that the laser lasts active
+	var bullet_attack: Array # an attack that the bullet shoots
+	var abs_position: Array = [] # an array of positions that overrides the original shooter position
 	var explosion_delay: float
 	var explosion_damage: int
 	var explosion_radius: Vector2
@@ -187,6 +186,8 @@ class AttackPattren:
 	var fade_in_delay: float = 0
 	var fade_in_duration: float = 0
 	var bullet_effect: PackedScene = null
+	var bullet_effect_color: Color
+	var changed_sprite: bool = false
 	
 	
 	func _init(bt: PackedScene, bam: int, fam: int, fan: Array, fde: float, bsp: float, fpo: Array, bra: float, bda: int) -> void:
@@ -280,16 +281,16 @@ class AttackPattren:
 		
 		#setting tween values
 		if len(move_angle_to) > 0:
-			bullet.angle_tweens = move_angle_to[j]
+			bullet.angle_tweens = get_angle_tween(j)
 		
 		if len(move_speed_to) > 0:
-			bullet.speed_tweens = move_speed_to[j]
+			bullet.speed_tweens = get_speed_tween(j)
 		
 		if len(move_position_to) > 0:
-			bullet.position_tweens = move_position_to[j]
+			bullet.position_tweens = get_position_tween(j)
 		
 		if len(move_size_to) > 0:
-			bullet.size_tweens = move_size_to[j]
+			bullet.size_tweens = get_size_tween(j)
 		
 		if len(bullet_attack) > 0:
 			bullet.attack = bullet_attack
@@ -302,6 +303,7 @@ class AttackPattren:
 		bullet.sprite_size = bullet_sprite_size
 		bullet.hitbox_size = bullet_hitbox_size
 		bullet.bullet_color = bullet_color
+		bullet.changed_sprite = changed_sprite
 		
 		bullet.look = look
 		bullet.look_delay = look_delay
@@ -328,6 +330,8 @@ class AttackPattren:
 		
 		if bullet_effect != null:
 			var inst: Node = bullet_effect.instantiate()
+			inst.color = bullet_effect_color
+			inst.z_index = bullet.z_index - 1
 			gv.current_scene.add_child(inst)
 			bullet.get_node("EffectTransform").remote_path = inst.get_path()
 			bullet.vfx_effect = inst
@@ -435,6 +439,7 @@ class AttackPattren:
 		animation_speed = anm_speed
 		bullet_sprite_size = size1
 		bullet_hitbox_size = size2
+		changed_sprite = true
 	
 	func set_marker(type: String, time: float) -> void:
 		marker_type = type
@@ -451,6 +456,7 @@ class AttackPattren:
 		bullet_sprite_size = preset["scale"]
 		bullet_hitbox_size = preset["hitbox_scale"]
 		bullet_color = color
+		changed_sprite = true
 	
 	func set_animation(name: String, delay: float) -> void:
 		animation_name = name
@@ -463,8 +469,9 @@ class AttackPattren:
 		fade_in_delay = delay
 		fade_in_duration = duration
 	
-	func set_bullet_effect(effect: PackedScene) -> void:
+	func set_bullet_effect(effect: PackedScene, color: Color = Color.WHITE) -> void:
 		bullet_effect = effect
+		bullet_effect_color = color
 	
 	func get_position(j: int) -> Vector2:
 		if len(fire_positions) > 1:
@@ -483,6 +490,30 @@ class AttackPattren:
 			return fire_angles[j]
 		else:
 			return fire_angles[0]
+	
+	func get_angle_tween(j: int) -> Array:
+		if len(move_angle_to) > 1:
+			return move_angle_to[j]
+		else:
+			return move_angle_to[0]
+	
+	func get_speed_tween(j: int) -> Array:
+		if len(move_speed_to) > 1:
+			return move_speed_to[j]
+		else:
+			return move_speed_to[0]
+	
+	func get_position_tween(j: int) -> Array:
+		if len(move_position_to) > 1:
+			return move_position_to[j]
+		else:
+			return move_position_to[0]
+	
+	func get_size_tween(j: int) -> Array:
+		if len(move_size_to) > 1:
+			return move_size_to[j]
+		else:
+			return move_size_to[0]
 
 
 func jammed_fire(pl: Node) -> void:

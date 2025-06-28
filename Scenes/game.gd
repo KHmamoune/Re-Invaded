@@ -118,6 +118,8 @@ func _ready() -> void:
 	gv.current_scene = self
 	add_deck(player.full_deck)
 	
+	set_up_background()
+	
 	$Animations.play("start_trans")
 
 
@@ -283,9 +285,7 @@ func _on_act_choose(act_name: String) -> void:
 	t.tween_callback(act_change_canvas.get_child(0).queue_free)
 	
 	await play_trans_start()
-	background.remove_child(background.get_child(1))
-	background.add_child(gv.area_backgrounds[act_name].instantiate())
-	background.get_child(1).position = Vector2(226, -176)
+	set_up_background()
 	await play_trans_end("post_combat")
 	reload_map()
 
@@ -586,14 +586,14 @@ func restore_cards() -> void:
 func play_trans_end(state: String) -> void:
 	player.position = Vector2(575, 800)
 	
-	if gv.act == "Outer Space":
+	if gv.act == "Outer Space" and gv.current_room_type == Map.Type.BOSS:
 		speed_up_scroll()
 	
 	$Animations.play("start_trans")
 	await $Animations.animation_finished
 	var tween: Tween = create_tween()
 	
-	if gv.act == "Outer Space":
+	if gv.act == "Outer Space" and gv.current_room_type == Map.Type.BOSS:
 		await play_security_system_animation(tween)
 		
 	else:
@@ -609,6 +609,7 @@ func play_trans_end(state: String) -> void:
 	player.play_animation("stuck_animation", 0)
 	
 	if state == "combat":
+		modulate_background(100)
 		for modifier: Modifiers.Modifier in player.modifiers["combat_start"]:
 			modifier.play(player) 
 
@@ -663,3 +664,9 @@ func speed_up_scroll() -> void:
 
 func slow_down_scroll() -> void:
 	background.get_child(1).material.set_shader_parameter("speed", 0.03)
+
+
+func set_up_background() -> void:
+	background.remove_child(background.get_child(1))
+	background.add_child(gv.area_backgrounds[gv.act].instantiate())
+	background.get_child(1).position = Vector2(226, -176)

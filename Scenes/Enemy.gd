@@ -173,3 +173,14 @@ func set_up_status_effects(status_position: Vector2) -> void:
 
 func update_status_bar() -> void:
 	status_node.get_child(0).update_status_effects(status_effects)
+
+
+func _on_after_image_timer_timeout() -> void:
+	var after_image_instance: Node = preload("res://Scenes/after_image.tscn").instantiate()
+	after_image_instance.get_node("Sprite2D").texture = $Sprite2D.texture
+	after_image_instance.get_node("Sprite2D").hframes = $Sprite2D.hframes
+	after_image_instance.get_node("Sprite2D").frame = $Sprite2D.frame
+	after_image_instance.scale = $Sprite2D.scale
+	after_image_instance.rotation = rotation
+	after_image_instance.global_position = global_position
+	get_parent().add_child(after_image_instance)

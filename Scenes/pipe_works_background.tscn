@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=4 uid="uid://crpef3qt3iwej"]
+
+[ext_resource type="Shader" uid="uid://do80kags61le" path="res://Shaders/tile_scroll.gdshader" id="1_4x16m"]
+[ext_resource type="Texture2D" uid="uid://dxamhhvkn3uso" path="res://Assets/Backgrounds/pipeworks_background.png" id="2_fokky"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wvshp"]
+shader = ExtResource("1_4x16m")
+shader_parameter/scroll_speed_y = 0.0500005
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p5joe"]
+texture = ExtResource("2_fokky")
+texture_region_size = Vector2i(168, 250)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_yde0m"]
+tile_size = Vector2i(168, 250)
+sources/0 = SubResource("TileSetAtlasSource_p5joe")
+
+[node name="PipeWorksBackground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+material = SubResource("ShaderMaterial_wvshp")
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAACAAEAAAAAAAAAAAABAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAACAAMAAAAAAAAAAAABAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_yde0m")

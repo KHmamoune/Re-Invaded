@@ -11,5 +11,5 @@ texture = ExtResource("1_0lbph")
 
 [node name="GateUpper" type="Sprite2D" parent="."]
 z_index = 15
-position = Vector2(0, 304)
+position = Vector2(0, 271)
 texture = ExtResource("2_blskv")

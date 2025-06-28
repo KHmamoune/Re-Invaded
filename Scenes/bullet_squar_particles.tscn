@@ -14,4 +14,3 @@ initial_velocity_max = 6.0
 scale_amount_min = 5.0
 scale_amount_max = 6.0
 scale_amount_curve = SubResource("Curve_6o2om")
-color = Color(0.98716, 0.633795, 2.31028e-06, 1)

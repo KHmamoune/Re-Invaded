@@ -399,8 +399,8 @@
 			"name": "The Factory",
 			"image": "res://Assets/Cards/place_holder_card.png"
 		},
-		"red_area": {
-			"name": "Red Area",
+		"the_vents": {
+			"name": "The Vents",
 			"image": "res://Assets/Cards/place_holder_card.png"
 		},
 		"pipeworks": {

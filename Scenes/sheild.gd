@@ -7,6 +7,13 @@ var reflect: bool = false
 
 
 func _ready() -> void:
+	if changed_sprite:
+		$Sprite2D.scale = sprite_size
+		$Hitbox.scale = hitbox_size
+		$Sprite2D.hframes = frames
+		$Sprite2D.texture = sprite
+		$Sprite2D.modulate = bullet_color
+	
 	$Timer.start(time)
 	
 	scale = size
@@ -50,7 +57,7 @@ func _on_area_entered(area: Node) -> void:
 		area.set_collision_layer_value(5, get_collision_layer_value(6))
 		area.rotation_degrees += 180
 	else:
-		area.queue_free()
+		area.fade_out()
 
 
 func _on_timer_timeout() -> void:

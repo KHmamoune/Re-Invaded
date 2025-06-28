@@ -6,7 +6,7 @@ var current_scene: Node
 var current_map: Map.MapData
 var current_room_type: Map.Type
 var player_color: String
-var act: String = "Outer Space"
+var act: String = "Water Facility"
 var player: Node 
 
 var game_data: Dictionary = gdt.read_json(gdt.game_data_path)
@@ -19,13 +19,18 @@ var area_data: Dictionary = game_data["area_data"]
 #areas data
 var odd_areas: Array = [area_data["outer_space"],area_data["the_remains"],area_data["the_nest"],area_data["the_heart"]]
 var even_areas: Dictionary = {
-	1: [area_data["water_facility"],area_data["the_factory"],area_data["red_area"]],
+	1: [area_data["water_facility"],area_data["the_factory"],area_data["the_vents"]],
 	2: [area_data["pipeworks"],area_data["the_halls"],area_data["the_den"]]
 }
 
 var area_backgrounds: Dictionary = {
 	"Security System": preload("res://Scenes/security_system_background.tscn"),
-	"Water Facility": preload("res://Scenes/water_facility_background.tscn") 
+	"Water Facility": preload("res://Scenes/water_facility_background.tscn"),
+	"The Factory": preload("res://Scenes/factory_background.tscn"),
+	"The Vents": preload("res://Scenes/vents_background.tscn"),
+	"Pipeworks": preload("res://Scenes/pipe_works_background.tscn"),
+	"The Halls": preload("res://Scenes/halls_background.tscn"),
+	"The Den": preload("res://Scenes/nest_background.tscn"),
 }
 
 
@@ -62,6 +67,22 @@ var wire_bullet_preset: Dictionary = {
 	"frames": 1
 }
 
+var icicle_bullet_preset: Dictionary = {
+	"sprite": preload("res://Assets/Bullets/icicle.png"),
+	"scale": Vector2(2, 3),
+	"hitbox_scale": Vector2(0.7, 0.8),
+	"anm_speed": 0,
+	"frames": 1
+}
+
+var crystal_shield_preset: Dictionary = {
+	"sprite": preload("res://Assets/Bullets/crystal_shield.png"),
+	"scale": Vector2(3, 3),
+	"hitbox_scale": Vector2(0.9, 0.5),
+	"anm_speed": 0,
+	"frames": 1
+}
+
 
 #loading enemies scenes
 var scrap_pile: PackedScene = preload("res://Scenes/scrap_pile.tscn")
@@ -69,9 +90,13 @@ var turret: PackedScene = preload("res://Scenes/turret.tscn")
 var maxim: PackedScene = preload("res://Scenes/maxim.tscn")
 var hex_shooter: PackedScene = preload("res://Scenes/hex_shooter.tscn")
 var mine: PackedScene = preload("res://Scenes/mine.tscn")
+var fluid_bug: PackedScene = preload("res://Scenes/fluid_bug.tscn")
+
 var radar: PackedScene = preload("res://Scenes/radar.tscn")
 var splice: PackedScene = preload("res://Scenes/splice.tscn")
 var starly: PackedScene = preload("res://Scenes/starly.tscn")
+var crab: PackedScene = preload("res://Scenes/water_crab.tscn")
+
 var security_system: PackedScene = preload("res://Scenes/security_system.tscn")
 var code_blue_boss: PackedScene = preload("res://Scenes/code_blue_boss.tscn")
 var code_orange_boss: PackedScene = preload("res://Scenes/code_orange_boss.tscn")
@@ -132,16 +157,24 @@ var os_en_map4: Battle.EnemyMap = Battle.EnemyMap.new([
 	{ "enemy": maxim }
 	], [Vector2(100, 200),Vector2(250, 200),Vector2(450, 200),Vector2(600, 200),Vector2(350, 100)])
 
+var wf_en_map1: Battle.EnemyMap = Battle.EnemyMap.new([
+	{ "enemy": fluid_bug },
+	{ "enemy": fluid_bug }
+	], [Vector2(350, 100),Vector2(350, 100)])
+
 var en_maps: Dictionary = {
-	"Outer Space": [os_en_map1, os_en_map2, os_en_map3, os_en_map4]
+	"Outer Space": [os_en_map1, os_en_map2, os_en_map3, os_en_map4],
+	"Water Facility": [wf_en_map1]
 }
 
 var os_mini_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": radar }], [Vector2(350, 200)])
 var os_mini_map2: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": starly }], [Vector2(350, 200)])
 var os_mini_map3: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": splice }, { "enemy": splice }], [Vector2(250, -150), Vector2(450, -150)])
+var wf_mini_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": crab }], [Vector2(350, 150)])
 
 var mini_maps: Dictionary = {
-	"Outer Space": [os_mini_map1, os_mini_map2, os_mini_map3]
+	"Outer Space": [os_mini_map1, os_mini_map2, os_mini_map3],
+	"Water Facility": [wf_mini_map1]
 }
 
 var boss_map1: Battle.EnemyMap = Battle.EnemyMap.new([{ "enemy": security_system }], [Vector2(350, 180)])
@@ -436,7 +469,7 @@ func _ready() -> void:
 	
 	orange_attack1.set_on_hit_effects([flame_card1])
 	orange_attack1.set_sprite_and_size(preload("res://Assets/Bullets/flare.png"), 4, 1, Vector2(1.4,1.4), Vector2(0.4,0.3))
-	orange_attack1.set_bullet_effect(preload("res://Scenes/fire_bullet_effect.tscn"))
+	orange_attack1.set_bullet_effect(preload("res://Scenes/bullet_squar_particles.tscn"), Color.ORANGE)
 	
 	orange_attack2_1.set_properties(false, false, true)
 	orange_attack2_1.set_change_values([5])

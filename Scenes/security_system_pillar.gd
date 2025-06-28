@@ -12,7 +12,7 @@ func _ready() -> void:
 	attack3.set_change_values([5,5,5,5,5,5,5,5])
 
 
-func show_indicator():
+func show_indicator() -> void:
 	Audio.play_sfx(Audio.sfx_alert)
 	$Indicator.visible = true
 	await get_tree().create_timer(0.2).timeout
@@ -75,7 +75,7 @@ func at2() -> void:
 	$Animations.play("flash")
 
 
-func explode():
+func explode() -> void:
 	attack2.play(self)
 	attack3.play(self)
 	visible = false
